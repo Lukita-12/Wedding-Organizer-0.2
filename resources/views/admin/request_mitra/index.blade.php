@@ -1,16 +1,11 @@
 <x-layout>
 
     <div>
+        @if (session('sukses'))<div>{{ session('sukses') }}</div> @endif
+    </div>
+
+    <div>
         <h1>Permintaan kerjasama</h1>
-        <div>
-            <form method="GET" action="{{ route('admin.request_mitra.index') }}">
-                <input type="text"
-                    name="search_request"
-                    value="{{ request('search_request') }}" placeholder="Search..."
-                    class="" />
-                    <button type="submit">Cari</button>
-            </form>
-        </div>
     </div>
 
     <div>

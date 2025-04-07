@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\RequestMitraController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::controller(RequestMitraController::class)->group(function () {
         Route::get('/request-mitra', 'index')->name('admin.request_mitra.index');
         Route::get('/request-mitra/{requestMitra}', 'show')->name('admin.request_mitra.show');
