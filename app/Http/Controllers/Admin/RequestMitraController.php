@@ -10,12 +10,37 @@ use Illuminate\Support\Facades\DB;
 
 class RequestMitraController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $requestMitras = RequestMitra::with('pelanggan')->latest()->simplePaginate(6);
+        // $requestMitras = RequestMitra::with('pelanggan')->latest()->simplePaginate(6);
+        $query = RequestMitra::with('pelanggan');
+
+        // Search
+        if ($request->filled('search_request')) {
+            $searchRequest = $request->search_request;
+
+            $query->where(function ($q) use ($searchRequest) {
+                $q->where('nama_usaha', 'like', "%{$searchRequest}%")
+                  ->orWhereHas('pelanggan', function ($q2) use ($searchRequest) {
+                    $q2->where('nama_pelanggan', 'like', "%{$searchRequest}");
+                  });
+            });
+        }
+        // Filter
+        if ($request->filled('status_request')) {
+            $query->where('status_request', $request->status_request);
+        }
+        // Sorting
+        $sortBy     = $request->input('sort_by', 'created_at');
+        $sortOrder  = $request->input('sort_order', 'desc');
+        $query->orderBy($sortBy, $sortOrder);
+
+        $requestMitras = $query->latest()->simplePaginate(6)->withQueryString();
 
         return view('/admin.request_mitra.index', [
             'requestMitras' => $requestMitras,
+            'sortBy'        => $sortBy,
+            'sortOrder'    => $sortOrder,
         ]);
     }
 
