@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pelanggan;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PelangganController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         // Filters the pelanggans table to only include records where user_id matches the logged-in user's ID(There a user_id field inside table pelanggan).
@@ -50,12 +53,13 @@ class PelangganController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Pelanggan $pelanggan)
     {
-        //
+        $this->authorize('view', $pelanggan);
+
+        return view('/customer.pelanggan.show', [
+            'pelanggan' => $pelanggan,
+        ]);
     }
 
     /**
@@ -63,6 +67,7 @@ class PelangganController extends Controller
      */
     public function edit(Pelanggan $pelanggan)
     {
+        // $this->authorize('update', $pelanggan);
         //
     }
 
@@ -71,6 +76,7 @@ class PelangganController extends Controller
      */
     public function update(Request $request, Pelanggan $pelanggan)
     {
+        // $this->authorize('update', $pelanggan);
         //
     }
 
@@ -79,6 +85,7 @@ class PelangganController extends Controller
      */
     public function destroy(Pelanggan $pelanggan)
     {
+        // $this->authorize('delete', $pelanggan);
         //
     }
 }

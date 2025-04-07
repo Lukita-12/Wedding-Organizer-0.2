@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\RequestMitra;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class RequestMitraController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         return view('/customer.request_mitra.index');
@@ -56,12 +59,11 @@ class RequestMitraController extends Controller
         return redirect('/request-mitra');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(RequestMitra $requestMitra)
     {
-        //
+        $this->authorize('view', $requestMitra);
+
+        dd('Not implement yet!');
     }
 
     /**
@@ -69,6 +71,7 @@ class RequestMitraController extends Controller
      */
     public function edit(RequestMitra $requestMitra)
     {
+        // $this->authorize('update', $requestMitra);
         //
     }
 
@@ -77,6 +80,7 @@ class RequestMitraController extends Controller
      */
     public function update(Request $request, RequestMitra $requestMitra)
     {
+        // $this->authorize('update', $requestMitra);
         //
     }
 
@@ -85,6 +89,7 @@ class RequestMitraController extends Controller
      */
     public function destroy(RequestMitra $requestMitra)
     {
+        // $this->authorize('delete', $requestMitra);
         //
     }
 }

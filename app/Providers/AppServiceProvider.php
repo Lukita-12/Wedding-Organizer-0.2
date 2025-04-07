@@ -2,6 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Kerjasama;
+use App\Models\Pelanggan;
+use App\Models\RequestMitra;
+use App\Policies\KerjasamaPolicy;
+use App\Policies\PelangganPolicy;
+use App\Policies\RequestMitraPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +18,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        Gate::policy(Pelanggan::class, PelangganPolicy::class);
+        Gate::policy(RequestMitra::class, RequestMitraPolicy::class);
+        Gate::policy(Kerjasama::class, KerjasamaPolicy::class);
     }
 
     /**
