@@ -10,6 +10,11 @@
         <div>
             <a href="{{ route('admin.kerjasama.index') }}">Kembali</a>
             <a href="{{ route('admin.kerjasama.edit', $kerjasama->id) }}">Edit</a>
+            <form method="POST" action="{{ route('admin.kerjasama.delete', $kerjasama->id) }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Hapus</button>
+            </form>
         </div>
     </div>
 </x-layout>

@@ -84,12 +84,12 @@ class KerjasamaController extends Controller
         return redirect('/kerjasama');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Kerjasama $kerjasama)
     {
-        // $this->authorize('delete', $kerjasama);
-        //
+        $this->authorize('delete', $kerjasama);
+
+        $kerjasama->delete();
+
+        return redirect('/kerjasama');
     }
 }

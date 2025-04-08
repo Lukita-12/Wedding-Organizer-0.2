@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kerjasama;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class KerjasamaController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index()
     {
         $kerjasamas = Kerjasama::with('pelanggan')->latest()->paginate(6);
@@ -75,11 +78,12 @@ class KerjasamaController extends Controller
         return redirect('/admin/kerjasama');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Kerjasama $kerjasama)
     {
-        //
+        $this->authorize('delete', $kerjasama);
+
+        $kerjasama->delete();
+
+        return redirect('/admin/kerjasama');
     }
 }

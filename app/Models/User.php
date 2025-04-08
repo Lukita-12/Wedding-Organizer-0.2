@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Pelanggan::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isCustomer(): bool
+    {
+        return $this->role === 'customer';
+    }
 }

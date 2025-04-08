@@ -11,6 +11,11 @@
         <div>
             <a href="{{ route('customer.kerjasama.index') }}">Kembali</a>
             <a href="{{ route('customer.kerjasama.edit', $kerjasama->id) }}">Edit</a>
+            <form method="POST" action="{{ route('customer.kerjasama.delete', $kerjasama->id) }}">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Hapus</button>
+            </form>
         </div>
     </div>
 

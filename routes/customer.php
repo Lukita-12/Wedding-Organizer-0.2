@@ -25,5 +25,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kerjasama/{kerjasama}', 'show')->name('customer.kerjasama.show');
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('customer.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('customer.kerjasama.update');
+        Route::delete('/kerjasama/{kerjasama}', 'destroy')->name('customer.kerjasama.delete');
     });
 });
