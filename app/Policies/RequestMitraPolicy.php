@@ -21,7 +21,7 @@ class RequestMitraPolicy
      */
     public function view(User $user, RequestMitra $requestMitra): bool
     {
-        return $user->id === $requestMitra->user_id;
+        return $user->id === $requestMitra->pelanggan->user_id;
     }
 
     /**
@@ -37,7 +37,7 @@ class RequestMitraPolicy
      */
     public function update(User $user, RequestMitra $requestMitra): bool
     {
-        return $user->id === $requestMitra->user_id;
+        return $user->id === $requestMitra->pelanggan->user_id;
     }
 
     /**
@@ -45,7 +45,7 @@ class RequestMitraPolicy
      */
     public function delete(User $user, RequestMitra $requestMitra): bool
     {
-        return $user->id === $requestMitra->user_id;
+        return $user->id === $requestMitra->pelanggan->user_id;
     }
 
     /**
