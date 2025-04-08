@@ -21,6 +21,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::controller(KerjasamaController::class)->group(function () {
+        Route::get('/kerjasama', 'index')->name('customer.kerjasama.index');
+        Route::get('/kerjasama/{kerjasama}', 'show')->name('customer.kerjasama.show');
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('customer.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('customer.kerjasama.update');
     });

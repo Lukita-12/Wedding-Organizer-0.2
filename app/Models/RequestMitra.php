@@ -19,8 +19,8 @@ class RequestMitra extends Model
         return $this->belongsTo(Pelanggan::class);
     }
 
-    // public function kerjasama(): HasOne
-    // {
-    //     return $this->hasOne(Kerjasama::class);
-    // }
+    public function kerjasama(): HasOne
+    {
+        return $this->hasOne(Kerjasama::class);
+    }
 }

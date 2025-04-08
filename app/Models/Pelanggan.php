@@ -24,8 +24,8 @@ class Pelanggan extends Model
         return $this->hasMany(RequestMitra::class);
     }
 
-    // public function kerjasama(): HasMany
-    // {
-    //     return $this->hasMany(Kerjasama::class);
-    // }
+    public function kerjasama(): HasMany
+    {
+        return $this->hasMany(Kerjasama::class);
+    }
 }
