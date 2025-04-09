@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customer\KerjasamaController;
+use App\Http\Controllers\Customer\PaketPernikahanController;
 use App\Http\Controllers\Customer\PelangganController;
 use App\Http\Controllers\Customer\RequestMitraController;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('customer.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('customer.kerjasama.update');
         Route::delete('/kerjasama/{kerjasama}', 'destroy')->name('customer.kerjasama.delete');
+    });
+
+    Route::controller(PaketPernikahanController::class)->group(function () {
+        Route::get('/paket-pernikahan', 'index')->name('customer.paket_pernikahan.index');
     });
 });

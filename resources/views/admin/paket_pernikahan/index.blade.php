@@ -22,6 +22,7 @@
                         <td class="border px-4 py-2">Fotografer</td>
                         <td class="border px-4 py-2">Entertainment</td>
                         <td class="border px-4 py-2">Staff Acara</td>
+                        <td class="border px-4 py-2">Harga DP</td>
                         <td class="border px-4 py-2">Harga Lunas</td>
                         <td class="border px-4 py-2">Status Paket</td>
                         <td class="border px-4 py-2">Aksi</td>
@@ -44,6 +45,8 @@
                             <td class="border px-4 py-2">{{ $paketPernikahan->staff_acara }}</td>
                             <td class="border px-4 py-2">Rp {{ number_format($paketPernikahan->hargaDP_paket, 0, ',', '.') }}</td>
                             <td class="border px-4 py-2">Rp {{ number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.') }}</td>
+                            <td class="border px-4 py-2">{{ $paketPernikahan->status_paket }}</td>
+
                             <td class="border px-4 py-2">
                                 <a href="{{ route('admin.paket_pernikahan.show', $paketPernikahan->id) }}">Edit</a>
                             </td>

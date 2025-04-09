@@ -81,8 +81,22 @@
                     required>
                     <option value="Tersedia" @selected(old('status_paket', $paketPernikahan->status_paket) == 'Tersedia')>Tersedia</option>
                     <option value="Tidak tersedia" @selected(old('status_paket', $paketPernikahan->status_paket) == 'Tidak tersedia')>Tidak tersedia</option>
+                    <option value="Eksklusif" @selected(old('status_paket', $paketPernikahan->status_paket) == 'Eksklusif')>Eksklusif</option>
                 </x-form.form-select>
                 <x-form.form-error errorFor="status_paket" />
+            </div>
+
+            <div>
+                <label for="custom_paket_for" class="block">Pilih Customer (jika Eksklusif)</label>
+                <select name="custom_paket_for" class="">
+                    <option value="">-- Umum / Tidak Eksklusif --</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}" 
+                            {{ old('custom_paket_for', $paketPernikahan->custom_paket_for ?? '') == $user->id ? 'selected' : '' }}>
+                            {{ $user->name }} ({{ $user->email }})
+                        </option>
+                    @endforeach
+                </select>
             </div>
 
             <div>

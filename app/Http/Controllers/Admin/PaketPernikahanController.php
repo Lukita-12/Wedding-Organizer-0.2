@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Kerjasama;
 use App\Models\PaketPernikahan;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PaketPernikahanController extends Controller
@@ -23,15 +24,18 @@ class PaketPernikahanController extends Controller
     public function create()
     {
         $kerjasamas = Kerjasama::all();
+        $users      = User::where('role', 'customer')->get();
 
         return view('admin.paket_pernikahan.create', [
-            'kerjasamas' => $kerjasamas
+            'kerjasamas'=> $kerjasamas,
+            'users'     => $users,
         ]);
     }
 
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'custom_paket_for'  => ['nullable', 'exists:users,id'],
             'nama_paket'        => ['required', 'string', 'max:255'],
             'venue'             => ['nullable', 'exists:kerjasama,id'],
             'dekorasi'          => ['nullable', 'exists:kerjasama,id'],
@@ -43,7 +47,7 @@ class PaketPernikahanController extends Controller
             'staff_acara'       => ['nullable', 'integer', 'min:0'],
             'hargaDP_paket'     => ['required', 'string'],
             'hargaLunas_paket'  => ['required', 'string'],
-            'status_paket'      => ['required', 'in:Tersedia,Tidak tersedia'],
+            'status_paket'      => ['required', 'in:Tersedia,Tidak tersedia,Eksklusif'],
         ]);
 
         // Hapus titik dari harga untuk konversi ke integer
@@ -70,11 +74,13 @@ class PaketPernikahanController extends Controller
 
     public function edit(PaketPernikahan $paketPernikahan)
     {
+        $users      = User::where('role', 'customer')->get();
         $jenisUsahas= ['venue', 'dekorasi', 'tata_rias', 'catering', 'kue_pernikahan', 'fotografer', 'entertainment'];
         $kerjasamas = Kerjasama::latest()->get();
 
         return view('admin.paket_pernikahan.edit', [
             'paketPernikahan'   => $paketPernikahan,
+            'users'             => $users,
             'jenisUsahas'       => $jenisUsahas,
             'kerjasamas'        => $kerjasamas,
         ]);
@@ -83,6 +89,7 @@ class PaketPernikahanController extends Controller
     public function update(Request $request, PaketPernikahan $paketPernikahan)
     {
         $validatedData = $request->validate([
+            'custom_paket_for'  => ['nullable', 'exists:users,id'],
             'nama_paket'        => ['required', 'string', 'max:255'],
             'venue'             => ['nullable', 'exists:kerjasama,id'],
             'dekorasi'          => ['nullable', 'exists:kerjasama,id'],
@@ -94,7 +101,7 @@ class PaketPernikahanController extends Controller
             'staff_acara'       => ['nullable', 'integer', 'min:0'],
             'hargaDP_paket'     => ['required', 'string'],
             'hargaLunas_paket'  => ['required', 'string'],
-            'status_paket'      => ['required', 'in:Tersedia,Tidak tersedia'],
+            'status_paket'      => ['required', 'in:Tersedia,Tidak tersedia,Eksklusif'],
         ]);
 
         // Hapus titik dari harga untuk konversi ke integer
