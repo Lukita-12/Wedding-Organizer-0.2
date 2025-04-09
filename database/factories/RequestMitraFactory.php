@@ -20,7 +20,7 @@ class RequestMitraFactory extends Factory
         return [
             'pelanggan_id'  => Pelanggan::factory(),
             'nama_usaha'    => fake()->company(),
-            'jenis_usaha'   => fake()->randomElement(['Venue', 'Dekorasi', 'Tata rias', 'Catering', 'Kue pernikahan', 'Fotografer', 'Entertaiment']),
+            'jenis_usaha'   => fake()->randomElement(['Venue', 'Dekorasi', 'Tata rias', 'Catering', 'Kue pernikahan', 'Fotografer', 'Esntertainment']),
             'nama_pemilik'  => fake()->name(),
         ];
     }

@@ -14,7 +14,7 @@ class PaketPernikahanController extends Controller
         $paketPernikahans = PaketPernikahan::with([
             'venueUsaha', 'dekorasiUsaha', 'tataRiasUsaha',
             'cateringUsaha', 'kuePernikahanUsaha', 'fotograferUsaha',
-            'entertaimentUsaha'
+            'entertainmentUsaha'
         ])->latest()->get();
 
         return view('admin.paket_pernikahan.index', compact('paketPernikahans'));
@@ -39,7 +39,7 @@ class PaketPernikahanController extends Controller
             'catering'          => ['nullable', 'exists:kerjasama,id'],
             'kue_pernikahan'    => ['nullable', 'exists:kerjasama,id'],
             'fotografer'        => ['nullable', 'exists:kerjasama,id'],
-            'entertaiment'      => ['nullable', 'exists:kerjasama,id'],
+            'entertainment'     => ['nullable', 'exists:kerjasama,id'],
             'staff_acara'       => ['nullable', 'integer', 'min:0'],
             'hargaDP_paket'     => ['required', 'string'],
             'hargaLunas_paket'  => ['required', 'string'],
@@ -60,7 +60,7 @@ class PaketPernikahanController extends Controller
         $paketPernikahan->load([
             'venueUsaha', 'dekorasiUsaha', 'tataRiasUsaha',
             'cateringUsaha', 'kuePernikahanUsaha', 'fotograferUsaha',
-            'entertaimentUsaha'
+            'entertainmentUsaha'
         ]);
     
         return view('admin.paket_pernikahan.show', [
@@ -70,7 +70,7 @@ class PaketPernikahanController extends Controller
 
     public function edit(PaketPernikahan $paketPernikahan)
     {
-        $jenisUsahas= ['venue', 'dekorasi', 'tata_rias', 'catering', 'kue_pernikahan', 'fotografer', 'entertaiment'];
+        $jenisUsahas= ['venue', 'dekorasi', 'tata_rias', 'catering', 'kue_pernikahan', 'fotografer', 'entertainment'];
         $kerjasamas = Kerjasama::latest()->get();
 
         return view('admin.paket_pernikahan.edit', [
@@ -90,7 +90,7 @@ class PaketPernikahanController extends Controller
             'catering'          => ['nullable', 'exists:kerjasama,id'],
             'kue_pernikahan'    => ['nullable', 'exists:kerjasama,id'],
             'fotografer'        => ['nullable', 'exists:kerjasama,id'],
-            'entertaiment'      => ['nullable', 'exists:kerjasama,id'],
+            'entertainment'     => ['nullable', 'exists:kerjasama,id'],
             'staff_acara'       => ['nullable', 'integer', 'min:0'],
             'hargaDP_paket'     => ['required', 'string'],
             'hargaLunas_paket'  => ['required', 'string'],

@@ -44,8 +44,8 @@ class PaketPernikahan extends Model
         return $this->belongsTo(Kerjasama::class, 'fotografer');
     }
 
-    public function entertaimentUsaha()
+    public function entertainmentUsaha()
     {
-        return $this->belongsTo(Kerjasama::class, 'entertaiment');
+        return $this->belongsTo(Kerjasama::class, 'entertainment');
     }
 }

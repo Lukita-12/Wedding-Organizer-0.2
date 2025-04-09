@@ -11,7 +11,7 @@
             <p><strong>Catering: </strong>{{ optional($paketPernikahan->cateing)->nama_usaha ?? '-' }}</p>
             <p><strong>Kue Pernikahan: </strong>{{ optional($paketPernikahan->kue_pernikahan)->nama_usaha ?? '-' }}</p>
             <p><strong>Fotografer: </strong>{{ optional($paketPernikahan->fotografer)->nama_usaha ?? '-' }}</p>
-            <p><strong>Entertaiment: </strong>{{ optional($paketPernikahan->entertaiment)->nama_usaha ?? '-' }}</p>
+            <p><strong>Entertainment: </strong>{{ optional($paketPernikahan->entertainment)->nama_usaha ?? '-' }}</p>
             <p><strong>Staff Acara: </strong>{{ $paketPernikahan->staff_acara }}</p>
             <p><strong>Harga DP: </strong>Rp {{ number_format($paketPernikahan->hargaDP_paket, 0, ',', '.') }}</p>
             <p><strong>Harga Lunas: </strong>Rp {{ number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.') }}</p>

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->foreignId('catering')->nullable()->constrained('kerjasama')->nullOnDelete();
             $table->foreignId('kue_pernikahan')->nullable()->constrained('kerjasama')->nullOnDelete();
             $table->foreignId('fotografer')->nullable()->constrained('kerjasama')->nullOnDelete();
-            $table->foreignId('entertaiment')->nullable()->constrained('kerjasama')->nullOnDelete();
+            $table->foreignId('entertainment')->nullable()->constrained('kerjasama')->nullOnDelete();
 
             $table->integer('staff_acara')->nullable();
             $table->bigInteger('hargaDP_paket');

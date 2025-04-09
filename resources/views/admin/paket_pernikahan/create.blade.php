@@ -16,7 +16,7 @@
             </div>
 
             @php
-                $jenisUsahas = ['venue', 'dekorasi', 'tata_rias', 'catering', 'kue_pernikahan', 'fotografer', 'entertaiment'];
+                $jenisUsahas = ['venue', 'dekorasi', 'tata_rias', 'catering', 'kue_pernikahan', 'fotografer', 'entertainment'];
             @endphp
 
             @foreach ($jenisUsahas as $jenisUsaha)

@@ -20,7 +20,7 @@
                         <td class="border px-4 py-2">Catering</td>
                         <td class="border px-4 py-2">Kue Pernikahan</td>
                         <td class="border px-4 py-2">Fotografer</td>
-                        <td class="border px-4 py-2">Entertaiment</td>
+                        <td class="border px-4 py-2">Entertainment</td>
                         <td class="border px-4 py-2">Staff Acara</td>
                         <td class="border px-4 py-2">Harga Lunas</td>
                         <td class="border px-4 py-2">Status Paket</td>
@@ -39,7 +39,7 @@
                             <td class="border px-4 py-2">{{ $paketPernikahan->cateringUsaha->nama_usaha ?? '-' }}</td>
                             <td class="border px-4 py-2">{{ $paketPernikahan->kuePernikahUsaha->nama_usaha ?? '-' }}</td>
                             <td class="border px-4 py-2">{{ $paketPernikahan->fotograferUsaha->nama_usaha ?? '-' }}</td>
-                            <td class="border px-4 py-2">{{ $paketPernikahan->entertaimentUsaha->nama_usaha ?? '-' }}</td>
+                            <td class="border px-4 py-2">{{ $paketPernikahan->entertainmentUsaha->nama_usaha ?? '-' }}</td>
                             
                             <td class="border px-4 py-2">{{ $paketPernikahan->staff_acara }}</td>
                             <td class="border px-4 py-2">Rp {{ number_format($paketPernikahan->hargaDP_paket, 0, ',', '.') }}</td>
