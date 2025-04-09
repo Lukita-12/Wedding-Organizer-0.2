@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\KerjasamaController;
+use App\Http\Controllers\Admin\PaketPernikahanController;
 use App\Http\Controllers\Admin\RequestMitraController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,5 +19,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('admin.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('admin.kerjasama.update');
         Route::delete('/kerjasama/{kerjasama}', 'destroy')->name('admin.kerjasama.delete');
+    });
+
+    Route::controller(PaketPernikahanController::class)->group(function () {
+        Route::get('/paket-pernikahan', 'index')->name('admin.paket_pernikahan.index');
+        Route::get('/paket-pernikahan/create', 'create')->name('admin.paket_pernikahan.create');
+        Route::post('/paket-pernikahan', 'store')->name('admin.paket_pernikahan.store');
+        Route::get('/paket-pernikahan/{paketPernikahan}', 'show')->name('admin.paket_pernikahan.show');
+        Route::get('/paket-pernikahan/{paketPernikahan}/edit', 'edit')->name('admin.paket_pernikahan.edit');
+        Route::put('/paket-pernikahan/{paketPernikahan}', 'update')->name('admin.paket_pernikahan.update');
+        Route::delete('/paket-pernikahan/{paketPernikahan}', 'destroy')->name('admin.paket_pernikahan.delete');
     });
 });

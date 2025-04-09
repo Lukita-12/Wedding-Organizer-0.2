@@ -23,7 +23,7 @@ class KerjasamaFactory extends Factory
             'pelanggan_id'      => Pelanggan::factory(),
             'nama_pemilik'      => fake()->name(),
             'nama_usaha'        => fake()->company(),
-            'jenis_usaha'       => fake()->jobTitle(),
+            'jenis_usaha'       => fake()->randomElement(['Venue', 'Dekorasi', 'Tata rias', 'Catering', 'Kue pernikahan', 'Fotografer', 'Entertaiment']),
             'noTelp_usaha'      => fake()->phoneNumber(),
             'email_usaha'       => fake()->unique()->safeEmail(),
             'alamat_usaha'      => fake()->address(),

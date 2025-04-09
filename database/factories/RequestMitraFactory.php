@@ -20,9 +20,8 @@ class RequestMitraFactory extends Factory
         return [
             'pelanggan_id'  => Pelanggan::factory(),
             'nama_usaha'    => fake()->company(),
-            'jenis_usaha'   => fake()->jobTitle(),
+            'jenis_usaha'   => fake()->randomElement(['Venue', 'Dekorasi', 'Tata rias', 'Catering', 'Kue pernikahan', 'Fotografer', 'Entertaiment']),
             'nama_pemilik'  => fake()->name(),
-            'status_request'=> fake()->randomElement(['Ditunggu', 'Diterima', 'Ditolak']),
         ];
     }
 }
