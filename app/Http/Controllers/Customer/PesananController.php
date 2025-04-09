@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\PaketPernikahan;
 use App\Models\Pesanan;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PesananController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -20,22 +22,12 @@ class PesananController extends Controller
 
     public function create(Request $request)
     {
-        $paketId = $request->query('paket_pernikahan');
+        $paketId = $request->query('paket-pernikahan');
         $selectedPaket = null;
 
-        // if ($request->has('paket_pernikahan_id')) {
-        //     $selectedPaket = PaketPernikahan::where('status_paket', 'Tersedia')
-        //                                         ->orWhere('status_paket', 'Eksklusif')
-        //                                         ->find($request->input('paket_pernikahan_id'));
-        // }
         if ($paketId) {
-            $selectedPaket = PaketPernikahan::where(function ($query) {
-                $query->where('status_paket', 'Tersedia')
-                      ->orWhere(function ($query) {
-                          $query->where('status_paket', 'Eksklusif')
-                                ->where('custom_paket_for', Auth::id());
-                      });
-            })->find($paketId);
+            $selectedPaket = PaketPernikahan::findOrFail($paketId); // akan throw 404 kalau tidak ada
+            $this->authorize('view', $selectedPaket); // cek akses ke paket (eksklusif/tidak)   
         }
 
         return view('/customer.pesanan.create', [

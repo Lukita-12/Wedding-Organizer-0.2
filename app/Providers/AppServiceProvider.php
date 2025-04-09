@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Kerjasama;
+use App\Models\PaketPernikahan;
 use App\Models\Pelanggan;
 use App\Models\RequestMitra;
 use App\Policies\KerjasamaPolicy;
+use App\Policies\PaketPernikahanPolicy;
 use App\Policies\PelangganPolicy;
 use App\Policies\RequestMitraPolicy;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Pelanggan::class, PelangganPolicy::class);
         Gate::policy(RequestMitra::class, RequestMitraPolicy::class);
         Gate::policy(Kerjasama::class, KerjasamaPolicy::class);
+        Gate::policy(PaketPernikahan::class, PaketPernikahanPolicy::class);
     }
 
     /**
