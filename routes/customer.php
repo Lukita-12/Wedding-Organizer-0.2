@@ -3,6 +3,7 @@
 use App\Http\Controllers\Customer\KerjasamaController;
 use App\Http\Controllers\Customer\PaketPernikahanController;
 use App\Http\Controllers\Customer\PelangganController;
+use App\Http\Controllers\Customer\PesananController;
 use App\Http\Controllers\Customer\RequestMitraController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,10 @@ Route::middleware(['auth'])->group(function () {
 
     Route::controller(PaketPernikahanController::class)->group(function () {
         Route::get('/paket-pernikahan', 'index')->name('customer.paket_pernikahan.index');
+    });
+
+    Route::controller(PesananController::class)->group(function () {
+        Route::get('/pesanan/create', 'create')->name('customer.pesanan.create');
+        Route::post('/pesanan', 'store')->name('customer.pesanan.store');
     });
 });

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->date('tanggal_acara');
             $table->date('tanggal_diskusi');
             $table->decimal('total_harga_pesanan', 15, 2);
-            $table->string('status_pesanan');
+            $table->string('status_pesanan')->default('Ditunda');
             $table->timestamps();
         });
     }
