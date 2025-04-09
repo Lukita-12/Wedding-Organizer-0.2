@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class PaketPernikahan extends Model
 {
@@ -47,5 +49,17 @@ class PaketPernikahan extends Model
     public function entertainmentUsaha()
     {
         return $this->belongsTo(Kerjasama::class, 'entertainment');
+    }
+
+    // Pesanan eloquent-key
+    public function pesanan(): HasMany
+    {
+        return $this->hasMany(Pesanan::class);
+    }
+
+    // Custom paket pernikahan
+    public function customerEkslusif()
+    {
+        return $this->belongsTo(User::class, 'custom_paket_for');
     }
 }

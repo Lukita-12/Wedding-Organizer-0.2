@@ -47,19 +47,24 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+    public function isAdmin(): bool
+    {
+        return $this->role === 'admin';
+    }
+    
+    public function isCustomer(): bool
+    {
+        return $this->role === 'customer';
+    }
 
     public function pelanggan(): HasMany
     {
         return $this->hasMany(Pelanggan::class);
     }
 
-    public function isAdmin(): bool
+    public function pesanan():HasMany
     {
-        return $this->role === 'admin';
-    }
-
-    public function isCustomer(): bool
-    {
-        return $this->role === 'customer';
+        return $this->hasMany(Pesanan::class);
     }
 }
