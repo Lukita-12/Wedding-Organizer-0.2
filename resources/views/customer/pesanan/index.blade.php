@@ -19,6 +19,17 @@
                         </p>
                     </div>
                 </div>
+                <div>
+                    @can('update', $pesanan)
+                        <a href="{{ route('customer.pesanan.edit', $pesanan) }}" class="btn btn-warning">Edit</a>
+
+                        <form action="{{ route('customer.pesanan.cancel', $pesanan) }}" method="POST" style="display:inline">
+                            @csrf
+                            @method('PATCH')
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan?')">Batalkan</button>
+                        </form>
+                    @endcan
+                </div>
             @endforeach
         @endif
     </div>

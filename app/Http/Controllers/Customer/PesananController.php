@@ -73,12 +73,19 @@ class PesananController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Pesanan $pesanan)
     {
-        //
+        $this->authorize('update', $pesanan);
+
+        $paketPernikahans = PaketPernikahan::where('status_paket', 'Tersedia')
+            ->orWhere(function ($query) {
+                $query->where('status_paket', 'Eksklusif')
+                    ->where('custom_paket_for', Auth::id());
+            })->get();
+
+        return view('customer.pesanan.edit', 
+            compact('pesanan', 'paketPernikahans')
+        );
     }
 
     /**
@@ -86,7 +93,19 @@ class PesananController extends Controller
      */
     public function update(Request $request, Pesanan $pesanan)
     {
-        //
+        $this->authorize('update', $pesanan);
+
+        $validated = $request->validate([
+            'pengantin_pria'        => ['required', 'string'],
+            'pengantin_wanita'      => ['required', 'string'],
+            'tanggal_acara'         => ['required', 'date'],
+            'tanggal_diskusi'       => ['nullable', 'date'],
+            'paket_pernikahan_id'   => ['nullable', 'exists:paket_pernikahan,id'],
+        ]);
+
+        $pesanan->update($validated);
+
+        return redirect()->route('customer.pesanan.index')->with('success', 'Pesanan berhasil diperbarui.');
     }
 
     /**
@@ -95,5 +114,20 @@ class PesananController extends Controller
     public function destroy(Pesanan $pesanan)
     {
         //
+    }
+
+    public function cancel(Pesanan $pesanan)
+    {
+        $this->authorize('update', $pesanan); // sama seperti validasi edit
+
+        if ($pesanan->status_pesanan === 'Dikonfirmasi') {
+            return back()->with('error', 'Pesanan sudah dikonfirmasi dan tidak dapat dibatalkan.');
+        }
+
+        $pesanan->update([
+            'status_pesanan' => 'Dibatalkan',
+        ]);
+
+        return redirect()->route('customer.pesanan.index')->with('success', 'Pesanan berhasil dibatalkan.');
     }
 }

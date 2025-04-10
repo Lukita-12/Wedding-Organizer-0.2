@@ -38,5 +38,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pesanan', 'index')->name('customer.pesanan.index');
         Route::get('/pesanan/create', 'create')->name('customer.pesanan.create');
         Route::post('/pesanan', 'store')->name('customer.pesanan.store');
+        Route::get('/pesanan/{pesanan}/edit', 'edit')->name('customer.pesanan.edit');
+        Route::put('/pesanan/{pesanan}', 'update')->name('customer.pesanan.update');
+
+        Route::patch('/pesanan/{pesanan}/batal', 'cancel')->name('customer.pesanan.cancel');
     });
 });
