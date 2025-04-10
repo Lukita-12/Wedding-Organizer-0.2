@@ -93,6 +93,7 @@ class PesananController extends Controller
      */
     public function update(Request $request, Pesanan $pesanan)
     {
+        // Pastikan user hanya bisa update pesanan miliknya
         $this->authorize('update', $pesanan);
 
         $validated = $request->validate([
@@ -108,17 +109,10 @@ class PesananController extends Controller
         return redirect()->route('customer.pesanan.index')->with('success', 'Pesanan berhasil diperbarui.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    // Cancel
     public function destroy(Pesanan $pesanan)
     {
-        //
-    }
-
-    public function cancel(Pesanan $pesanan)
-    {
-        $this->authorize('update', $pesanan); // sama seperti validasi edit
+        $this->authorize('delete', $pesanan); // sama seperti validasi edit
 
         if ($pesanan->status_pesanan === 'Dikonfirmasi') {
             return back()->with('error', 'Pesanan sudah dikonfirmasi dan tidak dapat dibatalkan.');
@@ -128,6 +122,8 @@ class PesananController extends Controller
             'status_pesanan' => 'Dibatalkan',
         ]);
 
-        return redirect()->route('customer.pesanan.index')->with('success', 'Pesanan berhasil dibatalkan.');
+        return redirect()
+            ->route('customer.pesanan.index')
+            ->with('success', 'Pesanan berhasil dibatalkan.');
     }
 }

@@ -45,7 +45,7 @@ class PesananPolicy
      */
     public function delete(User $user, Pesanan $pesanan): bool
     {
-        return false;
+        return $pesanan->user_id === $user->id && $pesanan->status_pesanan !== 'Dikonfirmasi';
     }
 
     /**

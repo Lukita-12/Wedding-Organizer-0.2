@@ -22,10 +22,12 @@
                 <div>
                     @can('update', $pesanan)
                         <a href="{{ route('customer.pesanan.edit', $pesanan) }}" class="btn btn-warning">Edit</a>
+                    @endcan
 
-                        <form action="{{ route('customer.pesanan.cancel', $pesanan) }}" method="POST" style="display:inline">
+                    @can('delete', $pesanan)
+                        <form action="{{ route('customer.pesanan.destroy', $pesanan) }}" method="POST" style="display:inline">
                             @csrf
-                            @method('PATCH')
+                            @method('PUT')
                             <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan?')">Batalkan</button>
                         </form>
                     @endcan

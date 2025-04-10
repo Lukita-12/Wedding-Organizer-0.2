@@ -40,7 +40,6 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/pesanan', 'store')->name('customer.pesanan.store');
         Route::get('/pesanan/{pesanan}/edit', 'edit')->name('customer.pesanan.edit');
         Route::put('/pesanan/{pesanan}', 'update')->name('customer.pesanan.update');
-
-        Route::patch('/pesanan/{pesanan}/batal', 'cancel')->name('customer.pesanan.cancel');
+        Route::put('/pesanan/{pesanan}', 'destroy')->name('customer.pesanan.destroy'); // Cancel
     });
 });
