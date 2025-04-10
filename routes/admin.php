@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PaketPernikahanController;
 use App\Http\Controllers\Admin\PesananController;
@@ -37,5 +38,14 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
         Route::put('/pesanan/{pesanan}/accept', 'accept')->name('admin.pesanan.accept');
         Route::put('/pesanan/{pesanan}/reject', 'reject')->name('admin.pesanan.reject');
+    });
+
+    Route::controller(BankController::class)->group(function () {
+        Route::get('/bank', 'index')->name('admin.bank.index');
+        Route::get('/bank/create', 'create')->name('admin.bank.create');
+        Route::post('/bank', 'store')->name('admin.bank.store');
+        Route::get('/bank/{bank}/edit', 'edit')->name('admin.bank.edit');
+        Route::put('/bank/{bank}', 'update')->name('admin.bank.update');
+        Route::delete('/bank/{bank}', 'destroy')->name('admin.bank.destroy');
     });
 });
