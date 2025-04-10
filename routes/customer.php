@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::controller(PesananController::class)->group(function () {
+        Route::get('/pesanan', 'index')->name('customer.pesanan.index');
         Route::get('/pesanan/create', 'create')->name('customer.pesanan.create');
         Route::post('/pesanan', 'store')->name('customer.pesanan.store');
     });

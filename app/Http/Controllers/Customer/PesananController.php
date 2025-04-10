@@ -12,12 +12,15 @@ use Illuminate\Support\Facades\Auth;
 class PesananController extends Controller
 {
     use AuthorizesRequests;
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
-        //
+        $pesanans = Pesanan::with('paketPernikahan')
+                ->where('user_id', Auth::id())
+                ->latest()
+                ->get();
+
+        return view('/customer.pesanan.index', compact('pesanans'));
     }
 
     public function create(Request $request)
