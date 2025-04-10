@@ -65,12 +65,10 @@ class PesananController extends Controller
         return redirect('/');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Pesanan $pesanan)
     {
-        //
+        $this->authorize('view', $pesanan);
+        return view('customer.pesanan.show', compact('pesanan'));
     }
 
     public function edit(Pesanan $pesanan)

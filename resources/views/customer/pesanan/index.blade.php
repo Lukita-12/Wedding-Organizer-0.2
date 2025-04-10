@@ -28,7 +28,9 @@
                         <form action="{{ route('customer.pesanan.destroy', $pesanan) }}" method="POST" style="display:inline">
                             @csrf
                             @method('PUT')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan?')">Batalkan</button>
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan?')">
+                                Batalkan
+                            </button>
                         </form>
                     @endcan
                 </div>
