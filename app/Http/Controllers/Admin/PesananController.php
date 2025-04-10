@@ -63,4 +63,26 @@ class PesananController extends Controller
     {
         //
     }
+
+    public function accept(Pesanan $pesanan)
+    {
+        $pesanan->update([
+            'status_pesanan' => 'Dikonfirmasi',
+        ]);
+
+        return redirect()
+            ->route('admin.pesanan.index')
+            ->with('success', 'Pesanan berhasil di-konfirmasi!');
+    }
+
+    public function reject(Pesanan $pesanan)
+    {
+        $pesanan->update([
+            'status_pesanan' => 'Dibatalkan',
+        ]);
+
+        return redirect()
+            ->route('admin.pesanan.index')
+            ->with('success', 'Pesanan berhasil di-tolak/batalkan!');
+    }
 }

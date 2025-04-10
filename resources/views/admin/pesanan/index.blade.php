@@ -25,6 +25,16 @@
                         <td class="border px-4 py-2">{{ $pesanan->status_pesanan }}</td>
                         <td class="border px-4 py-2">{{ $pesanan->paketPernikahan->status_paket ?? '-' }}</td>
                         <td class="border px-4 py-2">
+                            <form method="POST" action="{{ route('admin.pesanan.accept', $pesanan->id) }}">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit">Konfirmasi</button>
+                            </form>
+                            <form method="POST" action="{{ route('admin.pesanan.reject', $pesanan->id) }}">
+                                @csrf
+                                @method('PUT')
+                                <button type="submit">Tolak</button>
+                            </form>
                             <a href="{{ route('admin.paket_pernikahan.create', ['pesanan_id' => $pesanan->id]) }}" class="btn btn-sm btn-primary">
                                 Buatkan Paket Eksklusif
                             </a>

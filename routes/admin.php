@@ -34,5 +34,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::controller(PesananController::class)->group(function () {
         Route::get('/pesanan', 'index')->name('admin.pesanan.index');
+
+        Route::put('/pesanan/{pesanan}/accept', 'accept')->name('admin.pesanan.accept');
+        Route::put('/pesanan/{pesanan}/reject', 'reject')->name('admin.pesanan.reject');
     });
 });
