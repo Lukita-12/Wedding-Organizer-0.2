@@ -19,7 +19,9 @@ class PaketPernikahanController extends Controller
                     $sub->where('status_paket', 'Eksklusif')
                     ->where('custom_paket_for', $userId);
                 });
-        })->get();
+        })
+            ->whereDoesntHave('pesanan') // agar hanya muncul kalau belum pernah dipesan
+            ->get();
 
         return view('/customer.paket_pernikahan.index', [
             'paketPernikahans' => $paketPernikahans,

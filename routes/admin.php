@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PaketPernikahanController;
+use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\RequestMitraController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,5 +30,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/paket-pernikahan/{paketPernikahan}/edit', 'edit')->name('admin.paket_pernikahan.edit');
         Route::put('/paket-pernikahan/{paketPernikahan}', 'update')->name('admin.paket_pernikahan.update');
         Route::delete('/paket-pernikahan/{paketPernikahan}', 'destroy')->name('admin.paket_pernikahan.delete');
+    });
+
+    Route::controller(PesananController::class)->group(function () {
+        Route::get('/pesanan', 'index')->name('admin.pesanan.index');
     });
 });
