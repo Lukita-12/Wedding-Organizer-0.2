@@ -60,9 +60,11 @@ class PesananController extends Controller
             $validatedData['total_harga_pesanan'] = 0;
         }
         
-        Pesanan::create($validatedData);
+        $pesanan = Pesanan::create($validatedData);
 
-        return redirect('/');
+        return redirect()->route('customer.pembayaran.create',
+            $pesanan->id
+        );
     }
 
     public function show(Pesanan $pesanan)

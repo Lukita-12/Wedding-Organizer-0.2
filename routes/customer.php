@@ -3,6 +3,7 @@
 use App\Http\Controllers\Customer\KerjasamaController;
 use App\Http\Controllers\Customer\PaketPernikahanController;
 use App\Http\Controllers\Customer\PelangganController;
+use App\Http\Controllers\Customer\PembayaranController;
 use App\Http\Controllers\Customer\PesananController;
 use App\Http\Controllers\Customer\RequestMitraController;
 use Illuminate\Support\Facades\Route;
@@ -42,5 +43,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pesanan/{pesanan}/edit', 'edit')->name('customer.pesanan.edit');
         Route::put('/pesanan/{pesanan}', 'update')->name('customer.pesanan.update');
         Route::put('/pesanan/{pesanan}', 'destroy')->name('customer.pesanan.destroy'); // Cancel
+    });
+
+    Route::controller(PembayaranController::class)->group(function () {
+        Route::get('/pembayaran/{pesanan}/create', 'create')->name('customer.pembayaran.create');
+        Route::post('/pembayaran/{pesanan}', 'store')->name('customer.pembayaran.store');
     });
 });
