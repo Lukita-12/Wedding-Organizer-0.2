@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PaketPernikahanController;
+use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\RequestMitraController;
 use Illuminate\Support\Facades\Route;
@@ -48,4 +49,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::put('/bank/{bank}', 'update')->name('admin.bank.update');
         Route::delete('/bank/{bank}', 'destroy')->name('admin.bank.destroy');
     });
+});
+
+Route::controller(PembayaranController::class)->group(function() {
+    Route::get('/admin/pembayaran', 'index')->name('admin.pembayaran.index');
 });

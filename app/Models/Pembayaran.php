@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Pembayaran extends Model
 {
@@ -11,9 +12,12 @@ class Pembayaran extends Model
     use HasFactory;
     protected $table = 'pembayaran';
     protected $guarded = [];
+    protected $casts = [
+        'tgl_pembayaran' => 'datetime',
+    ];
 
-    public function pesanan()
+    public function pesanan():BelongsTo
     {
-        $this->belongsTo(Pesanan::class);
+        return $this->belongsTo(Pesanan::class);
     }
 }
