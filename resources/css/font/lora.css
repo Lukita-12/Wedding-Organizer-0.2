@@ -1,0 +1,107 @@
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-SemiBold.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* italic */
+
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-Regular.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-MediumItalic.ttf');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-SemiBoldItalic.ttf');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'lora';
+    src: url('/public/fonts/Lora/static/Lora-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+
+.lora {
+    font-family: 'lora', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.lora-medium {
+    font-family: 'lora', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.lora-semibold {
+    font-family: 'lora', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.lora-bold {
+    font-family: 'lora', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* italic */
+
+.lora-italic {
+    font-family: 'lora', sans-serif;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.lora-italic-medium {
+    font-family: 'lora', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.lora-italic-semibold {
+    font-family: 'lora', sans-serif;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.lora-italic-bold {
+    font-family: 'lora', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}

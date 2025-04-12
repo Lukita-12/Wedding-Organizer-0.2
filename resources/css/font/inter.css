@@ -1,0 +1,133 @@
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-Light.ttf');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-SemiBold.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* italic */
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-LightItalic.ttf');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-Italic.ttf');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-MediumItalic.ttf');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-SemiBoldItalic.ttf');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('/public/fonts/Inter/static/Inter_18pt-BoldItalic.ttf');
+    font-weight: bold;
+    font-style: italic;
+}
+
+.inter-light {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.inter {
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+
+.inter-medium {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.inter-semibold {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+
+.inter-bold {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* italic */
+
+.inter-italic-light {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-style: italic;
+}
+
+.inter-italic {
+    font-family: 'Inter', sans-serif;
+    font-weight: normal;
+    font-style: italic;
+}
+
+.inter-italic-medium {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+}
+
+.inter-italic-semibold {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.inter-italic-bold {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-style: italic;
+}

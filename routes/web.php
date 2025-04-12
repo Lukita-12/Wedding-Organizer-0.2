@@ -7,6 +7,7 @@ Route::get('/', function () {
 });
 
 Route::view('/dashboard', 'dashboard');
+Route::view('/form-desain', 'form-desain');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

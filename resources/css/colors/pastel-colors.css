@@ -1,0 +1,40 @@
+:root {
+    --color-primary: #5e4d81;
+    --color-light-purple:#dbe3f2;   
+}
+
+.bg-primary{
+    background-color: var(--color-primary);
+}
+
+.bg-secondary {
+    background-color: var(--color-secondary);
+}
+
+.bg-accent {
+    background-color: var(--color-accent);
+}
+
+.bg-light-purple {
+    background-color: var(--color-light-purple);
+}
+
+.dark:bg-primary {
+    background-color: var(--color-primary);
+}
+
+.text-primary {
+    color: var(--color-primary);
+}
+
+.text-light-purple {
+    color: var(--color-light-purple);
+}
+
+.border-primary {
+    color: var(--color-primary);
+}
+
+.border-light-purple {
+    border-color: var(--color-light-purple);
+}
