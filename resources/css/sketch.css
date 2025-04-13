@@ -1,0 +1,24 @@
+@layer utilities {
+    /* Background */
+    .bg-sketch-primary {
+        @apply bg-gray-500 text-white
+    }
+
+    .bg-sketch-secondary {
+        @apply bg-gray-700 text-white
+    }
+
+    /* Border */
+    .border-sketch {
+        @apply border border-dashed border-gray-700;
+    }
+
+    /* Text */
+    .text-gray-sketch {
+        @apply text-gray-700;
+    }
+
+    .text-white-sketch {
+        @apply text-white;
+    }
+}

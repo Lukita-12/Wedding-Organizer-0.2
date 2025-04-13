@@ -9,8 +9,7 @@
 @import './font/inter.css';
 @import './font/lora.css';
 
-@import './sketch/border-sketch.css';
-@import './sketch/bg-sketch.css';
+@import './sketch.css';
 
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

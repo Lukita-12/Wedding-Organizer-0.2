@@ -63,14 +63,19 @@
                     </x-form.form-label>
                     <x-form.form-textarea type="text"
                         name="alamat_pelanggan" id="alamat_pelanggan"
+                        rows="4"
                         :value="old('alamat_pelanggan')" placeholder="Alamat..."
                         required />
                     <x-form.form-error errorFor="alamat_pelanggan" />
                 </div>
                 
-                <div>
-                    <a href="{{ url('/') }}">Batal</a>
-                    <button type="submit">Simpan</button>
+                <div class="flex gap-3 justify-end">
+                    <x-form.form-button-link href="{{ url('/') }}">
+                        Batal
+                    </x-form.form-button-link>
+                    <x-form.form-button>
+                        Simpan
+                    </x-form.form-button>
                 </div>
 
             </x-form.form-container>
