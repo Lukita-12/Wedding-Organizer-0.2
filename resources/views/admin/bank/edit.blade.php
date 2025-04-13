@@ -3,40 +3,42 @@
     <div>
         <h1>Edit bank</h1>
 
-        <x-form.form-layout action="{{ route('admin.bank.update', $bank->id) }}">
+        <x-form.layout action="{{ route('admin.bank.update', $bank->id) }}">
             @csrf
             @method('PUT')
+            <x-form.container>
 
-            <div>
-                <x-form.form-label for="nama_bank">
-                    Nama bank:
-                </x-form.form-label>
-                <x-form.form-input type="text" 
-                    name="nama_bank"
-                    id="nama_bank"
-                    value="{{ old('nama_bank', $bank->nama_bank) }}"
-                    required/>
-                <x-form.form-error errorFor="nama_bank" />
-            </div>
+                <div>
+                    <x-form.label for="nama_bank">
+                        Nama bank:
+                    </x-form.label>
+                    <x-form.input type="text" 
+                        name="nama_bank"
+                        id="nama_bank"
+                        value="{{ old('nama_bank', $bank->nama_bank) }}"
+                        required/>
+                    <x-form.error errorFor="nama_bank" />
+                </div>
 
-            <div>
-                <x-form.form-label for="no_rekening">
-                    Nomor rekening:
-                </x-form.form-label>
-                <x-form.form-input type="text" 
-                    name="no_rekening"
-                    id="no_rekening"
-                    value="{{ old('no_rekening', $bank->no_rekening) }}"
-                    required/>
-                <x-form.form-error errorFor="no_rekening" />
-            </div>
+                <div>
+                    <x-form.label for="no_rekening">
+                        Nomor rekening:
+                    </x-form.label>
+                    <x-form.input type="text" 
+                        name="no_rekening"
+                        id="no_rekening"
+                        value="{{ old('no_rekening', $bank->no_rekening) }}"
+                        required/>
+                    <x-form.error errorFor="no_rekening" />
+                </div>
 
-            <div>
-                <a href="{{ route('admin.bank.index') }}">Batal</a>
-                <button type="submit">Simpan</button>
-            </div>
+                <x-form.button-container>
+                    <x-form.button-link href="{{ route('admin.bank.index') }}">Batal</x-form.button-link>
+                    <x-form.button type="submit">Simpan</x-form.button>
+                </x-form.button-container>
 
-        </x-form.form-layout>
+            </x-form.container>
+        </x-form.layout>
     </div>
 
 </x-layout>
