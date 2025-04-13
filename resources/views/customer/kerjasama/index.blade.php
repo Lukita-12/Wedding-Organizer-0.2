@@ -1,5 +1,7 @@
 <x-layout>
 
+    <x-customer.nav-bar />
+
     <div>
         @if($kerjasamas->isEmpty())
             <p>No partner data available yet.</p>

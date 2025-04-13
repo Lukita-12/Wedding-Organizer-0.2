@@ -11,7 +11,8 @@ class PesananController extends Controller
 {
     public function index()
     {
-        $pesanans = Pesanan::with(['user', 'paketPernikahan'])->latest()->get();
+        $pesanans = Pesanan::with(['user', 'paketPernikahan'])
+            ->latest()->simplePaginate(6);
 
         return view('admin.pesanan.index', compact('pesanans'));
     }

@@ -16,7 +16,7 @@ class PaketPernikahanController extends Controller
             'venueUsaha', 'dekorasiUsaha', 'tataRiasUsaha',
             'cateringUsaha', 'kuePernikahanUsaha', 'fotograferUsaha',
             'entertainmentUsaha'
-        ])->latest()->get();
+        ])->latest()->simplePaginate(6);
 
         return view('admin.paket_pernikahan.index', compact('paketPernikahans'));
     }

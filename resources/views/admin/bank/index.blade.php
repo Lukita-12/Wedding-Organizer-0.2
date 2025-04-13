@@ -1,28 +1,33 @@
 <x-layout>
 
     <div>
-        <div>
-            <h1>Bank</h1>
+        <!-- Header -->
+        <div class="border border-dashed border-gray-700
+            px-4 py-1 flex items-center justify-between">
+            <x-table.title :title="'Bank'" :link="route('admin.bank.create')" />
 
-            <a href="{{ route('admin.bank.create') }}">+ Baru</a>
+            <div class="flex items-center gap-3">
+                <x-table.filter name="status_request" label="Filter status:" :options="['Tersedia', 'Eksklusif']"/>
+                <x-table.search name="search_request" />
+            </div>
         </div>
 
         <table>
-            <thead>
+            <xtable.thead>
                 <tr>
-                    <td class="border px-4 py-2">No.</td>
-                    <td class="border px-4 py-2">Nama bank</td>
-                    <td class="border px-4 py-2">Nomor rekening</td>
-                    <td class="border px-4 py-2">Aksi</td>
+                    <x-table.td class="border px-4 py-2">No.</x-table.td>
+                    <x-table.td class="border px-4 py-2">Nama bank</x-table.td>
+                    <x-table.td class="border px-4 py-2">Nomor rekening</x-table.td>
+                    <x-table.td class="border px-4 py-2">Aksi</x-table.td>
                 </tr>
-            </thead>
-            <tbody>
+            </xtable.thead>
+            <xtable.tbody>
                 @foreach ($banks as $index => $bank)
                     <tr>
-                        <td class="border px-4 py-2">{{ $index + 1 }}</td>
-                        <td class="border px-4 py-2">{{ $bank->nama_bank }}</td>
-                        <td class="border px-4 py-2">{{ $bank->no_rekening }}</td>
-                        <td class="border px-4 py-2">
+                        <x-table.td class="border px-4 py-2">{{ $index + 1 }}</x-table.td>
+                        <x-table.td class="border px-4 py-2">{{ $bank->nama_bank }}</x-table.td>
+                        <x-table.td class="border px-4 py-2">{{ $bank->no_rekening }}</x-table.td>
+                        <x-table.td class="border px-4 py-2">
                             <a href="{{ route('admin.bank.edit', $bank->id) }}">Edit</a>
                             <form method="POST" action="{{ route('admin.bank.destroy', $bank->id) }}"
                                 onsubmit="return confirm('Apakah anda yakin untuk menghapus data?')">
@@ -32,10 +37,10 @@
                                     Hapus
                                 </button>
                             </form>
-                        </td>
+                        </x-table.td>
                     </tr>
                 @endforeach
-            </tbody>
+            </xtable.tbody>
         </table>
 
         <div>

@@ -1,46 +1,60 @@
 <x-layout>
 
     <div>
+        <!-- Header -->
+        <div class="border border-dashed border-gray-700
+            px-4 py-1 flex items-center justify-between">
+            <x-table.title :title="'Kerjasama'" :link="url('/dashboard')" />
+
+            <div class="flex items-center gap-3">
+                <x-table.filter name="status_request" label="Filter status:"
+                    :options="['Tersedia', 'Eksklusif']"/>
+
+                <x-table.search name="search_request" />
+            </div>
+        </div>
+        
         <table>
-            <thead>
+            <x-table.thead>
+                <tr>
+                    <x-table.td>Pemilik usaha</x-table.td>
+                    <x-table.td>Nama usaha</x-table.td>
+                    <x-table.td>Jenis usaha</x-table.td>
+                    <x-table.td>No. Telpon/WA usaha</x-table.td>
+                    <x-table.td>Email usaha</x-table.td>
+                    <x-table.td>Alamat usaha</x-table.td>
+                    <x-table.td>Harga 01</x-table.td>
+                    <x-table.td>Keterangan harga 01</x-table.td>
+                    <x-table.td>Harga 02</x-table.td>
+                    <x-table.td>Keterangan harga 02</x-table.td>
+                    <x-table.td>Aksi</x-table.td>
+                </tr>
+            </x-table.thead>
+            <x-table.tbody>
+                @foreach ($kerjasamas as $kerjasama)
                     <tr>
-                        <td>Pemilik usaha</td>
-                        <td>Nama usaha</td>
-                        <td>Jenis usaha</td>
-                        <td>No. Telpon/WA usaha</td>
-                        <td>Email usaha</td>
-                        <td>Alamat usaha</td>
-                        <td>Harga 01</td>
-                        <td>Keterangan harga 01</td>
-                        <td>Harga 02</td>
-                        <td>Keterangan harga 02</td>
-                        <td>Aksi</td>
+                        <x-table.td>{{ $kerjasama->nama_pemilik }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->nama_usaha }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->jenis_usaha }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->noTelp_usaha }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->email_usaha }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->alamat_usaha }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->harga01 }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->ket_harga01 }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->harga02 }}</x-table.td>
+                        <x-table.td>{{ $kerjasama->ket_harga02 }}</x-table.td>
+                        <x-table.td>
+                            <a href="{{ route('admin.kerjasama.show', $kerjasama->id) }}">Edit</a>
+                        </x-table.td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach ($kerjasamas as $kerjasama)
-                        <tr>
-                            <td>{{ $kerjasama->nama_pemilik }}</td>
-                            <td>{{ $kerjasama->nama_usaha }}</td>
-                            <td>{{ $kerjasama->jenis_usaha }}</td>
-                            <td>{{ $kerjasama->noTelp_usaha }}</td>
-                            <td>{{ $kerjasama->email_usaha }}</td>
-                            <td>{{ $kerjasama->alamat_usaha }}</td>
-                            <td>{{ $kerjasama->harga01 }}</td>
-                            <td>{{ $kerjasama->ket_harga01 }}</td>
-                            <td>{{ $kerjasama->harga02 }}</td>
-                            <td>{{ $kerjasama->ket_harga02 }}</td>
-                            <td>
-                                <a href="{{ route('admin.kerjasama.show', $kerjasama->id) }}">Edit</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
+                @endforeach
+            </x-table.tbody>
         </table>
+        
     </div>
 
-    <div>
+    <x-table.footer>
         {{ $kerjasamas->links() }}
-    </div>
+    </x-table.footer>
 
 </x-layout>
