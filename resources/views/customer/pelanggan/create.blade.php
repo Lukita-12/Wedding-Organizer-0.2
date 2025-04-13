@@ -69,14 +69,14 @@
                     <x-form.error errorFor="alamat_pelanggan" />
                 </div>
                 
-                <div class="flex gap-3 justify-end">
+                <x-form.button-container>
                     <x-form.button-link href="{{ url('/') }}">
                         Batal
                     </x-form.button-link>
                     <x-form.button>
                         Simpan
                     </x-form.button>
-                </div>
+                </x-form.button-container>
 
             </x-form.container>
         </x-form.layout>
