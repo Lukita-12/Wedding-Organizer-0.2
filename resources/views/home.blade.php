@@ -1,7 +1,7 @@
 <x-layout>
 
     <!-- Header -->
-    <div class="border border-dashed border-gray-700 py-2 flex justify-between items-center">
+    <div class="border-sketch py-2 flex justify-between items-center">
         <nav class="flex gap-1">
             <a href="{{ url('/home') }}" class="border border-dashed border-gray-700
                 px-2 poppins text-lg text-center rounded-sm">

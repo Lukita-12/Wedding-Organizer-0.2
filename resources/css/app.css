@@ -1,8 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import 'tailwindcss';
+
 @import './font/poppins.css';
 @import './font/roboto.css';
 @import './font/inter.css';
 @import './font/lora.css';
-@import 'tailwindcss';
+
+@import './sketch/border-sketch.css';
+@import './sketch/bg-sketch.css';
+
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
