@@ -18,6 +18,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::controller(KerjasamaController::class)->group(function () {
         Route::get('/kerjasama', 'index')->name('admin.kerjasama.index');
+        Route::get('/kerjasama/create', 'create')->name('admin.kerjasama.create');
+        Route::post('/kerjasama/', 'store')->name('admin.kerjasama.store');
         Route::get('/kerjasama/{kerjasama}', 'show')->name('admin.kerjasama.show');
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('admin.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('admin.kerjasama.update');

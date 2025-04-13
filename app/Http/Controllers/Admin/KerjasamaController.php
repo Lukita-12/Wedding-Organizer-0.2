@@ -25,7 +25,7 @@ class KerjasamaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.kerjasama.create');
     }
 
     /**
@@ -33,7 +33,27 @@ class KerjasamaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'noTelp_usaha'  => ['required'],
+            'email_usaha'   => ['required', 'email', 'max:254'],
+            'alamat_usaha'  => ['required'],
+            'harga01'       => ['required', 'string'],
+            'ket_harga01'   => ['required'],
+            'harga02'       => ['required', 'string'],
+            'ket_harga02'   => ['required'],
+        ]);
+
+        // Remove thousand separators (dots) and convert comma to decimal point
+        $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
+        $validatedData['harga02'] = str_replace(['.', ','], ['', '.'], $validatedData['harga02']);
+    
+        // Convert to proper decimal format
+        $validatedData['harga01'] = number_format((float) $validatedData['harga01'], 2, '.', '');
+        $validatedData['harga02'] = number_format((float) $validatedData['harga02'], 2, '.', '');
+
+        Kerjasama::create($validatedData);
+
+        return redirect('/admin/kerjasama');
     }
 
     /**

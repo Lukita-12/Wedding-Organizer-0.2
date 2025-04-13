@@ -4,7 +4,7 @@
         <!-- Header -->
         <div class="border border-dashed border-gray-700
             px-4 py-1 flex items-center justify-between">
-            <x-table.title :title="'Kerjasama'" :link="url('/dashboard')" />
+            <x-table.title :title="'Kerjasama'" :link="route('admin.kerjasama.create')" />
 
             <div class="flex items-center gap-3">
                 <x-table.filter name="status_request" label="Filter status:"
