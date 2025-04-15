@@ -12,8 +12,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::controller(RequestMitraController::class)->group(function () {
         Route::get('/request-mitra', 'index')->name('admin.request_mitra.index');
         Route::get('/request-mitra/{requestMitra}', 'show')->name('admin.request_mitra.show');
-        Route::put('/request-mitra/{requestMitra}/accept', 'accept')->name('admin.request_mitra.accept');
-        Route::put('/request-mitra/{requestMitra}/reject', 'reject')->name('admin.request_mitra.reject');
+        Route::patch('/request-mitra/{requestMitra}/accept', 'accept')->name('admin.request_mitra.accept');
+        Route::patch('/request-mitra/{requestMitra}/reject', 'reject')->name('admin.request_mitra.reject');
     });
 
     Route::controller(KerjasamaController::class)->group(function () {

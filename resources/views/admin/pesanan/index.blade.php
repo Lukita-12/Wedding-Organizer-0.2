@@ -1,75 +1,67 @@
 <x-layout>
-    <div class="border border-dashed border-gray-700">
-        <!-- Header -->
-        <div class="border border-dashed border-gray-700
-            px-4 py-1 flex items-center justify-between">
-            <x-table.title :title="'Pesanan'" :link="url('/dashboard')" />
+    <x-container.admin-page>
 
-            <div class="flex items-center gap-3">
-                <x-table.filter name="status_request" label="Filter status:"
-                    :options="['Tersedia', 'Eksklusif']"
-                />
+        <x-sidebar.sidebar />
+        <x-container.main>
+            
+            <x-header.header />
+            
+            <div class="border-sketch rounded-lg">
 
-                <x-table.search name="search_request" />
+                <x-header.container>
+                    <div class="flex items-center gap-3">
+                        <x-header.span-dot />
+                        <x-header.h1>PESANAN</x-header.h1>
+                        <x-header.button-link href="#">+ Baru</x-header.button-link>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <x-header.search />
+                    </div>
+                </x-header.container>
+
+                <x-table.table>
+                    <x-table.thead>
+                        <x-table.tr>
+                            <x-table.td>No.</x-table.td>
+                            <x-table.td>Tanggal Pesanan</x-table.td>
+                            <x-table.td>Tanggal Diskusi</x-table.td>
+                            <x-table.td>Tanggal Acara</x-table.td>
+                            <x-table.td>Status Pesanan</x-table.td>
+                            <x-table.td>Aksi</x-table.td>
+                        </x-table.tr>
+                    </x-table.thead>
+                    <x-table.tbody>
+                        @foreach ($pesanans as $index => $pesanan)
+                            <x-table.tr>
+                                <x-table.td>{{ $index + 1 }}</x-table.td>
+                                <x-table.td>{{ $pesanan->tgl_pesanan->format('d M Y') }}</x-table.td>
+                                <x-table.td>{{ $pesanan->tanggal_diskusi->format('d M Y') }}</x-table.td>
+                                <x-table.td>{{ $pesanan->tanggal_acara->format('d M Y') }}</x-table.td>
+                                <x-table.td>{{ $pesanan->status_pesanan }}</x-table.td>
+                                <x-table.td class="flex justify-center items-center gap-2">
+                                    <form method="POST" action="#">
+                                        @csrf
+                                        @method('PUT')
+                                        <x-table.button>Konfirmasi</x-table.button>
+                                    </form>
+                                    <form method="POST" action="#">
+                                        @csrf
+                                        @method('PUT')
+                                        <x-table.button>Tolak</x-table.button>
+                                    </form>
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                    </x-table.tbody>
+                </x-table.table>
+
+                <x-container.pagination>
+                    {{ $pesanans->links() }}
+                </x-container.pagination>
+
             </div>
-        </div>
 
-        <table class="">
-            <x-table.thead>
-                <tr>
-                    <x-table.td>No.</x-table.td>
-                    <x-table.td>Username</x-table.td>
-                    <x-table.td>Nama pengantin</x-table.td>
-                    <x-table.td>Tanggal acara</x-table.td>
-                    <x-table.td>Tanggal diskusi</x-table.td>
-                    <x-table.td>Status pesanan</x-table.td>
-                    <x-table.td>Status paket</x-table.td>
-                    <x-table.td>Aksi</x-table.td>
-                </tr>
-            </x-table.thead>
-            <x-table.tbody>
-                @foreach ($pesanans as $index => $pesanan)
-                    <tr>
-                        <x-table.td>{{ $index + 1 }}</x-table.td>
-                        <x-table.td>{{ $pesanan->user->name }}</x-table.td>
-                        <x-table.td>{{ $pesanan->pengantin_pria }} & {{ $pesanan->pengantin_wanita }}</x-table.td>
-                        <x-table.td>{{ $pesanan->tanggal_acara->format('d M Y') }}</x-table.td>
-                        <x-table.td>{{ $pesanan->tanggal_diskusi->format('d M Y') }}</x-table.td>
-                        <x-table.td>{{ $pesanan->status_pesanan }}</x-table.td>
-                        <x-table.td>{{ $pesanan->paketPernikahan->status_paket ?? '-' }}</x-table.td>
-                        <x-table.td>
-                            <div class="flex gap-2 justify-center">
-                                <form method="POST" action="{{ route('admin.pesanan.accept', $pesanan->id) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit"
-                                        class="bg-gray-700 text-white
-                                            px-3 py-1 inter rounded-md">
-                                        Konfirmasi
-                                    </button>
-                                </form>
-                                <form method="POST" action="{{ route('admin.pesanan.reject', $pesanan->id) }}">
-                                    @csrf
-                                    @method('PUT')
-                                    <button type="submit"
-                                        class="bg-gray-700 text-white
-                                            px-3 py-1 inter rounded-md">
-                                        Tolak
-                                    </button>
-                                </form>
-                                <a href="{{ route('admin.paket_pernikahan.create', ['pesanan_id' => $pesanan->id]) }}" class=" hidden btn btn-sm btn-primary">
-                                    Buatkan Paket  Eksklusif
-                                </a>
-                            </div>
-                        </x-table.td>
-                    </tr>
-                @endforeach
-            </x-table.tbody>
-        </table>
+        </x-container.main>
 
-        <x-table.footer>
-            {{ $pesanans->links() }}
-        </x-table.footer>
-
-    </div>
+    </x-container.admin-page>
 </x-layout>

@@ -1,0 +1,56 @@
+<div>
+    <!-- Header -->
+    <div class="border border-dashed border-gray-700
+        px-4 py-1 flex items-center justify-between">
+        <x-table.title :title="'Kerjasama'" :link="route('admin.kerjasama.create')" />
+
+        <div class="flex items-center gap-3">
+            <x-table.filter name="status_request" label="Filter status:"
+                :options="['Tersedia', 'Eksklusif']"/>
+
+            <x-table.search name="search_request" />
+        </div>
+    </div>
+    
+    <table>
+        <x-table.thead>
+            <tr>
+                <x-table.td>Pemilik usaha</x-table.td>
+                <x-table.td>Nama usaha</x-table.td>
+                <x-table.td>Jenis usaha</x-table.td>
+                <x-table.td>No. Telpon/WA usaha</x-table.td>
+                <x-table.td>Email usaha</x-table.td>
+                <x-table.td>Alamat usaha</x-table.td>
+                <x-table.td>Harga 01</x-table.td>
+                <x-table.td>Keterangan harga 01</x-table.td>
+                <x-table.td>Harga 02</x-table.td>
+                <x-table.td>Keterangan harga 02</x-table.td>
+                <x-table.td>Aksi</x-table.td>
+            </tr>
+        </x-table.thead>
+        <x-table.tbody>
+            @foreach ($kerjasamas as $kerjasama)
+                <tr>
+                    <x-table.td>{{ $kerjasama->nama_pemilik }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->nama_usaha }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->jenis_usaha }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->noTelp_usaha }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->email_usaha }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->alamat_usaha }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->harga01 }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->ket_harga01 }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->harga02 }}</x-table.td>
+                    <x-table.td>{{ $kerjasama->ket_harga02 }}</x-table.td>
+                    <x-table.td>
+                        <a href="{{ route('admin.kerjasama.show', $kerjasama->id) }}">Edit</a>
+                    </x-table.td>
+                </tr>
+            @endforeach
+        </x-table.tbody>
+    </table>
+    
+</div>
+
+<x-table.footer>
+    {{ $kerjasamas->links() }}
+</x-table.footer>

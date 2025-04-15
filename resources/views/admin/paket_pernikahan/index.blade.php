@@ -1,71 +1,74 @@
 <x-layout>
 
-    <div>
-        <!-- Header -->
-        <div class="border border-dashed border-gray-700
-            px-4 py-1 flex items-center justify-between">
-            <x-table.title :title="'Paket Pernikahan'" :link="route('admin.paket_pernikahan.create')" />
+    <x-container.admin-page>
+        <x-sidebar.sidebar />
+        <x-container.main>
+            <x-header.header />
+            <div class="border-sketch rounded-lg">
 
-            <div class="flex items-center gap-3">
-                <x-table.filter name="status_request" label="Filter status:"
-                    :options="['Tersedia', 'Eksklusif']"
-                />
+                <x-header.container>
+                    <div class="flex items-center gap-3">
+                        <x-header.span-dot />
+                        <x-header.h1>PAKET PERNIKAHAN</x-header.h1>
+                        <x-header.button-link href="{{ route('admin.paket_pernikahan.create') }}">+ Baru</x-header.button-link>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <x-header.search />
+                    </div>
+                </x-header.container>
+                
+                <x-table.table>
+                    <x-table.thead>
+                        <x-table.tr>
+                            <x-table.td>No.1</x-table.td>
+                            <x-table.td>Nama Paket</x-table.td>
+                            <x-table.td>Venue</x-table.td>
+                            <x-table.td>Dekorasi</x-table.td>
+                            <x-table.td>Tata Rias</x-table.td>
+                            <x-table.td>Catering</x-table.td>
+                            <x-table.td>Kue Pernikahan</x-table.td>
+                            <x-table.td>Fotografer</x-table.td>
+                            <x-table.td>Entertainment</x-table.td>
+                            <x-table.td>Staff Acara</x-table.td>
+                            <x-table.td>Harga DP</x-table.td>
+                            <x-table.td>Harga Lunas</x-table.td>
+                            <x-table.td>Status Paket</x-table.td>
+                            <x-table.td>Aksi</x-ttable.d>
+                        </x-table.tr>
+                    </x-table.thead>
+                    <x-table.tbody>
+                        @foreach ($paketPernikahans as $index => $paketPernikahan)
+                            <x-table.tr>
+                                <x-table.td>{{ $index + 1 }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->nama_paket }}</x-table.td>
 
-                <x-table.search name="search_request" />
+                                <x-table.td>{{ $paketPernikahan->venueUsaha->nama_usaha ?? '-' }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->dekorasiUsaha->nama_usaha ?? '-' }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->tataRiasUsaha->nama_usaha ?? '-' }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->cateringUsaha->nama_usaha ?? '-' }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->kuePernikahUsaha->nama_usaha ?? '-' }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->fotograferUsaha->nama_usaha ?? '-' }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->entertainmentUsaha->nama_usaha ?? '-' }}</x-table.td>
+                                
+                                <x-table.td>{{ $paketPernikahan->staff_acara }}</x-table.td>
+                                <x-table.td>Rp {{ number_format($paketPernikahan->hargaDP_paket, 0, ',', '.') }}</x-table.td>
+                                <x-table.td>Rp {{ number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.') }}</x-table.td>
+                                <x-table.td>{{ $paketPernikahan->status_paket }}</x-table.td>
+
+                                <x-table.td>
+                                    <x-table.button-link href="{{ route('admin.paket_pernikahan.show', $paketPernikahan->id) }}">Lihat</x-table.button-link>
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                    </x-table.tbody>
+                </x-table.table>
+
+                <x-container.pagination>
+                    {{ $paketPernikahans->links() }}
+                </x-container.pagination>
+
             </div>
-        </div>
-
-        <!-- Table -->
-        <div>
-            <table>
-                <x-table.thead>
-                    <tr>
-                        <x-table.td class="border px-4 py-2">Nama Paket</x-table.td>
-                        <x-table.td class="border px-4 py-2">Venue</x-table.td>
-                        <x-table.td class="border px-4 py-2">Dekorasi</x-table.td>
-                        <x-table.td class="border px-4 py-2">Tata Rias</x-table.td>
-                        <x-table.td class="border px-4 py-2">Catering</x-table.td>
-                        <x-table.td class="border px-4 py-2">Kue Pernikahan</x-table.td>
-                        <x-table.td class="border px-4 py-2">Fotografer</x-table.td>
-                        <x-table.td class="border px-4 py-2">Entertainment</x-table.td>
-                        <x-table.td class="border px-4 py-2">Staff Acara</x-table.td>
-                        <x-table.td class="border px-4 py-2">Harga DP</x-table.td>
-                        <x-table.td class="border px-4 py-2">Harga Lunas</x-table.td>
-                        <x-table.td class="border px-4 py-2">Status Paket</x-table.td>
-                        <x-table.td class="border px-4 py-2">Aksi</x-table.td>
-                    </tr>
-                </x-table.thead>
-                <x-table.tbody>
-                    @foreach ($paketPernikahans as $paketPernikahan)
-                        <tr>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->nama_paket }}</x-table.td>
-
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->venueUsaha->nama_usaha ?? '-' }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->dekorasiUsaha->nama_usaha ?? '-' }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->tataRiasUsaha->nama_usaha ?? '-' }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->cateringUsaha->nama_usaha ?? '-' }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->kuePernikahUsaha->nama_usaha ?? '-' }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->fotograferUsaha->nama_usaha ?? '-' }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->entertainmentUsaha->nama_usaha ?? '-' }}</x-table.td>
-                            
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->staff_acara }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">Rp {{ number_format($paketPernikahan->hargaDP_paket, 0, ',', '.') }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">Rp {{ number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.') }}</x-table.td>
-                            <x-table.td class="border px-4 py-2">{{ $paketPernikahan->status_paket }}</x-table.td>
-
-                            <x-table.td class="border px-4 py-2">
-                                <a href="{{ route('admin.paket_pernikahan.show', $paketPernikahan->id) }}">Edit</a>
-                            </x-table.td>
-                        </tr>
-                    @endforeach
-                </x-table.tbody>
-            </table>
-        </div>
-
-        <!-- Footer -->
-        <x-table.footer>
-            {{ $paketPernikahans->links() }}
-        </x-table.footer>
-    </div>
+        </x-container.main>
+    </x-container.admin-page>
 
 </x-layout>

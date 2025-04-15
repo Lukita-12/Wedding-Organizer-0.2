@@ -86,7 +86,7 @@
                     <x-header.container class="px-4">
                         <div class="flex items-center gap-3">
                             <x-header.span-dot />
-                            <x-header.h1>PESANAN</x-header.h1>
+                            <x-header.h1>AKUN</x-header.h1>
                             <x-header.button-link href="#">+ Baru</x-header.button-link>
                         </div>
                         <div>
@@ -123,7 +123,7 @@
                     <x-header.container class="px-4">
                         <div class="flex items-center gap-3">
                             <x-header.span-dot />
-                            <x-header.h1>PESANAN</x-header.h1>
+                            <x-header.h1>BANK</x-header.h1>
                             <x-header.button-link href="#">+ Baru</x-header.button-link>
                         </div>
                         <div>

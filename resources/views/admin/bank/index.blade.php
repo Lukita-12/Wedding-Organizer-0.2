@@ -1,51 +1,53 @@
 <x-layout>
 
-    <div>
-        <!-- Header -->
-        <div class="border border-dashed border-gray-700
-            px-4 py-1 flex items-center justify-between">
-            <x-table.title :title="'Bank'" :link="route('admin.bank.create')" />
+    <x-container.admin-page>
 
-            <div class="flex items-center gap-3">
-                <x-table.filter name="status_request" label="Filter status:" :options="['Tersedia', 'Eksklusif']"/>
-                <x-table.search name="search_request" />
+        <x-sidebar.sidebar />
+        <x-container.main>
+            <x-.header.header />
+            <div class="border-skectch rounded-lg">
+
+                <x-header.container>
+                    <div class="flex items-center gap-3">
+                        <x-header.span-dot />
+                        <x-header.h1>BANK</x-header.h1>
+                        <x-header.button-link href="{{ route('admin.bank.create') }}">+ Baru</x-header.button-link>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <x-header.search />
+                    </div>
+                </x-header.container>
+
+                <x-table.table>
+                    <x-table.thead>
+                        <x-table.tr>
+                            <x-table.td>No.</x-table.td>
+                            <x-table.td>Nama Bank</x-table.td>
+                            <x-table.td>No. Rekening</x-table.td>
+                            <x-table.td>Aksi</x-table.td>
+                        </x-table.tr>
+                    </x-table.thead>
+                    <x-table.tbody>
+                        @foreach ($banks as $index => $bank)
+                            <x-table.tr>
+                                <x-table.td>{{ $index + 1 }}</x-table.td>
+                                <x-table.td>{{ $bank->nama_bank }}</x-table.td>
+                                <x-table.td>{{ $bank->no_rekening }}</x-table.td>
+                                <x-table.td>
+                                    <x-table.button-link href="{{ route('admin.bank.edit', $bank->id) }}">Edit</x-table.button-link>
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                    </x-table.tbody>
+                </x-table.table>
+
+                <x-container.pagination>
+                    {{ $banks->links() }}
+                </x-container.pagination>
+
             </div>
-        </div>
+        </x-container.main>
 
-        <table>
-            <xtable.thead>
-                <tr>
-                    <x-table.td class="border px-4 py-2">No.</x-table.td>
-                    <x-table.td class="border px-4 py-2">Nama bank</x-table.td>
-                    <x-table.td class="border px-4 py-2">Nomor rekening</x-table.td>
-                    <x-table.td class="border px-4 py-2">Aksi</x-table.td>
-                </tr>
-            </xtable.thead>
-            <xtable.tbody>
-                @foreach ($banks as $index => $bank)
-                    <tr>
-                        <x-table.td class="border px-4 py-2">{{ $index + 1 }}</x-table.td>
-                        <x-table.td class="border px-4 py-2">{{ $bank->nama_bank }}</x-table.td>
-                        <x-table.td class="border px-4 py-2">{{ $bank->no_rekening }}</x-table.td>
-                        <x-table.td class="border px-4 py-2">
-                            <a href="{{ route('admin.bank.edit', $bank->id) }}">Edit</a>
-                            <form method="POST" action="{{ route('admin.bank.destroy', $bank->id) }}"
-                                onsubmit="return confirm('Apakah anda yakin untuk menghapus data?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">
-                                    Hapus
-                                </button>
-                            </form>
-                        </x-table.td>
-                    </tr>
-                @endforeach
-            </xtable.tbody>
-        </table>
-
-        <div>
-            {{ $banks->links() }}
-        </div>
-    </div>
+    </x-container.admin-page>
 
 </x-layout>

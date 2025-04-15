@@ -12,47 +12,22 @@
             <div>
                 @if (session('sukses'))<div>{{ session('sukses') }}</div> @endif
             </div>
-    
+
             <!-- Table -->
-            <div class="flex flex-col items-center p-24 rounded-lg">
-                <!-- Header -->
-                <div class="border border-dashed border-gray-700
-                    w-full px-4 py-1 flex items-center justify-between rounded-t-lg">
-                    <div class="flex items-center gap-3">
-                        <span class="bg-gray-700 w-3 h-3 rounded-full"></span>
-                        <h1 class="poppins-semibold text-2xl">Permintaan kerjasama</h1>
-                        <a href="#" class="border border-dashed border-gray-700 
-                            px-3 flex items-center inline-block inter text-lg items-center rounded-full">+ Baru</a>
+            <div class="border-sketch rounded-lg">
+
+                <x-header.container>
+                    <div class="flex gap-3 items-center">
+                        <x-header.span-dot />
+                        <x-header.h1>PERMINTAAN KERJASAMA</x-header.h1>
+                        <x-header.button-link href="#">+ Baru</x-header.button-link>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <!-- Filter -->
-                        <form method="GET" action="{{ route('admin.request_mitra.index') }}">
-                            <label for="status_request" class="inter">Filter status:</label>
-                            <select name="status_request" id="status_request"
-                                class="border border-dashed border-gray-700
-                                    px-3 py-1 inter rounded-full"
-                                onchange="this.form.submit()">
-                                <option value="">Semua</option>
-                                <option value="Ditunggu" @selected(request('status_request') === 'Ditunggu')>Ditunggu</option>
-                                <option value="Diterima" @selected(request('status_request') === 'Diterima')>Diterima</option>
-                                <option value="Ditolak" @selected(request('status_request') === 'Ditolak')>Ditolak</option>
-                            </select>
-                        </form>
-                        
-                        <!-- Search -->
-                        <form method="GET" action="{{ route('admin.request_mitra.index') }}">
-                            <input type="text"
-                                name="search_request"
-                                value="{{ request('search_request') }}" placeholder="Search..."
-                                class="border border border-dashed border-gray-700
-                                    px-4 py-1 inter rounded-full" />
-                                <button type="submit" class="bg-gray-700 text-white
-                                    px-3 py-1 inter rounded-full hidden">Cari</button>
-                        </form>
+                    <div class="flex gap-3 items-center">
+                        <x-header.search />
                     </div>
-                </div>
-    
-                <table class="w-full">
+                </x-header.container>
+
+                <x-table.table>
                     @php
                         function sortLink($column, $label, $currentSortBy, $currentSortOrder) {
                             $newOrder = ($currentSortBy === $column && $currentSortOrder === 'asc') ? 'desc' : 'asc';
@@ -60,73 +35,50 @@
                             return '<a href="' . route('admin.request_mitra.index', $query) . '" class="underline">' . $label . '</a>';
                         }
                     @endphp
-                    <thead class="poppins-medium text-lg text-center">
+                    <x-table.thead>
                         <tr>
-                            <td class="border border-dashed border-gray-700 px-4 py-2">No.</td>
-                            <td class="border border-dashed border-gray-700 px-4 py-2">{!! sortLink('nama_usaha', 'Nama Usaha', $sortBy, $sortOrder) !!}</td>
-                            <td class="border border-dashed border-gray-700 px-4 py-2">{!! sortLink('jenis_usaha', 'Jenis usaha', $sortBy, $sortOrder) !!}</td>
-                            <td class="border border-dashed border-gray-700 px-4 py-2">{!! sortLink('nama_pemilik', 'Nama pemilik', $sortBy, $sortOrder) !!}</td>
-                            <td class="border border-dashed border-gray-700 px-4 py-2">{!! sortLink('status_request', 'Status permintaan', $sortBy, $sortOrder) !!}</td>
-                            <td class="border border-dashed border-gray-700 px-4 py-2">Aksi</td>
+                            <x-table.td>No.</x-table.td>
+                            <x-table.td>{!! sortLink('nama_usaha', 'Nama Usaha', $sortBy, $sortOrder) !!}</x-table.td>
+                            <x-table.td>{!! sortLink('jenis_usaha', 'Jenis usaha', $sortBy, $sortOrder) !!}</x-table.td>
+                            <x-table.td>{!! sortLink('nama_pemilik', 'Nama pemilik', $sortBy, $sortOrder) !!}</x-table.td>
+                            <x-table.td>{!! sortLink('status_request', 'Status permintaan', $sortBy, $sortOrder) !!}</x-table.td>
+                            <x-table.td>Aksi</x-table.td>
                         </tr>
-                    </thead>
-                    <tbody class="inter text-center">
+                    </x-table.thead>
+                    <x-table.tbody>
                         @foreach ($requestMitras as $index => $requestMitra)
-                            <tr>
-                                <td class="border border-dashed border-gray-700 px-4 py-2">{{ $index + 1 }}</td>
-                                <td class="border border-dashed border-gray-700 px-4 py-2">{{ $requestMitra->nama_usaha }}</td>
-                                <td class="border border-dashed border-gray-700 px-4 py-2">{{ $requestMitra->jenis_usaha }}</td>
-                                <td class="border border-dashed border-gray-700 px-4 py-2">{{ $requestMitra->nama_pemilik }}</td>
-                                <td class="border border-dashed border-gray-700 px-4 py-2">{{ $requestMitra->status_request }}</td>
-                                <td class="border border-dashed border-gray-700 px-4 py-2">
-                                    <div class="flex gap-2 justify-center">
-                                        @if ($requestMitra->status_request !== 'Diterima')
-                                            <form method="POST" action="{{ route('admin.request_mitra.accept', $requestMitra->id) }}"
-                                                class="bg-gray-700 text-white px-3 flex inter items-center rounded-full"
-                                                onsubmit="return confirm('Apakah anda yakin untuk menerima permintaan kerjasama?')">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit">Terima</button>
-                                            </form>
-                                        @endif
-    
-                                        @if ($requestMitra->status_request !== 'Ditolak')
-                                            <form method="POST" action="{{ route('admin.request_mitra.reject', $requestMitra->id) }}"
-                                                class="bg-gray-700 text-white px-3 flex inter items-center rounded-full"
-                                                onsubmit="return confirm('Apakah anda yakin untuk menolak permintaan kerjasama?')">
-                                                @csrf
-                                                @method('PUT')
-                                                <button type="submit">Tolak</button>
-                                            </form>
-                                        @endif
-                                        <a href="{{ route('admin.request_mitra.show', $requestMitra->id) }}"
-                                            class="border border-dashed border-gray-700
-                                                px-3 flex inline-block inter items-center rounded-full">Lihat</a>
-                                        <a href="#"
-                                            class="border border-dashed border-gray-700
-                                                px-3 flex inline-block inter items-center rounded-full">Edit</a>
-                                        <form method="POST" action="#">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit">Hapus</button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
+                            <x-table.tr>
+                                <x-table.td>{{ $index + 1 }}</x-table.td>
+                                <x-table.td>{{ $requestMitra->nama_usaha }}</x-table.td>
+                                <x-table.td>{{ $requestMitra->jenis_usaha }}</x-table.td>
+                                <x-table.td>{{ $requestMitra->nama_pemilik }}</x-table.td>
+                                <x-table.td>{{ $requestMitra->status_request }}</x-table.td>
+                                <x-table.td class="flex justify-center items-center gap-2">
+                                    <form method="POST" action="{{ route('admin.request_mitra.accept', $requestMitra->id) }}">
+                                        @csrf
+                                        @method('PATCH')
+                                        <x-table.button type="submit">Terima</x-table.button>
+                                    </form>
+                                    <form method="POST" action="{{ route('admin.request_mitra.reject', $requestMitra->id) }}">
+                                        @csrf
+                                        @method('PATCH')
+                                        <x-table.button type="submit">Tolak</x-table.button>
+                                    </form>
+
+                                    <x-table.button-link href="{{ route('admin.request_mitra.show', $requestMitra->id) }}">Lihat</x-table.button-link>
+                                </x-table.td>
+                            </x-table.tr>
                         @endforeach
-                    </tbody>
-                </table>
-    
-                <!-- Footer -->
-                <div class="border border-dashed border-gray-700
-                    w-full px-4 py-2 rounded-b-lg">
+                    </x-table.tbody>
+                </x-table.table>
+
+                <x-container.pagination>
                     {{ $requestMitras->links() }}
-                </div>
+                </x-container.pagination>
+
             </div>
 
         </x-container.main>
-
-
 
     </x-container.admin-page>
 
