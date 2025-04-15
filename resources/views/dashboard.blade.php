@@ -1,58 +1,164 @@
 <x-layout>
 
-    <div class="min-h-screen flex">
-        <x-admin.sidebar />
+    <x-container.admin-page>
+        <x-sidebar.sidebar />
 
-        <main class="flex-1">
-            <div class="flex justify-between border border-dashed border-gray-500 py-1 mb-4">
-                <input type="text" placeholder="Search"
-                    class="inter border border-dashed rounded-full px-4">
-                @guest
-                    <a href="{{ route('login') }}">Login</a>
-                    <a href="{{ route('register') }}">Register</a>
-                @endguest
-                @auth
-                    <img src="{{ asset('../public/images/profile-ad.png') }}" alt="profile" class="w-10 h-10 rounded-full">
-                @endauth
+        <x-container.main class="flex flex-col space-y-4">
+            <x-header.header />
+
+            <!-- Cards -->
+            <div class="border-sketch flex gap-4">
+
+                <x-card-small.container>
+                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <div class="flex flex-col">
+                        <x-card-small.title>PAKET PERNIKAHAN</x-card-small.title>
+                        <x-card-small.number>10</x-card-small.number>
+                    </div>
+                </x-card-small.container>
+                <x-card-small.container>
+                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <div class="flex flex-col">
+                        <x-card-small.title>KERJASAMA</x-card-small.title>
+                        <x-card-small.number>10</x-card-small.number>
+                    </div>
+                </x-card-small.container>
+                <x-card-small.container>
+                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <div class="flex flex-col">
+                        <x-card-small.title>PERMINTAAN</x-card-small.title>
+                        <x-card-small.number>10</x-card-small.number>
+                    </div>
+                </x-card-small.container>
+                <x-card-small.container>
+                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <div class="flex flex-col">
+                        <x-card-small.title>PEMBAYARAN</x-card-small.title>
+                        <x-card-small.number>10</x-card-small.number>
+                    </div>
+                </x-card-small.container>
+                
             </div>
 
-            <div class="border border-dashed rounded-md">
-                <div class="flex justify-between px-4 py-1">
-                    <h1 class="poppins-semibold text-xl text-gray-700">Header</h1>
-                    <input type="text" placeholder="Search"
-                        class="border poppins border-dashed rounded-full px-4">
-                </div>
+            <!-- Content-table -->
+            <div class="border-sketch rounded-lg">
+                <x-header.container class="px-4">
+                    <div class="flex items-center gap-3">
+                        <x-header.span-dot />
+                        <x-header.h1>PESANAN</x-header.h1>
+                        <x-header.button-link href="#">+ Baru</x-header.button-link>
+                    </div>
+                    <div>
+                        <x-header.search type="text" placeholder="Search.." />
+                    </div>
+                </x-header.container>
 
-                <div>
-                    <table class="min-w-full border border-dashed border-gray-300 rounded-lg">
-                        <thead>
-                            <tr class="border border-gray-300">
-                                <td class="px-4 py-2 poppins-medium text-center text-gray-700 border-b border-gray-300">Head 01</td>
-                                <td class="px-4 py-2 poppins-medium text-center text-gray-700 border-b border-gray-300">Head 02</td>
-                                <td class="px-4 py-2 poppins-medium text-center text-gray-700 border-b border-gray-300">Head 03</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border border-gray-300">
-                                <td class="px-4 py-2 inter text-center text-gray-800">Data 01</td>
-                                <td class="px-4 py-2 inter text-center text-gray-800">Data 02</td>
-                                <td class="px-4 py-2 inter text-center text-gray-800">Data 03</td>
-                            </tr>
-                            <tr class="border border-gray-300">
-                                <td class="px-4 py-2 inter text-center text-gray-800">Data 01</td>
-                                <td class="px-4 py-2 inter text-center text-gray-800">Data 02</td>
-                                <td class="px-4 py-2 inter text-center text-gray-800">Data 03</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <x-table.table>
+                    <x-table.thead>
+                        <tr>
+                            <x-table.td>Title</x-table.td>
+                            <x-table.td>Title</x-table.td>
+                            <x-table.td>Title</x-table.td>
+                            <x-table.td>Title</x-table.td>
+                        </tr>
+                    </x-table.thead>
+                    <x-table.tbody>
+                        <tr>
+                            <x-table.td>Data</x-table.td>
+                            <x-table.td>Data</x-table.td>
+                            <x-table.td>Data</x-table.td>
+                            <x-table.td>Data</x-table.td>
+                        </tr>
+                    </x-table.tbody>
+                </x-table.table>
 
-                <div class="flex justify-center py-2">
-                    <h1>Footer</h1>
+                <div class="px-4 py-2 flex justify-between">
+                    <button type="submit" class="bg-sketch-primary w-30 px-3 py-1 poppins-medium text-lg rounded-lg">< Previous</button>
+                    <button type="submit" class="bg-sketch-primary w-30 px-3 py-1 poppins-medium text-lg rounded-lg">Next ></button>
                 </div>
             </div>
 
-        </main>
-    </div>
+            <!-- Two content table -->
+            <div class="flex w-full gap-4">
+
+                <!-- Content-table -->
+                <div class="border-sketch w-full rounded-lg">
+                    <x-header.container class="px-4">
+                        <div class="flex items-center gap-3">
+                            <x-header.span-dot />
+                            <x-header.h1>PESANAN</x-header.h1>
+                            <x-header.button-link href="#">+ Baru</x-header.button-link>
+                        </div>
+                        <div>
+                            <x-header.search type="text" placeholder="Search.." />
+                        </div>
+                    </x-header.container>
+
+                    <x-table.table>
+                        <x-table.thead>
+                            <tr>
+                                <x-table.td>Title</x-table.td>
+                                <x-table.td>Title</x-table.td>
+                                <x-table.td>Title</x-table.td>
+                                <x-table.td>Title</x-table.td>
+                            </tr>
+                        </x-table.thead>
+                        <x-table.tbody>
+                            <tr>
+                                <x-table.td>Data</x-table.td>
+                                <x-table.td>Data</x-table.td>
+                                <x-table.td>Data</x-table.td>
+                                <x-table.td>Data</x-table.td>
+                            </tr>
+                        </x-table.tbody>
+                    </x-table.table>
+
+                    <div class="px-4 py-2 flex justify-between">
+                        <button type="submit" class="bg-sketch-primary w-30 px-3 py-1 poppins-medium text-lg rounded-lg">< Previous</button>
+                        <button type="submit" class="bg-sketch-primary w-30 px-3 py-1 poppins-medium text-lg rounded-lg">Next ></button>
+                    </div>
+                </div>
+                <!-- Content-table -->
+                <div class="border-sketch w-full rounded-lg">
+                    <x-header.container class="px-4">
+                        <div class="flex items-center gap-3">
+                            <x-header.span-dot />
+                            <x-header.h1>PESANAN</x-header.h1>
+                            <x-header.button-link href="#">+ Baru</x-header.button-link>
+                        </div>
+                        <div>
+                            <x-header.search type="text" placeholder="Search.." />
+                        </div>
+                    </x-header.container>
+
+                    <x-table.table>
+                        <x-table.thead>
+                            <tr>
+                                <x-table.td>Title</x-table.td>
+                                <x-table.td>Title</x-table.td>
+                                <x-table.td>Title</x-table.td>
+                                <x-table.td>Title</x-table.td>
+                            </tr>
+                        </x-table.thead>
+                        <x-table.tbody>
+                            <tr>
+                                <x-table.td>Data</x-table.td>
+                                <x-table.td>Data</x-table.td>
+                                <x-table.td>Data</x-table.td>
+                                <x-table.td>Data</x-table.td>
+                            </tr>
+                        </x-table.tbody>
+                    </x-table.table>
+
+                    <div class="px-4 py-2 flex justify-between">
+                        <button type="submit" class="bg-sketch-primary w-30 px-3 py-1 poppins-medium text-lg rounded-lg">< Previous</button>
+                        <button type="submit" class="bg-sketch-primary w-30 px-3 py-1 poppins-medium text-lg rounded-lg">Next ></button>
+                    </div>
+                </div>
+
+            </div>
+
+        </x-container.main>
+    </x-container.admin-page>
 
 </x-layout>

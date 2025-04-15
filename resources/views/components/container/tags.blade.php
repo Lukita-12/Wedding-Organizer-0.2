@@ -1,0 +1,1 @@
+<div class="flex gap-2 justify-end mt-2 mb-1">{{ $slot }}</div>

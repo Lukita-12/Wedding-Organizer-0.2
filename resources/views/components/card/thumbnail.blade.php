@@ -1,0 +1,1 @@
+<img {{ $attributes->merge(['class' => 'w-100 h-56 object-cover rounded-t-xl']) }}>

@@ -1,0 +1,1 @@
+<i class="text-gray-sketch material-icons text-5xl">{{ $slot }}</i>

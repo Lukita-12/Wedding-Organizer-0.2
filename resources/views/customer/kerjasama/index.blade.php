@@ -4,6 +4,20 @@
 
     <x-jumbotron />
 
+    <div class="border border-dashed border-gray-700 h-120">
+        <div class="flex h-full">
+            <div class="w-1/2 bg-[url('/public/images/grass-snow.jpg')] bg-cover bg-center"></div>
+            <div class="w-1/2 flex flex-col justify-center items-center space-y-4">
+                <h1 class="border border-dashed border-gray-700
+                    w-140 poppins-semibold text-4xl text-slate-700 text-center">
+                    BUAT KERJASAMA DENGAN HATMA WEDDING ORGANIZER
+                </h1>
+                <a href="{{ route('customer.request_mitra.create') }}"
+                class="border-sketch text-gray-sketch px-4 py-1 poppins-bold text-xl rounded-md">DAFTAR</a>
+            </div>
+        </div>
+    </div>
+
     <x-content-container>
         <div class="border border-dashed border-gray-700 mb-4
             flex gap-3 justify-center items-center px-4 py-2">
@@ -62,8 +76,8 @@
                 </div>
                 <div class="flex justify-end">
                     <a href="{{ route('customer.kerjasama.show', $kerjasama->id) }}" 
-                        class="border border-dahsed border-gray-700 text-gray-900
-                            px-4 py-2 poppins-semibold text-2xl rounded-2xl">
+                        class="border-sketch text-gray-sketch
+                            px-4 py-1 poppins-semibold text-xl rounded-lg">
                         Edit
                     </a>
                 </div>

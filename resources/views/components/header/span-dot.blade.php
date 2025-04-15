@@ -1,0 +1,1 @@
+<span class="bg-sketch-primary w-2 h-2 rounded-full"></span>

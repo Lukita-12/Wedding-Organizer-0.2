@@ -15,7 +15,7 @@
                 px-2 poppins text-lg text-center rounded-sm">
                 Kerjasama
             </a>
-            <a href="#" class="border border-dashed border-gray-700
+            <a href="{{ route('customer.pesanan.index') }}" class="border border-dashed border-gray-700
                 px-2 poppins text-lg text-center rounded-sm">
                 Pesanan
             </a>
@@ -70,55 +70,16 @@
             <a href="#" class="underline inter-italic">Lebih banyak...</a>
         </div>
     
-        <!-- Card container -->
-        <div class="border border-dashed border-gray-700
-            flex flex-row justify-center space-x-4 mt-4">
-            <!-- Card -->
-            <div class="border border-dashed border-gray-700 w-105 rounded-xl">
-
-                <img src="{{ asset('../public/images/flower-red-night.jpg') }}" alt="Thumbnail" class="w-full h-56 object-cover rounded-t-xl">
-                
-                <div class="flex flex-col px-3 py-1 gap-2">
-                    <h3 class="text-gray-700 poppins-semibold text-2xl">Nama paket</h3>
-                    <div class="flex justify-end gap-2">
-                        <a href="#" class="bg-gray-300 px-3 py-1 inter text-sm rounded-sm">Tag</a>
-                        <a href="#" class="bg-gray-300 px-3 py-1 inter text-sm rounded-sm">Tag</a>
-                    </div>
-                    <p class="inter-medium text-lg text-end">Rp. 100.XXX.XXX - Rp. 120.XXX.XXX</p>
-                </div>
-
-            </div>
-
-            <!-- Card -->
-            <div class="border border-dashed border-gray-700 w-105 rounded-xl">
-
-                <img src="{{ asset('../public/images/flower-red-night.jpg') }}" alt="Thumbnail" class="w-full h-56 object-cover rounded-t-xl">
-                
-                <div class="flex flex-col px-3 py-1 gap-2">
-                    <h3 class="text-gray-700 poppins-semibold text-2xl">Nama paket</h3>
-                    <div class="flex justify-end gap-2">
-                        <a href="#" class="bg-gray-300 px-3 py-1 inter text-sm rounded-sm">Tag</a>
-                        <a href="#" class="bg-gray-300 px-3 py-1 inter text-sm rounded-sm">Tag</a>
-                    </div>
-                    <p class="inter-medium text-lg text-end">Rp. 100.XXX.XXX - Rp. 120.XXX.XXX</p>
-                </div>
-
-            </div>
-
-            <!-- Card -->
-            <div class="border border-dashed border-gray-700 w-105 rounded-xl">
-
-                <img src="{{ asset('../public/images/flower-red-night.jpg') }}" alt="Thumbnail" class="w-full h-56 object-cover rounded-t-xl">
-                
-                <div class="flex flex-col px-3 py-1 gap-2">
-                    <h3 class="text-gray-700 poppins-semibold text-2xl">Nama paket</h3>
-                    <div class="flex justify-end gap-2">
-                        <a href="#" class="bg-gray-300 px-3 py-1 inter text-sm rounded-sm">Tag</a>
-                        <a href="#" class="bg-gray-300 px-3 py-1 inter text-sm rounded-sm">Tag</a>
-                    </div>
-                    <p class="inter-medium text-lg text-end">Rp. 100.XXX.XXX - Rp. 120.XXX.XXX</p>
-                </div>
-
+        <!-- Card -->
+        <div class="border-sketch w-fit flex flex-col rounded-xl">
+            <x-card.thumbnail src="{{ asset('../public/images/flower-red-night.jpg') }}" alt="Thumbnail" />
+            <div class="flex flex-col px-3 py-1">
+                <x-card.title>Nama paket</x-card.title>
+                <x-container.tags>
+                    <x-card.tag href="#">Tag</x-card.tag>
+                    <x-card.tag href="#">Tag</x-card.tag>
+                </x-container.tags>
+                <x-card.price>Rp. 100.XXX.XXX - Rp. 200.XXX.XXX</x-card.price>
             </div>
         </div>
 

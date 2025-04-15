@@ -68,7 +68,7 @@
                     </div>
 
                     <x-form.button-container>
-                        <x-form.button-link href="{{ url('/request-mitra') }}">
+                        <x-form.button-link href="{{ url('/kerjasama') }}">
                             Batal
                         </x-form.button-link>
                         <x-form.button type="submit">Simpan</x-form.button>
