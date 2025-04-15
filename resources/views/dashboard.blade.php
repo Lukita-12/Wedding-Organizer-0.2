@@ -10,28 +10,28 @@
             <div class="border-sketch flex gap-4">
 
                 <x-card-small.container>
-                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <x-card-small.icon class="material-symbols-rounded">heart_plus</x-card-small.icon>
                     <div class="flex flex-col">
                         <x-card-small.title>PAKET PERNIKAHAN</x-card-small.title>
                         <x-card-small.number>10</x-card-small.number>
                     </div>
                 </x-card-small.container>
                 <x-card-small.container>
-                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <x-card-small.icon class="material-symbols-outlined">handshake</x-card-small.icon>
                     <div class="flex flex-col">
                         <x-card-small.title>KERJASAMA</x-card-small.title>
                         <x-card-small.number>10</x-card-small.number>
                     </div>
                 </x-card-small.container>
                 <x-card-small.container>
-                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <x-card-small.icon class="material-symbols-rounded">contract</x-card-small.icon>
                     <div class="flex flex-col">
                         <x-card-small.title>PERMINTAAN</x-card-small.title>
                         <x-card-small.number>10</x-card-small.number>
                     </div>
                 </x-card-small.container>
                 <x-card-small.container>
-                    <x-card-small.icon>handshake</x-card-small.icon>
+                    <x-card-small.icon class="material-symbols-rounded">payments</x-card-small.icon>
                     <div class="flex flex-col">
                         <x-card-small.title>PEMBAYARAN</x-card-small.title>
                         <x-card-small.number>10</x-card-small.number>

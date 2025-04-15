@@ -1,1 +1,1 @@
-<i class="text-gray-sketch material-icons text-5xl">{{ $slot }}</i>
+<span {{ $attributes->merge(['class' => 'text-gray-sketch text-5xl font-bold']) }}>{{ $slot }}</span>
