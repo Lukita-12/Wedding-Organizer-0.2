@@ -1,85 +1,94 @@
 <x-layout>
 
-    <x-container.admin-page>
-
+    <x-container.dashboard>
         <x-sidebar.sidebar />
 
         <x-container.main>
-            
-            <x-header.header />
-
-            <!-- Message -->
-            <div>
-                @if (session('sukses'))<div>{{ session('sukses') }}</div> @endif
+            <div class="bg-slate-200 w-full flex px-3 py-1 justify-between items-center shadow-md shadow-slate-400">
+                <input type="text" placeholder="Search..." class="bg-slate-100 px-4 py-1 inter rounded-full">
+                <div class="flex items-center gap-2">
+                    @guest
+                        <a href="{{ route('register') }}" class="inline-block bg-teal-500 px-3 py-1 poppins-semibold text-center text-slate-100 rounded-lg">Register</a>
+                        <a href="{{ route('login') }}" class="inline-block bg-red-500 px-3 py-1 poppins-semibold text-center text-slate-100 rounded-lg">Log In</a>
+                    @endguest
+                    @auth
+                        <img src="{{ asset('../public/images/profile-ad.png') }}" alt="Profile" class="w-9 h-9 rounded-full">
+                    @endauth
+                </div>
             </div>
 
-            <!-- Table -->
-            <div class="border-sketch rounded-lg">
-
-                <x-header.container>
-                    <div class="flex gap-3 items-center">
-                        <x-header.span-dot />
-                        <x-header.h1>PERMINTAAN KERJASAMA</x-header.h1>
-                        <x-header.button-link href="#">+ Baru</x-header.button-link>
+            <div class="bg-slate-200 rounded-lg shadow-md shadow-slate-500/80">
+                <div class="px-3 py-1 flex justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-slate-700 w-2 h-2 rounded-full"></span>
+                        <h1 class="text-slate-700 poppins-semibold text-xl">Permintaan Kerjasama</h1>
+                        <a href="#" class="inline-block bg-teal-500 px-3 py-1 poppins-medium text-slate-100 rounded-full" hidden>+ Baru</a>
                     </div>
-                    <div class="flex gap-3 items-center">
-                        <x-header.search />
+                    <div class="flex gap-2 items-center">
+                        <div class="flex items-center gap-2" hidden>
+                            <label for="filter_status" class="poppins-medium text-teal-500">Filter status:</label>
+                            <select name="" id="" class="border border-teal-500 poppins text-slate-700 rounded-sm">
+                                <option value="">Terbaru</option>
+                                <option value="">Terlama</option>
+                                <option value="">Diterima</option>
+                                <option value="">Ditolak</option>
+                            </select>
+                        </div>
+                        <input type="text" placeholder="Search..." class="bg-slate-100 px-4 py-1 inter rounded-full">
+                        <button type="submit" class="bg-teal-500 px-3 py-1 poppins-medium text-slate-100 rounded-full">Cari</button>
                     </div>
-                </x-header.container>
+                </div>
 
-                <x-table.table>
-                    @php
-                        function sortLink($column, $label, $currentSortBy, $currentSortOrder) {
-                            $newOrder = ($currentSortBy === $column && $currentSortOrder === 'asc') ? 'desc' : 'asc';
-                            $query = array_merge(request()->query(), ['sort_by' => $column, 'sort_order' => $newOrder]);
-                            return '<a href="' . route('admin.request_mitra.index', $query) . '" class="underline">' . $label . '</a>';
-                        }
-                    @endphp
-                    <x-table.thead>
-                        <tr>
-                            <x-table.td>No.</x-table.td>
-                            <x-table.td>{!! sortLink('nama_usaha', 'Nama Usaha', $sortBy, $sortOrder) !!}</x-table.td>
-                            <x-table.td>{!! sortLink('jenis_usaha', 'Jenis usaha', $sortBy, $sortOrder) !!}</x-table.td>
-                            <x-table.td>{!! sortLink('nama_pemilik', 'Nama pemilik', $sortBy, $sortOrder) !!}</x-table.td>
-                            <x-table.td>{!! sortLink('status_request', 'Status permintaan', $sortBy, $sortOrder) !!}</x-table.td>
-                            <x-table.td>Aksi</x-table.td>
-                        </tr>
-                    </x-table.thead>
-                    <x-table.tbody>
-                        @foreach ($requestMitras as $index => $requestMitra)
-                            <x-table.tr>
-                                <x-table.td>{{ $index + 1 }}</x-table.td>
-                                <x-table.td>{{ $requestMitra->nama_usaha }}</x-table.td>
-                                <x-table.td>{{ $requestMitra->jenis_usaha }}</x-table.td>
-                                <x-table.td>{{ $requestMitra->nama_pemilik }}</x-table.td>
-                                <x-table.td>{{ $requestMitra->status_request }}</x-table.td>
-                                <x-table.td class="flex justify-center items-center gap-2">
-                                    <form method="POST" action="{{ route('admin.request_mitra.accept', $requestMitra->id) }}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <x-table.button type="submit">Terima</x-table.button>
-                                    </form>
-                                    <form method="POST" action="{{ route('admin.request_mitra.reject', $requestMitra->id) }}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <x-table.button type="submit">Tolak</x-table.button>
-                                    </form>
+                <div class="w-full overflow-x-auto">
+                    <table class="table-auto min-w-full">
+                        <thead class="bg-slate-100">
+                            <tr class="border-b border-slate-500">
+                                <th class="px-12 py-2 text-slate-700 poppins-semibold text-lg text-center whitespace-nowrap">No.</th>
+                                <th class="px-12 py-2 text-slate-700 poppins-semibold text-lg text-center whitespace-nowrap">Nama Pelanggan</th>
+                                <th class="px-12 py-2 text-slate-700 poppins-semibold text-lg text-center whitespace-nowrap">Nama Usaha</th>
+                                <th class="px-12 py-2 text-slate-700 poppins-semibold text-lg text-center whitespace-nowrap">Jenis Usaha</th>
+                                <th class="px-12 py-2 text-slate-700 poppins-semibold text-lg text-center whitespace-nowrap">Nama Pemilik</th>
+                                <th class="px-12 py-2 text-slate-700 poppins-semibold text-lg text-center whitespace-nowrap">Status Permintaan</th>
+                                <th class="px-12 py-2 text-slate-700 poppins-semibold text-lg text-center whitespace-nowrap">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($requestMitras as $requestMitra)
+                                <tr class="odd:bg-slate-200 even:bg-slate-100">
+                                    <td class="px-12 py-2 text-slate-700 poppins text-center whitespace-nowrap">{{ $loop->iteration }}</td>
+                                    <td class="px-12 py-2 text-slate-700 poppins text-center whitespace-nowrap">{{ $requestMitra->pelanggan->nama_pelanggan }}</td>
+                                    <td class="px-12 py-2 text-slate-700 poppins text-center whitespace-nowrap">{{ $requestMitra->nama_usaha }}</td>
+                                    <td class="px-12 py-2 text-slate-700 poppins text-center whitespace-nowrap">{{ $requestMitra->jenis_usaha }}</td>
+                                    <td class="px-12 py-2 text-slate-700 poppins text-center whitespace-nowrap">{{ $requestMitra->nama_pemilik }}</td>
+                                    <td class="px-12 py-2 text-slate-700 poppins text-center whitespace-nowrap">{{ $requestMitra->status_request }}</td>
+                                    <td class="px-12 py-2 text-slate-700 poppins text-center whitespace-nowrap">
+                                        <div class="w-full flex justify-center gap-2">
+                                            <form method="POST" action="{{ route('admin.request_mitra.accept', $requestMitra->id) }}">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="border border-teal-500 px-3 poppins text-teal-500 text-sm rounded-full">Terima</button>
+                                            </form>
+                                            
+                                            <form method="POST" action="{{ route('admin.request_mitra.reject', $requestMitra->id) }}">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button type="submit" class="border border-red-500 px-3 poppins text-red-500 text-sm rounded-full transition duration:250 hover:bg-red-500 hover:text-slate-100">Tolak</button>
+                                            </form>
+        
+                                            <a href="#" class="inline-block border border-green-500 px-3 poppins text-green-500 text-sm rounded-full">Edit</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
-                                    <x-table.button-link href="{{ route('admin.request_mitra.show', $requestMitra->id) }}">Lihat</x-table.button-link>
-                                </x-table.td>
-                            </x-table.tr>
-                        @endforeach
-                    </x-table.tbody>
-                </x-table.table>
-
-                <x-container.pagination>
+                <div class="px-3 py-2">
                     {{ $requestMitras->links() }}
-                </x-container.pagination>
-
+                </div>
             </div>
-
         </x-container.main>
-
-    </x-container.admin-page>
+    </x-container.dashboard>
 
 </x-layout>
