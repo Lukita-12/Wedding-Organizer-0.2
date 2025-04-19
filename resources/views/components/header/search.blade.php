@@ -1,2 +1,1 @@
-<input type="text" placeholder="Search" 
-    class="border-sketch px-4 py-1 inter text-lg rounded-full">
+<input {{ $attributes->merge(['class' => 'bg-slate-100 px-4 py-1 inter rounded-full']) }}>
