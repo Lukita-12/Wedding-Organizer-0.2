@@ -43,7 +43,7 @@
     
                 <div class="flex flex-col gap-1">
                     <label for="alamat_pelanggan" class="block px-4 py-1 poppins-semibold text-slate-700 text-xl">Alamat</label>
-                    <textarea type="text" name="alamat_pelanggan" id="alamat_pelanggan" rows="4" placeholder="Alamat lengkap" class="bg-slate-100 w-full px-4 py-1 inter text-slate-700 text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none" required></textarea>
+                    <textarea type="text" name="alamat_pelanggan" id="alamat_pelanggan" placeholder="Alamat lengkap" class="bg-slate-100 w-full px-4 py-1 inter text-slate-700 text-lg rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none" required></textarea>
                     @error ('alamat_pelanggan')
                         <div class="lora text-sm text-red-500 italic">{{ $message }}</div>
                     @enderror
