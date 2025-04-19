@@ -17,7 +17,9 @@ class KerjasamaController extends Controller
         $kerjasamas = Kerjasama::where('pelanggan_id', Auth::id())
             ->latest()->paginate(6);
 
-        return view('/customer.kerjasama.index', compact('kerjasamas'));
+        return view('/customer.kerjasama.index', [
+            'kerjasamas' => $kerjasamas,
+        ]);
     }
 
     /**
