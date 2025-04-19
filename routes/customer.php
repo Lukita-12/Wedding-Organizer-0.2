@@ -8,6 +8,8 @@ use App\Http\Controllers\Customer\PesananController;
 use App\Http\Controllers\Customer\RequestMitraController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/kerjasama', [KerjasamaController::class, 'index'])->name('customer.kerjasama.index');
+
 Route::middleware(['auth'])->group(function () {
     Route::controller(PelangganController::class)->group(function () {
         Route::get('/pelanggan', 'index')->name('customer.pelanggan.index');
@@ -24,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::controller(KerjasamaController::class)->group(function () {
-        Route::get('/kerjasama', 'index')->name('customer.kerjasama.index');
+        // Route::get('/kerjasama', 'index')->name('customer.kerjasama.index'); // No need to login to access this route
         Route::get('/kerjasama/{kerjasama}', 'show')->name('customer.kerjasama.show');
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('customer.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('customer.kerjasama.update');

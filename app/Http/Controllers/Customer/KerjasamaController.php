@@ -14,8 +14,10 @@ class KerjasamaController extends Controller
 
     public function index()
     {
-        $kerjasamas = Kerjasama::where('pelanggan_id', Auth::id())
-            ->latest()->paginate(6);
+        $userId     = Auth::id();
+        $kerjasamas = Kerjasama::whereHas('pelanggan', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->get();
 
         return view('/customer.kerjasama.index', [
             'kerjasamas' => $kerjasamas,

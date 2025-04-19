@@ -1,3 +1,3 @@
-<button type="submit" class="bg-sketch-primary w-26 px-4 py-2 flex justify-center items-center poppins-medium text-lg rounded-full">
+<button {{ $attributes->merge(['class' => 'bg-teal-500 px-3 px-1 poppins-semibold text-center text-slate-100 rounded-md transition duration:300 hover:ring-2 hover:ring-offset-2 hover:ring-teal-500']) }}>
     {{ $slot }}
 </button>

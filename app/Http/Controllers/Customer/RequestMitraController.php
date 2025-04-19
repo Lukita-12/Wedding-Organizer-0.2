@@ -20,14 +20,14 @@ class RequestMitraController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $customers = $user->pelanggan;
+        $pelanggans = $user->pelanggan;
         
-        // Determine if the user has customer data
-        $hasCustomer = $customers->isNotEmpty();
+        // Determine if the user has pelanggan data
+        $hasPelanggan = $pelanggans->isNotEmpty();
 
         return view('/customer.request_mitra.create', [
-            'customers'     => $customers,
-            'hasCustomer'   => $hasCustomer,
+            'pelanggans'     => $pelanggans,
+            'hasPelanggan'   => $hasPelanggan,
         ]);
     }
 
@@ -56,7 +56,7 @@ class RequestMitraController extends Controller
             'nama_pemilik'  => $validatedData['nama_pemilik'],
         ]);
 
-        return redirect('/request-mitra');
+        return redirect('/kerjasama');
     }
 
     public function show(RequestMitra $requestMitra)
