@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kerjasama;
+use App\Models\RequestMitra;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -13,35 +14,39 @@ class KerjasamaController extends Controller
 
     public function index()
     {
-        $kerjasamas = Kerjasama::with('pelanggan')->latest()->paginate(6);
+        $kerjasamas = Kerjasama::with('requestMitra')->latest()->simplePaginate(6);
 
         return view('/admin.kerjasama.index', [
             'kerjasamas' => $kerjasamas,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view('admin.kerjasama.create');
+        $requestMitras = RequestMitra::with('pelanggan')->latest()->get();
+
+        return view('admin.kerjasama.create', [
+            'requestMitras' =>$requestMitras,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'noTelp_usaha'  => ['required'],
-            'email_usaha'   => ['required', 'email', 'max:254'],
-            'alamat_usaha'  => ['required'],
-            'harga01'       => ['required', 'string'],
-            'ket_harga01'   => ['required'],
-            'harga02'       => ['required', 'string'],
-            'ket_harga02'   => ['required'],
+            'request_mitra_id'  => ['required', 'exists:request_mitra,id'],
+            'noTelp_usaha'      => ['required'],
+            'email_usaha'       => ['required', 'email', 'max:254'],
+            'alamat_usaha'      => ['required'],
+            'harga01'           => ['required', 'string'],
+            'ket_harga01'       => ['required'],
+            'harga02'           => ['required', 'string'],
+            'ket_harga02'       => ['required'],
         ]);
+
+        // Cek apakah sudah ada kerjasama untuk request mitra yang sama
+        if (Kerjasama::where('request_mitra_id', $validatedData['request_mitra_id'])->exists()) {
+            return back()->with('error', 'Kerjasama dengan jenis usaha ini sudah ada!')->withInput();
+        }
 
         // Remove thousand separators (dots) and convert comma to decimal point
         $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
@@ -56,9 +61,6 @@ class KerjasamaController extends Controller
         return redirect('/admin/kerjasama');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Kerjasama $kerjasama)
     {
         return view('admin.kerjasama.show', [

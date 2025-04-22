@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Pelanggan;
 use App\Models\RequestMitra;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,17 +14,7 @@ return new class extends Migration
     {
         Schema::create('kerjasama', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(RequestMitra::class)
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
-            $table->foreignIdFor(Pelanggan::class)
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
-            $table->string('nama_pemilik');
-            $table->string('nama_usaha');
-            $table->string('jenis_usaha');
+            $table->foreignIdFor(RequestMitra::class)->nullable()->constrained()->nullOnDelete();
             $table->string('noTelp_usaha')->nullable();
             $table->string('email_usaha')->nullable();
             $table->string('alamat_usaha')->nullable();

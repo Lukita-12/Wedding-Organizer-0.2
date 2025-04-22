@@ -31,15 +31,15 @@
                 <div class="flex justify-center gap-8">
                     <div class="border border-dashed border-gray-700 w-1/2 flex flex-col space-y-4">
                         <h1 class="text-gray-900 poppins-semibold text-2xl">Pemilik usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->nama_pemilik }}</span>
+                            <span class="text-gray-700 inter">{{ $kerjasama->requestMitra->nama_pemilik }}</span>
                         </h1>
     
                         <h1 class="text-gray-900 poppins-semibold text-2xl">Nama usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->nama_usaha }}</span>
+                            <span class="text-gray-700 inter">{{ $kerjasama->requestMitra->nama_usaha }}</span>
                         </h1>
     
                         <h1 class="text-gray-900 poppins-semibold text-2xl">Jenis usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->jenis_usaha }}</span>
+                            <span class="text-gray-700 inter">{{ $kerjasama->requestMitra->jenis_usaha }}</span>
                         </h1>
     
                         <h1 class="text-gray-900 poppins-semibold text-2xl">No. Telpon/WA usaha: 
@@ -57,7 +57,7 @@
 
                     <div class="border border-dashed border-gray-700 w-1/2 flex flex-col space-y-4">
                         <h1 class="text-gray-900 poppins-semibold text-2xl">Harga 01: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->harga01 }}</span>
+                            <span class="text-gray-700 inter">Rp. {{ number_format($kerjasama->harga01, 0, ',', '.') }}</span>
                         </h1>
     
                         <h1 class="text-gray-900 poppins-semibold text-2xl">Keterangan harga 01: 
@@ -65,7 +65,7 @@
                         </h1>
     
                         <h1 class="text-gray-900 poppins-semibold text-2xl">Harga 02: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->harga02 }}</span>
+                            <span class="text-gray-700 inter">Rp. {{ number_format($kerjasama->harga02, 0, ',', '.') }}</span>
                         </h1>
     
                         <h1 class="text-gray-900 poppins-semibold text-2xl">Keterangan harga 02: 

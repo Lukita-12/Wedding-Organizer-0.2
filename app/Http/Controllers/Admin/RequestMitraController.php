@@ -97,25 +97,23 @@ class RequestMitraController extends Controller
     public function accept(Requestmitra $requestMitra)
     {
         DB::transaction(function () use ($requestMitra) {
-            // 1. Update status            
             $requestMitra->update(['status_request' => 'Diterima']);
 
-            // 2. Create new kerjasama
-            Kerjasama::create([
-            'request_mitra_id'   => $requestMitra->id,
-            'pelanggan_id'      => $requestMitra->pelanggan_id,
-            'nama_pemilik'      => $requestMitra->nama_pemilik,
-            'nama_usaha'        => $requestMitra->nama_usaha,
-            'jenis_usaha'       => $requestMitra->jenis_usaha,
-            // leave it null for now
-            'noTelp_usaha'      => null,
-            'email_usaha'       => null,
-            'alamat_usaha'      => null,
-            'harga01'           => null,
-            'ket_harga01'       => null,
-            'harga02'           => null,
-            'ket_harga02'       => null,
-            ]);
+            // Cek apakah kerjasama untuk request_mitra ini sudah ada
+            $kerjasamaExists = Kerjasama::where('request_mitra_id', $requestMitra->id)->exists();
+
+            if (! $kerjasamaExists) {
+                Kerjasama::create([
+                'request_mitra_id'  => $requestMitra->id,
+                'noTelp_usaha'      => null,
+                'email_usaha'       => null,
+                'alamat_usaha'      => null,
+                'harga01'           => null,
+                'ket_harga01'       => null,
+                'harga02'           => null,
+                'ket_harga02'       => null,
+                ]);
+            }
         });
 
         return redirect('/admin/request-mitra')

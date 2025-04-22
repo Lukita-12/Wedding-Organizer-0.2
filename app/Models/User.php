@@ -47,6 +47,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Kerjasama
+    public function kerjasamas()
+    {
+        return Kerjasama::whereHas('requestMitra.pelanggan', function ($query) {
+            $query->where('user_id', $this->id);
+        });
+    }
     
     public function isAdmin(): bool
     {

@@ -19,10 +19,8 @@ class RequestMitraController extends Controller
 
     public function create()
     {
-        $user = Auth::user();
-        $pelanggans = $user->pelanggan;
-        
         // Determine if the user has pelanggan data
+        $pelanggans = Auth::user()->pelanggan;
         $hasPelanggan = $pelanggans->isNotEmpty();
 
         return view('/customer.request_mitra.create', [

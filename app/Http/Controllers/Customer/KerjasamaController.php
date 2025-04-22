@@ -14,10 +14,10 @@ class KerjasamaController extends Controller
 
     public function index()
     {
-        $userId     = Auth::id();
-        $kerjasamas = Kerjasama::whereHas('pelanggan', function ($query) use ($userId) {
-            $query->where('user_id', $userId);
-        })->get();
+        $kerjasamas = Kerjasama::with('requestMitra.pelanggan.user')
+            ->whereHas('requestMitra.pelanggan', function ($query) {
+                $query->where('user_id', Auth::id());
+            })->get();
 
         return view('/customer.kerjasama.index', [
             'kerjasamas' => $kerjasamas,

@@ -23,7 +23,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/kerjasama/{kerjasama}', 'show')->name('admin.kerjasama.show');
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('admin.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('admin.kerjasama.update');
-        Route::delete('/kerjasama/{kerjasama}', 'destroy')->name('admin.kerjasama.delete');
+        Route::delete('/kerjasama/{kerjasama}', 'destroy')->name('admin.kerjasama.destroy');
     });
 
     Route::controller(PaketPernikahanController::class)->group(function () {

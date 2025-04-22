@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Pelanggan;
 use App\Models\RequestMitra;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,10 +19,6 @@ class KerjasamaFactory extends Factory
     {
         return [
             'request_mitra_id'  => RequestMitra::factory(),
-            'pelanggan_id'      => Pelanggan::factory(),
-            'nama_pemilik'      => fake()->name(),
-            'nama_usaha'        => fake()->company(),
-            'jenis_usaha'       => fake()->randomElement(['Venue', 'Dekorasi', 'Tata rias', 'Catering', 'Kue pernikahan', 'Fotografer', 'Entertainment']),
             'noTelp_usaha'      => fake()->phoneNumber(),
             'email_usaha'       => fake()->unique()->safeEmail(),
             'alamat_usaha'      => fake()->address(),
