@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -7,8 +8,9 @@ Route::get('/', function () {
 });
 
 Route::view('/home', 'home');
-Route::view('/dashboard', 'dashboard');
 Route::view('/form-desain', 'form-desain');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';

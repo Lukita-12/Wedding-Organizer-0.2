@@ -1,1 +1,0 @@
-<span class="text-gray-sketch poppins-bold text-xl">{{ $slot }}</span>
