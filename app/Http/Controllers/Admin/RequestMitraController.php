@@ -10,6 +10,16 @@ use Illuminate\Support\Facades\DB;
 
 class RequestMitraController extends Controller
 {
+    public function index()
+    {
+        $requestMitras = RequestMitra::with('pelanggan')->latest()->simplePaginate(6);
+
+        return view('/admin.request_mitra.index', [
+            'requestMitras' => $requestMitras,
+        ]);
+    }
+
+    /*
     public function index(Request $request)
     {
         // $requestMitras = RequestMitra::with('pelanggan')->latest()->simplePaginate(6);
@@ -43,6 +53,7 @@ class RequestMitraController extends Controller
             'sortOrder'    => $sortOrder,
         ]);
     }
+    */
 
     /**
      * Show the form for creating a new resource.
@@ -94,6 +105,7 @@ class RequestMitraController extends Controller
         //
     }
 
+    // Action
     public function accept(Requestmitra $requestMitra)
     {
         DB::transaction(function () use ($requestMitra) {
