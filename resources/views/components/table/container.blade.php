@@ -1,10 +1,12 @@
 @props(['variant' => 'default'])
 @php
     $container = match($variant) {
-        default     => 'w-full bg-slate-200 flex flex-col shadow shadow-slate-700',
-        'heading'   => 'w-full flex justify-between items-center px-4 py-1 border-b-2 border-slate-500',
-        'table'     => 'w-full overflow-auto',
-        'footer'    => 'w-full flex justify-center px-3 py-3',
+        default     => '',
+        'main'      => 'w-full bg-slate-200 flex flex-col shadow shadow-slate-500',
+        'heading'   => 'w-full flex justify-between items-center px-4 py-2 border-b-2 border-slate-500',
+        'table'     => 'overflow-auto',
+        'footing'   => 'px-4 py-3',
+        'button'    => 'flex justify-center items-center gap-2',
     }
 @endphp
 

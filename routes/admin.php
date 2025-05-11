@@ -23,10 +23,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/kerjasama', 'index')->name('admin.kerjasama.index');
         Route::get('/kerjasama/create', 'create')->name('admin.kerjasama.create');
         Route::post('/kerjasama/', 'store')->name('admin.kerjasama.store');
+        Route::get('/kerjasama/search', 'search')->name('admin.kerjasama.search');
+        
         Route::get('/kerjasama/{kerjasama}', 'show')->name('admin.kerjasama.show');
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('admin.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('admin.kerjasama.update');
         Route::delete('/kerjasama/{kerjasama}', 'destroy')->name('admin.kerjasama.destroy');
+
     });
 
     Route::controller(PaketPernikahanController::class)->group(function () {

@@ -29,7 +29,8 @@
     </aside>
 
     <main class="flex-1 overflow-auto">
-        <div class="sticky top-0 left-0 w-full bg-slate-200 flex justify-end items-center shadow shadow-slate-700 px-4 py-1">
+        <div class="sticky top-0 left-0 w-full bg-slate-200 flex justify-between items-center shadow shadow-slate-700 px-4 py-1">
+            <span class="poppins-semibold text-slate-700 text-2xl">{{ $heading }}</span>
             <img src="{{ asset('images/profile-ad.png') }}" alt="" class="w-9 h-9 object-cover rounded-full">
         </div>
         

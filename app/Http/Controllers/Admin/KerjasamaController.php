@@ -108,4 +108,21 @@ class KerjasamaController extends Controller
 
         return redirect('/admin/kerjasama');
     }
+
+    // Search
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $kerjasamas = Kerjasama::with('requestMitra')
+            ->when($search, function ($query, $search) {
+                $query->whereHas('requestMitra', function($subQuery) use ($search) {
+                    $subQuery->where('nama_usaha', 'like', '%'. $search . '%');
+                });
+            })->simplePaginate(6);
+        
+        return view('admin.kerjasama.index', [
+            'kerjasamas' => $kerjasamas,
+        ]);
+    }
 }

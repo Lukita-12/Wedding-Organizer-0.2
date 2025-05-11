@@ -1,7 +1,8 @@
 @props(['variant' => 'default'])
 @php
     $span = match($variant) {
-        default => 'poppins-semibold text-slate-700 text-2xl',
+        default     => '',
+        'heading'   => 'poppins-semibold text-slate-700 text-2xl',
     }
 @endphp
 
