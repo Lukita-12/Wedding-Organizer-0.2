@@ -23,15 +23,17 @@
         <x-sidebar.container>
             <form method="POST" action="#">
                 @csrf
-                <button type="submit" class="w-full bg-red-500 poppins-semibold text-slate-100 text-lg px-3 py-1">Log Out</button>
+                <button type="submit" class="w-full bg-red-500 poppins-semibold text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-red-700">
+                    Log Out
+                </button>
             </form>
         </x-sidebar.container>
     </aside>
 
     <main class="flex-1 overflow-auto">
         <div class="sticky top-0 left-0 w-full bg-slate-200 flex justify-between items-center shadow shadow-slate-700 px-4 py-1">
-            <span class="poppins-semibold text-slate-700 text-2xl">{{ $heading }}</span>
-            <img src="{{ asset('images/profile-ad.png') }}" alt="" class="w-9 h-9 object-cover rounded-full">
+            <span class="poppins-semibold text-teal-700 text-2xl">{{ $heading }}</span>
+            <img src="{{ asset('images/profile-ad.png') }}" alt="" class="cursor-pointer w-9 h-9 object-cover rounded-full transition delay-50 duration:300 hover:ring-2 hover:ring-teal-500 hover:ring-offset-2">
         </div>
         
         <div class="w-full flex flex-col px-6 py-6 gap-8">

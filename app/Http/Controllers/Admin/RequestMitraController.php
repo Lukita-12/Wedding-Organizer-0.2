@@ -74,7 +74,7 @@ class RequestMitraController extends Controller
     public function show(RequestMitra $requestMitra)
     {
         // Eager load customer relationship just in case
-        $requestMitra->load('pelanggan');
+        // $requestMitra->load('pelanggan');
 
         return view('/admin.request_mitra.show', [
             'requestMitra' => $requestMitra,
@@ -103,6 +103,20 @@ class RequestMitraController extends Controller
     public function destroy(RequestMitra $requestMitra)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $requestMitras = RequestMitra::with('pelanggan')
+            ->when($search, function ($query, $search) {
+                return $query->where('nama_usaha', 'like', '%' . $search . '%');
+        })->simplePaginate(6);
+
+        return view('admin.request_mitra.index', [
+            'requestMitras' => $requestMitras,
+        ]);
     }
 
     // Action

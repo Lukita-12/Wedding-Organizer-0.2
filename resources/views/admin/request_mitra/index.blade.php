@@ -1,60 +1,64 @@
 <x-layout-dashboard>
+    <x-slot:heading>
+        Permintaan Kerjasama
+    </x-slot:heading>
 
-    <div class="w-full bg-slate-200 flex flex-col shadow shadow-slate-500">
-        <div class="w-full flex justify-between items-center px-4 py-2 border-b-2 border-slate-500">
-            <span class="poppins-semibold text-slate-700 text-2xl">Permintaan Kerjasama</span>
+    <x-table.container variant="main">
+        <x-table.container variant="heading">
+            <x-table.search action="{{ route('admin.request_mitra.search') }}" />
+            
+            <x-table.link variant="create" href="#">+ Tambah</x-table.link>
+        </x-table.container>
 
-            <form method="GET" action="{{ route('admin.request_mitra.search') }}">
-                <input type="text" name="search" value="{{ request('search') }}" class="bg-slate-100 inter-medium px-3 py-1">
-                <button type="submit" class="bg-slate-500 poppins-semibold text-slate-100 px-3 py-1">Cari</button>
-            </form>
-        </div>
-
-        <div class="overflow-auto">
+        <x-table.container variant="table">
             <table>
                 <thead>
                     <tr>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-4 py-2 whitespace-nowrap">No.</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Nama Pelanggan</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Nama Usaha</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Jenis Usaha</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Nama Pemilik</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Status Permintaan</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Aksi</td>
+                        <x-table.td variant="heading" class="px-4!">No.</x-table.td>
+                        <x-table.td variant="heading">Nama Pelanggan</x-table.td>
+                        <x-table.td variant="heading">Nama Usaha</x-table.td>
+                        <x-table.td variant="heading">Jenis Usaha</x-table.td>
+                        <x-table.td variant="heading">Nama Pemilik</x-table.td>
+                        <x-table.td variant="heading">Status Permintaan</x-table.td>
+                        <x-table.td variant="heading">Aksi</x-table.td>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($requestMitras as $requestMitra)
-                        <tr class="odd:bg-slate-100 even:bg-slate-200">
-                            <td class="poppins text-slate-700 text-center px-4 py-3 whitespace-nowrap">{{ $loop->iteration }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $requestMitra->pelanggan->nama_pelanggan }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $requestMitra->nama_usaha }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $requestMitra->jenis_usaha }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $requestMitra->nama_pemilik }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $requestMitra->status_request }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">
-                                <div class="w-full flex justify-center gap-2">
+                        <x-table.tr variant="body" class="row-click cursor-pointer" data-url="{{ route('admin.request_mitra.show', $requestMitra) }}">
+                            <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
+                            <x-table.td>{{ $requestMitra->pelanggan->nama_pelanggan }}</x-table.td>
+                            <x-table.td>{{ $requestMitra->nama_usaha }}</x-table.td>
+                            <x-table.td>{{ $requestMitra->jenis_usaha }}</x-table.td>
+                            <x-table.td>{{ $requestMitra->nama_pemilik }}</x-table.td>
+                            <x-table.td>{{ $requestMitra->status_request }}</x-table.td>
+                            <x-table.td>
+                                <x-table.container variant="button">
                                     <form method="POST" action="{{ route('admin.request_mitra.accept', $requestMitra->id) }}">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="border border-teal-500 px-3 poppins text-teal-500 text-sm rounded-full">Terima</button>
+                                        <x-table.button variant="accept" type="submit">Terima</x-table.button>
                                     </form>
                                     
                                     <form method="POST" action="{{ route('admin.request_mitra.reject', $requestMitra->id) }}">
                                         @csrf
                                         @method('PATCH')
-                                        <button type="submit" class="border border-red-500 px-3 poppins text-red-500 text-sm rounded-full transition duration:250 hover:bg-red-500 hover:text-slate-100">Tolak</button>
+                                        <x-table.button variant="reject" type="submit">Tolak</x-table.button>
                                     </form>
 
-                                    <a href="#" class="inline-block border border-green-500 px-3 poppins text-green-500 text-sm rounded-full">Edit</a>
-                                </div>
-                            </td>
-                        </tr>
+                                    <x-table.link variant="edit" href="#">Edit</x-table.link>
+                                </x-table.container>
+                            </x-table.td>
+                        </x-table.tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
+        </x-table.container>
+
+        <x-table.container variant="footing">
+            {{ $requestMitras->links() }}
+        </x-table.container>
         
-    </div>
+    </x-table.container>
 
 </x-layout-dashboard>
