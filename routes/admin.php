@@ -3,12 +3,23 @@
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PaketPernikahanController;
+use App\Http\Controllers\Admin\PelangganController;
 use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\RequestMitraController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::controller(PelangganController::class)->group(function () {
+        Route::get('/pelanggan', 'index')->name('admin.pelanggan.index');
+        Route::get('/pelanggan/create', 'create')->name('admin.pelanggan.create');
+        Route::post('/pelanggan', 'store')->name('admin.pelanggan.store');
+        Route::get('/pelanggan/search', 'search')->name('admin.pelanggan.search');
+
+        Route::get('/pelanggan/{pelanggan}/edit', 'edit')->name('admin.pelanggan.edit');
+        Route::put('/pelanggan/{pelanggan}', 'update')->name('admin.pelanggan.update');
+        Route::delete('/pelanggan/{pelanggan}', 'destroy')->name('admin.pelanggan.destroy');
+    });
     Route::controller(RequestMitraController::class)->group(function () {
         Route::get('/request-mitra', 'index')->name('admin.request_mitra.index');
         Route::get('/request-mitra/search', 'search')->name('admin.request_mitra.search');

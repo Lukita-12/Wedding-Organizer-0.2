@@ -5,7 +5,7 @@
 
     <x-table.container variant="main">
         <x-table.container variant="heading">
-            <x-table.search action="{{ route('admin.request_mitra.search') }}" />
+            <x-table.search action="{{ route('admin.request_mitra.search') }}" placeholder="Cari usaha..." />
             
             <x-table.link variant="create" href="#">+ Tambah</x-table.link>
         </x-table.container>
@@ -14,13 +14,13 @@
             <table>
                 <thead>
                     <tr>
-                        <x-table.td variant="heading" class="px-4!">No.</x-table.td>
-                        <x-table.td variant="heading">Nama Pelanggan</x-table.td>
-                        <x-table.td variant="heading">Nama Usaha</x-table.td>
-                        <x-table.td variant="heading">Jenis Usaha</x-table.td>
-                        <x-table.td variant="heading">Nama Pemilik</x-table.td>
-                        <x-table.td variant="heading">Status Permintaan</x-table.td>
-                        <x-table.td variant="heading">Aksi</x-table.td>
+                        <x-table.td variant="head" class="px-4!">No.</x-table.td>
+                        <x-table.td variant="head">Nama Pelanggan</x-table.td>
+                        <x-table.td variant="head">Nama Usaha</x-table.td>
+                        <x-table.td variant="head">Jenis Usaha</x-table.td>
+                        <x-table.td variant="head">Nama Pemilik</x-table.td>
+                        <x-table.td variant="head">Status Permintaan</x-table.td>
+                        <x-table.td variant="head">Aksi</x-table.td>
                     </tr>
                 </thead>
                 <tbody>

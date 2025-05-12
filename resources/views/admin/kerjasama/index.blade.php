@@ -5,7 +5,7 @@
 
     <x-table.container variant="main">
         <x-table.container variant="heading">
-            <x-table.search action="{{ route('admin.kerjasama.search') }}" />
+            <x-table.search action="{{ route('admin.kerjasama.search') }}" placeholder="Cari usaha..." />
 
             <x-table.link variant="create" href="{{ route('admin.kerjasama.create') }}">+ Tambah</x-table.link>
         </x-table.container>
@@ -14,18 +14,18 @@
             <table>
                 <thead>
                     <tr>
-                        <x-table.td variant="heading" class="px-4!">No.</x-table.td>
-                        <x-table.td variant="heading">Nama Usaha</x-table.td>
-                        <x-table.td variant="heading">Nama Pemilik</x-table.td>
-                        <x-table.td variant="heading">Jenis Usaha</x-table.td>
-                        <x-table.td variant="heading">No. Telpon</x-table.td>
-                        <x-table.td variant="heading">Email</x-table.td>
-                        <x-table.td variant="heading">Alamat</x-table.td>
-                        <x-table.td variant="heading">Harga 01</x-table.td>
-                        <x-table.td variant="heading">Keterangan Harga 01</x-table.td>
-                        <x-table.td variant="heading">Harga 02</x-table.td>
-                        <x-table.td variant="heading">Keterangan Harga 02</x-table.td>
-                        <x-table.td variant="heading">Aksi</x-table.td>
+                        <x-table.td variant="head" class="px-4!">No.</x-table.td>
+                        <x-table.td variant="head">Nama Usaha</x-table.td>
+                        <x-table.td variant="head">Nama Pemilik</x-table.td>
+                        <x-table.td variant="head">Jenis Usaha</x-table.td>
+                        <x-table.td variant="head">No. Telpon</x-table.td>
+                        <x-table.td variant="head">Email</x-table.td>
+                        <x-table.td variant="head">Alamat</x-table.td>
+                        <x-table.td variant="head">Harga 01</x-table.td>
+                        <x-table.td variant="head">Keterangan Harga 01</x-table.td>
+                        <x-table.td variant="head">Harga 02</x-table.td>
+                        <x-table.td variant="head">Keterangan Harga 02</x-table.td>
+                        <x-table.td variant="head">Aksi</x-table.td>
                     </tr>
                 </thead>
                 <tbody>
