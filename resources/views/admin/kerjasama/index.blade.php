@@ -36,13 +36,13 @@
                             <x-table.td>{{ $kerjasama->requestMitra->nama_pemilik ?? '-' }}</x-table.td>
                             <x-table.td>{{ $kerjasama->requestMitra->jenis_usaha ?? '-' }}</x-table.td>
         
-                            <x-table.td>{{ $kerjasama->noTelp_usaha }}</x-table.td>
-                            <x-table.td>{{ $kerjasama->email_usaha }}</x-table.td>
-                            <x-table.td>{{ $kerjasama->alamat_usaha }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->noTelp_usaha ?? '-' }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->email_usaha ?? '-' }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->alamat_usaha ?? '-' }}</x-table.td>
                             <x-table.td>Rp. {{ number_format($kerjasama->harga01, 0, ',', '.') }}</x-table.td>
-                            <x-table.td>{{ $kerjasama->ket_harga01 }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->ket_harga01 ?? '-' }}</x-table.td>
                             <x-table.td>Rp. {{ number_format($kerjasama->harga02, 0, ',', '.') }}</x-table.td>
-                            <x-table.td>{{ $kerjasama->ket_harga02 }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->ket_harga02 ?? '-' }}</x-table.td>
                             <x-table.td>
                                 <x-table.container variant="button">
                                     <x-table.link variant="edit" href="{{ route('admin.kerjasama.edit', $kerjasama) }}">Edit</x-table.link>

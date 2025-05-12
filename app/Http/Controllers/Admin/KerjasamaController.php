@@ -70,8 +70,11 @@ class KerjasamaController extends Controller
 
     public function edit(Kerjasama $kerjasama)
     {
+        $requestMitras = RequestMitra::with('pelanggan')->latest()->get();
+
         return view('admin.kerjasama.edit', [
-            'kerjasama' => $kerjasama
+            'kerjasama'     => $kerjasama,
+            'requestMitras' => $requestMitras,
         ]);
     }
 

@@ -39,12 +39,12 @@
                 <tbody>
                     @foreach ($requestMitras as $requestMitra)
                         <x-table.tr variant="body" class="row-click cursor-pointer" data-url="{{ route('admin.request_mitra.show', $requestMitra) }}">
-                            <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
-                            <x-table.td>{{ $requestMitra->pelanggan->nama_pelanggan }}</x-table.td>
-                            <x-table.td>{{ $requestMitra->nama_usaha }}</x-table.td>
-                            <x-table.td>{{ $requestMitra->jenis_usaha }}</x-table.td>
-                            <x-table.td>{{ $requestMitra->nama_pemilik }}</x-table.td>
-                            <x-table.td>{{ $requestMitra->status_request }}</x-table.td>
+                            <x-table.td class="px-4!">{{ $loop->iteration}}</x-table.td>
+                            <x-table.td>{{ $requestMitra->pelanggan->nama_pelanggan ?? '-'}}</x-table.td>
+                            <x-table.td>{{ $requestMitra->nama_usaha}}</x-table.td>
+                            <x-table.td>{{ $requestMitra->jenis_usaha}}</x-table.td>
+                            <x-table.td>{{ $requestMitra->nama_pemilik}}</x-table.td>
+                            <x-table.td>{{ $requestMitra->status_request}}</x-table.td>
                             <x-table.td>
                                 <x-table.container variant="button">
                                     <form method="POST" action="{{ route('admin.request_mitra.accept', $requestMitra->id) }}">
