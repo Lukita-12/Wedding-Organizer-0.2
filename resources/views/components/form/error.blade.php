@@ -1,5 +1,5 @@
 @props(['errorFor'])
 
 @error ($errorFor)
-    <div class="text-sm text-red-400 italic">{{ $message }}</div>
+    <span class="inter-italic text-red-500 text-sm px-3 py-1">{{ $message }}</span>
 @enderror

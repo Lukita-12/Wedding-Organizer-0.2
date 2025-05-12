@@ -32,9 +32,9 @@
                     @foreach ($kerjasamas as $kerjasama)
                         <x-table.tr variant="body" class="row-click cursor-pointer" data-url="{{ route('admin.kerjasama.show', $kerjasama) }}">
                             <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
-                            <x-table.td>{{ $kerjasama->requestMitra->nama_usaha }}</x-table.td>
-                            <x-table.td>{{ $kerjasama->requestMitra->nama_pemilik }}</x-table.td>
-                            <x-table.td>{{ $kerjasama->requestMitra->jenis_usaha }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->requestMitra->nama_usaha ?? '-' }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->requestMitra->nama_pemilik ?? '-' }}</x-table.td>
+                            <x-table.td>{{ $kerjasama->requestMitra->jenis_usaha ?? '-' }}</x-table.td>
         
                             <x-table.td>{{ $kerjasama->noTelp_usaha }}</x-table.td>
                             <x-table.td>{{ $kerjasama->email_usaha }}</x-table.td>

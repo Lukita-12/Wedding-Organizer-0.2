@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kerjasama;
+use App\Models\Pelanggan;
 use App\Models\RequestMitra;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,56 +20,27 @@ class RequestMitraController extends Controller
         ]);
     }
 
-    /*
-    public function index(Request $request)
-    {
-        // $requestMitras = RequestMitra::with('pelanggan')->latest()->simplePaginate(6);
-        $query = RequestMitra::with('pelanggan');
-
-        // Search
-        if ($request->filled('search_request')) {
-            $searchRequest = $request->search_request;
-
-            $query->where(function ($q) use ($searchRequest) {
-                $q->where('nama_usaha', 'like', "%{$searchRequest}%")
-                  ->orWhereHas('pelanggan', function ($q2) use ($searchRequest) {
-                    $q2->where('nama_pelanggan', 'like', "%{$searchRequest}");
-                  });
-            });
-        }
-        // Filter
-        if ($request->filled('status_request')) {
-            $query->where('status_request', $request->status_request);
-        }
-        // Sorting
-        $sortBy     = $request->input('sort_by', 'created_at');
-        $sortOrder  = $request->input('sort_order', 'desc');
-        $query->orderBy($sortBy, $sortOrder);
-
-        $requestMitras = $query->latest()->simplePaginate(6)->withQueryString();
-
-        return view('/admin.request_mitra.index', [
-            'requestMitras' => $requestMitras,
-            'sortBy'        => $sortBy,
-            'sortOrder'    => $sortOrder,
-        ]);
-    }
-    */
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $pelanggans = Pelanggan::latest()->get();
+
+        return view('admin.request_mitra.create', [
+            'pelanggans' => $pelanggans,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'pelanggan_id'  => ['required', 'exists:pelanggan,id'],
+            'nama_usaha'    => ['required'],
+            'jenis_usaha'   => ['required'],
+            'nama_pemilik'  => ['required'],
+        ]);
+
+        RequestMitra::create($validatedData);
+
+        return redirect('/admin/request-mitra');
     }
 
     public function show(RequestMitra $requestMitra)
@@ -81,30 +53,38 @@ class RequestMitraController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(RequestMitra $requestMitra)
     {
-        //
+        $pelanggans = Pelanggan::latest()->get();
+
+        return view('/admin.request_mitra.edit', [
+            'requestMitra'  => $requestMitra,
+            'pelanggans'    => $pelanggans,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, RequestMitra $requestMitra)
     {
-        //
+        $validatedData = $request->validate([
+            'pelanggan_id'  => ['required', 'exists:pelanggan,id'],
+            'nama_usaha'    => ['required'],
+            'jenis_usaha'   => ['required'],
+            'nama_pemilik'  => ['required'],
+        ]);
+
+        $requestMitra->update($validatedData);
+
+        return redirect('/admin/request-mitra');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(RequestMitra $requestMitra)
     {
-        //
+        $requestMitra->delete();
+
+        return redirect('/admin/request-mitra');
     }
 
+    // Search
     public function search(Request $request)
     {
         $search = $request->input('search');
@@ -114,6 +94,21 @@ class RequestMitraController extends Controller
                 return $query->where('nama_usaha', 'like', '%' . $search . '%');
         })->simplePaginate(6);
 
+        return view('admin.request_mitra.index', [
+            'requestMitras' => $requestMitras,
+        ]);
+    }
+
+    // Filter
+    public function filter(Request $request)
+    {
+        $filterStatus = $request->input('status_request');
+
+        $requestMitras = RequestMitra::with('pelanggan')
+            ->when($filterStatus, function($query, $filterStatus) {
+                $query->where('status_request', $filterStatus);
+            })->simplePaginate(6);
+        
         return view('admin.request_mitra.index', [
             'requestMitras' => $requestMitras,
         ]);

@@ -7,7 +7,20 @@
         <x-table.container variant="heading">
             <x-table.search action="{{ route('admin.request_mitra.search') }}" placeholder="Cari usaha..." />
             
-            <x-table.link variant="create" href="#">+ Tambah</x-table.link>
+            <div class="flex items-center gap-3">
+                <x-table.link variant="create" href="{{ route('admin.request_mitra.create') }}">+ Tambah</x-table.link>
+                <form method="GET" action="{{ route('admin.request_mitra.filter') }}">
+                    @csrf
+                    <div class="flex items-center gap-1">
+                        <label for="filter_status" class="poppins-medium text-slate-700 text-lg">Filter status:</label>
+                        <select name="status_request" id="status_request" onchange="this.form.submit()" class="poppins text-teal-500 text-lg outline-none transition delay-50 hover:ring-2 hover:ring-teal-500">
+                            <option value="">All</option>
+                            <option value="Diterima" {{ request('status_request') == 'Diterima' ? 'selected' : '' }}>Diterima</option>
+                            <option value="Ditolak" {{ request('status_request') == 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
         </x-table.container>
 
         <x-table.container variant="table">
@@ -46,7 +59,13 @@
                                         <x-table.button variant="reject" type="submit">Tolak</x-table.button>
                                     </form>
 
-                                    <x-table.link variant="edit" href="#">Edit</x-table.link>
+                                    <x-table.link variant="edit" href="{{ route('admin.request_mitra.edit', $requestMitra) }}">Edit</x-table.link>
+
+                                    <form method="POST" action="{{ route('admin.request_mitra.destroy', $requestMitra) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-table.button variant="delete" type="submit">Hapus</x-table.button>
+                                    </form>
                                 </x-table.container>
                             </x-table.td>
                         </x-table.tr>
@@ -56,7 +75,7 @@
         </x-table.container>
 
         <x-table.container variant="footing">
-            {{ $requestMitras->links() }}
+            {{ $requestMitras->withQueryString()->links() }}
         </x-table.container>
         
     </x-table.container>

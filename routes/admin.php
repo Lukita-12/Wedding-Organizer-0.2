@@ -22,9 +22,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     });
     Route::controller(RequestMitraController::class)->group(function () {
         Route::get('/request-mitra', 'index')->name('admin.request_mitra.index');
+        Route::get('/request-mitra/create', 'create')->name('admin.request_mitra.create');
+        Route::post('/request-mitra', 'store')->name('admin.request_mitra.store');
         Route::get('/request-mitra/search', 'search')->name('admin.request_mitra.search');
+        Route::get('/request-mitra/filter', 'filter')->name('admin.request_mitra.filter');
 
         Route::get('/request-mitra/{requestMitra}', 'show')->name('admin.request_mitra.show');
+        Route::get('/request-mitra/{requestMitra}/edit', 'edit')->name('admin.request_mitra.edit');
+        Route::put('/request-mitra/{requestMitra}', 'update')->name('admin.request_mitra.update');
+        Route::delete('/request-mitra/{requestMitra}', 'destroy')->name('admin.request_mitra.destroy');
         Route::patch('/request-mitra/{requestMitra}/accept', 'accept')->name('admin.request_mitra.accept');
         Route::patch('/request-mitra/{requestMitra}/reject', 'reject')->name('admin.request_mitra.reject');
     });

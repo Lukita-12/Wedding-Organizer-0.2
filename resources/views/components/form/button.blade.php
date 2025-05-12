@@ -1,3 +1,3 @@
-<button {{ $attributes->merge(['class' => 'bg-teal-500 px-3 px-1 poppins-semibold text-center text-lg text-slate-100 rounded-md transition duration:300 hover:ring-2 hover:ring-offset-2 hover:ring-teal-500']) }}>
+<button {{ $attributes->merge(['class' => 'w-1/10 poppins-semibold bg-teal-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-teal-700']) }}>
     {{ $slot }}
 </button>
