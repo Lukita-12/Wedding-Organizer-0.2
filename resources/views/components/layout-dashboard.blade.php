@@ -22,7 +22,7 @@
         </x-sidebar.container>
 
         <x-sidebar.container>
-            <form method="POST" action="#">
+            <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="w-full bg-red-500 poppins-semibold text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-red-700">
                     Log Out

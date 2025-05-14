@@ -21,7 +21,7 @@ class KerjasamaPolicy
      */
     public function view(User $user, Kerjasama $kerjasama): bool
     {
-        return $user->isAdmin() || $user->id === $kerjasama->pelanggan->user_id;
+        return $user->isAdmin() || $user->id === $kerjasama->requestMitra->pelanggan->user_id;
     }
 
     /**
@@ -37,7 +37,7 @@ class KerjasamaPolicy
      */
     public function update(User $user, Kerjasama $kerjasama): bool
     {
-        return $user->isAdmin() || $user->id === $kerjasama->pelanggan->user_id;
+        return $user->isAdmin() || $user->id === $kerjasama->requestMitra->pelanggan->user_id;
     }
 
     /**

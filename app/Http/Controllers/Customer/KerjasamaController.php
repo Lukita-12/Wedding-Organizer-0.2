@@ -7,6 +7,7 @@ use App\Models\Kerjasama;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class KerjasamaController extends Controller
 {
@@ -14,10 +15,12 @@ class KerjasamaController extends Controller
 
     public function index()
     {
-        $kerjasamas = Kerjasama::with('requestMitra.pelanggan.user')
+        // $kerjasamas = Kerjasama::with('requestMitra')->latest()->get();
+
+        $kerjasamas = Kerjasama::with('requestMitra')
             ->whereHas('requestMitra.pelanggan', function ($query) {
                 $query->where('user_id', Auth::id());
-            })->get();
+            })->latest()->get();
 
         return view('/customer.kerjasama.index', [
             'kerjasamas' => $kerjasamas,
@@ -39,10 +42,6 @@ class KerjasamaController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     */
     public function show(Kerjasama $kerjasama)
     {
         $this->authorize('view', $kerjasama);
@@ -66,13 +65,17 @@ class KerjasamaController extends Controller
         $this->authorize('update', $kerjasama);
 
         $validatedData = $request->validate([
-            'noTelp_usaha'      => ['required'],
-            'email_usaha'       => ['required', 'email', 'max:254'],
-            'alamat_usaha'      => ['required'],
-            'harga01'           => ['required', 'string'],
-            'ket_harga01'       => ['required'],
-            'harga02'           => ['required', 'string'],
-            'ket_harga02'       => ['required'],
+            'nama_pemilik'  => ['required'],
+            'nama_usaha'    => ['required'],
+            'jenis_usaha'   => ['required'],
+
+            'noTelp_usaha'  => ['required'],
+            'email_usaha'   => ['required', 'email', 'max:254'],
+            'alamat_usaha'  => ['required'],
+            'harga01'       => ['required', 'string'],
+            'ket_harga01'   => ['required'],
+            'harga02'       => ['required', 'string'],
+            'ket_harga02'   => ['required'],
         ]);
 
         // Remove thousand separators (dots) and convert comma to decimal point
@@ -83,7 +86,23 @@ class KerjasamaController extends Controller
         $validatedData['harga01'] = number_format((float) $validatedData['harga01'], 2, '.', '');
         $validatedData['harga02'] = number_format((float) $validatedData['harga02'], 2, '.', '');
 
-        $kerjasama->update($validatedData);
+        DB::transaction(function () use ($validatedData, $kerjasama) {
+            $kerjasama->update([
+                'noTelp_usaha'  => $validatedData['noTelp_usaha'],
+                'email_usaha'   => $validatedData['email_usaha'],
+                'alamat_usaha'  => $validatedData['alamat_usaha'],
+                'harga01'       => $validatedData['harga01'],
+                'ket_harga01'   => $validatedData['ket_harga01'],
+                'harga02'       => $validatedData['harga02'],
+                'ket_harga02'   => $validatedData['ket_harga02'],
+            ]);
+            
+            $kerjasama->requestMitra->update([
+                'nama_pemilik'  => $validatedData['nama_pemilik'],
+                'nama_usaha'    => $validatedData['nama_usaha'],
+                'jenis_usaha'   => $validatedData['jenis_usaha'],
+            ]);
+        });
 
         return redirect('/kerjasama');
     }

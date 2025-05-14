@@ -8,7 +8,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::view('/home', 'home');
+Route::view('/home', 'home')->name('home');
 Route::view('/form-desain', 'form-desain');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

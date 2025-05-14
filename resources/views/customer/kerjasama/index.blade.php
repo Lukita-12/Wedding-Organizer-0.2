@@ -1,88 +1,51 @@
 <x-layout>
+    <div class="flex justify-between items-center px-4 py-1">
+        <nav class="flex gap-1">
+            <a href="{{ route('home') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Home</a>
+            <a href="{{ route('home') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Kerjasama</a>
+        </nav>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="poppins-semibold bg-red-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-red-700">Log Out</button>
+        </form>
+    </div>
 
-    <x-nav-bar />
-
-    <x-jumbotron />
-
-    <div class="border border-dashed border-gray-700 h-120">
-        <div class="flex h-full">
-            <div class="w-1/2 bg-[url('/public/images/grass-snow.jpg')] bg-cover bg-center"></div>
-            <div class="w-1/2 flex flex-col justify-center items-center space-y-4">
-                <h1 class="border border-dashed border-gray-700
-                    w-140 poppins-semibold text-4xl text-slate-700 text-center">
-                    BUAT KERJASAMA DENGAN HATMA WEDDING ORGANIZER
-                </h1>
-                <a href="{{ route('customer.request_mitra.create') }}"
-                class="border-sketch text-gray-sketch px-4 py-1 poppins-bold text-xl rounded-md">DAFTAR</a>
-            </div>
+    <div class="w-full h-135 bg-[url('/public/images/flower-red-winter.jpg')] bg-cover bg-center flex flex-col justify-center items-center">
+        <div class="backdrop-blur-sm w-full flex flex-col items-center py-4 gap-3">
+            <span class="w-md poppins-bold text-slate-100 text-center text-5xl">HATMA WEDDING ORGANIZER</span>
+            <span class="my-3"></span>
+            <a href="{{ route('customer.pesanan.create') }}" class="w-3xs poppins-semibold bg-teal-500/80 text-slate-100 text-3xl text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">PESAN</a>
         </div>
     </div>
 
-    <x-content-container>
-        <div class="border border-dashed border-gray-700 mb-4
-            flex gap-3 justify-center items-center px-4 py-2">
-            <h2 class="text-gray-700 poppins-semibold text-3xl text-center">Kerjasama</h2>
+    <div class="w-full h-108 flex">
+        <div class="w-full h-full bg-[url('/public/images/snowing.jpg')] bg-cover bg-center"></div>
+
+        <div class="w-full flex flex-col justify-center items-center gap-5">
+            <span class="w-xl poppins-semibold text-slate-700 text-4xl text-center px-3 py-1">BUAT KERJASAMA DENGAN HATMA WEDDING ORGANIZER</span>
+            @auth
+                <a href="{{ route('customer.request_mitra.create') }}" class="w-1/4 poppins-semibold bg-teal-500 text-slate-100 text-2xl text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">DAFTAR</a>
+            @endauth
+            @guest
+                <a href="{{ route('login') }}" class="w-1/4 poppins-semibold bg-teal-500 text-slate-100 text-2xl text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">Log In</a>
+            @endguest
         </div>
+    </div>
 
-        @if($kerjasamas->isEmpty())
-            <p>No partner data available yet.</p>
-        @else    
-            @foreach ($kerjasamas as $kerjasama)
-                <div class="flex justify-center gap-8">
-                    <div class="border border-dashed border-gray-700 w-1/2 flex flex-col space-y-4">
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Pemilik usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->requestMitra->nama_pemilik }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Nama usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->requestMitra->nama_usaha }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Jenis usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->requestMitra->jenis_usaha }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">No. Telpon/WA usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->noTelp_usaha }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Email usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->email_usaha }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Alamat usaha: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->alamat_usaha }}</span>
-                        </h1>
-                    </div>
-
-                    <div class="border border-dashed border-gray-700 w-1/2 flex flex-col space-y-4">
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Harga 01: 
-                            <span class="text-gray-700 inter">Rp. {{ number_format($kerjasama->harga01, 0, ',', '.') }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Keterangan harga 01: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->ket_harga01 }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Harga 02: 
-                            <span class="text-gray-700 inter">Rp. {{ number_format($kerjasama->harga02, 0, ',', '.') }}</span>
-                        </h1>
-    
-                        <h1 class="text-gray-900 poppins-semibold text-2xl">Keterangan harga 02: 
-                            <span class="text-gray-700 inter">{{ $kerjasama->ket_harga02 }}</span>
-                        </h1>
-                    </div>
-
+    <div class="w-full h-108 grid grid-cols-2 px-4 py-2 gap-3 overflow-y-auto">
+        @foreach ($kerjasamas as $kerjasama)
+            <div class="h-fit bg-slate-200 flex justify-between items-end shadow shadow-slate-500/80 px-3 py-1">
+                <div class="flex flex-col">
+                    <span class="poppins-medium text-slate-700 text-lg">{{ $kerjasama->requestMitra->nama_usaha ?? '-' }}</span>
+                    <span class="poppins text-slate-700 text-sm">{{ $kerjasama->requestMitra->nama_pemilik ?? '-' }}</span>
+                    <span class="poppins text-slate-700 text-sm mt-3">{{ $kerjasama->requestMitra->jenis_usaha ?? '-' }}</span>
                 </div>
-                <div class="flex justify-end">
-                    <a href="{{ route('customer.kerjasama.show', $kerjasama->id) }}" 
-                        class="border-sketch text-gray-sketch
-                            px-4 py-1 poppins-semibold text-xl rounded-lg">
-                        Edit
-                    </a>
-                </div>
-            @endforeach
-        @endif
-    </x-content-cantainer>
+
+                <a href="{{ route('customer.kerjasama.edit', $kerjasama) }}" class="inline-block poppins-semibold bg-teal-500 text-slate-100 text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">
+                    Edit
+                </a>
+            </div>
+        @endforeach
+    </div>
 
 </x-layout>

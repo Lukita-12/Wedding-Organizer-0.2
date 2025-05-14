@@ -49,8 +49,7 @@ class PelangganController extends Controller
             'alamat_pelanggan'  => $request->input('alamat_pelanggan'),
         ]);
 
-        return redirect('/');
-
+        return redirect('/kerjasama');
     }
 
     public function show(Pelanggan $pelanggan)
