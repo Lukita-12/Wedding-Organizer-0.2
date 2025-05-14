@@ -1,67 +1,73 @@
-<x-layout>
-    <x-container.admin-page>
+<x-layout-dashboard>
+    <x-slot:heading>
+        Pesanan
+    </x-slot:heading>
 
-        <x-sidebar.sidebar />
-        <x-container.main>
-            
-            <x-header.header />
-            
-            <div class="border-sketch rounded-lg">
-
-                <x-header.container>
-                    <div class="flex items-center gap-3">
-                        <x-header.span-dot />
-                        <x-header.h1>PESANAN</x-header.h1>
-                        <x-header.button-link href="#">+ Baru</x-header.button-link>
-                    </div>
-                    <div class="flex items-center gap-3">
-                        <x-header.search />
-                    </div>
-                </x-header.container>
-
-                <x-table.table>
-                    <x-table.thead>
-                        <x-table.tr>
-                            <x-table.td>No.</x-table.td>
-                            <x-table.td>Tanggal Pesanan</x-table.td>
-                            <x-table.td>Tanggal Diskusi</x-table.td>
-                            <x-table.td>Tanggal Acara</x-table.td>
-                            <x-table.td>Status Pesanan</x-table.td>
-                            <x-table.td>Aksi</x-table.td>
+    <x-table.container variant="main">
+        <x-table.container variant="heading">
+            <x-table.search action="#" placeholder="Cari..." />
+            <x-table.link variant="create" href="#">+ Tambah</x-table.link>
+        </x-table.container>
+        <x-table.container variant="table">
+            <table>
+                <thead>
+                    <tr>
+                        <x-table.td variant="head" class="px-4!">No.</x-table.td>
+                        <x-table.td variant="head">Nama Pelanggan</x-table.td>
+                        <x-table.td variant="head">Paket Pernikahan</x-table.td>
+        
+                        <x-table.td variant="head">Tanggal Pesanan</x-table.td>
+                        <x-table.td variant="head">Pengantin Pria</x-table.td>
+                        <x-table.td variant="head">Pengantin Wanita</x-table.td>
+                        <x-table.td variant="head">Tanggal Acara</x-table.td>
+                        <x-table.td variant="head">Tanggal Diskusi</x-table.td>
+                        <x-table.td variant="head">Total Pesanan</x-table.td>
+                        <x-table.td variant="head">Status Pesanan</x-table.td>
+                        <x-table.td variant="head">Aksi</x-table.td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pesanans as $pesanan)
+                        <x-table.tr variant="body" class="row-click cursor-pointer" data-url="#">
+                            <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
+                            <x-table.td>{{ $pesanan->pelanggan->nama_pelanggan }}</x-table.td>
+                            <x-table.td>{{ $pesanan->paketPerniakahan->nama_paket ?? '-' }}</x-table.td>
+        
+                            <x-table.td>{{ $pesanan->tgl_pesanan->format('d M Y') }}</x-table.td>
+                            <x-table.td>{{ $pesanan->pengantin_pria }}</x-table.td>
+                            <x-table.td>{{ $pesanan->pengantin_wanita }}</x-table.td>
+                            <x-table.td>{{ $pesanan->tanggal_diskusi->format('d M Y') }}</x-table.td>
+                            <x-table.td>{{ $pesanan->tanggal_acara->format('d M Y') }}</x-table.td>
+                            <x-table.td>{{ $pesanan->total_harga_pesanan }}</x-table.td>
+                            <x-table.td>{{ $pesanan->status_pesanan }}</x-table.td>
+                            <x-table.td>
+                                <x-table.container variant="button">
+                                    <form method="POST" action="#">
+                                        @csrf
+                                        @method('PATCH')
+                                        <x-table.button variant="accept" type="submit">Terima</x-table.button>
+                                    </form>
+                                    <form method="POST" action="#">
+                                        @csrf
+                                        @method('PATCH')
+                                        <x-table.button variant="reject" type="submit">Tolak</x-table.button>
+                                    </form>
+                                    <x-table.link href="#" variant="edit">Edit</x-table.link>
+                                    <form method="POST" action="#">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-table.button variant="delete" type="submit">Hapus</x-table.button>
+                                    </form>
+                                </x-table.container>
+                            </x-table.td>
                         </x-table.tr>
-                    </x-table.thead>
-                    <x-table.tbody>
-                        @foreach ($pesanans as $index => $pesanan)
-                            <x-table.tr>
-                                <x-table.td>{{ $index + 1 }}</x-table.td>
-                                <x-table.td>{{ $pesanan->tgl_pesanan->format('d M Y') }}</x-table.td>
-                                <x-table.td>{{ $pesanan->tanggal_diskusi->format('d M Y') }}</x-table.td>
-                                <x-table.td>{{ $pesanan->tanggal_acara->format('d M Y') }}</x-table.td>
-                                <x-table.td>{{ $pesanan->status_pesanan }}</x-table.td>
-                                <x-table.td class="flex justify-center items-center gap-2">
-                                    <form method="POST" action="#">
-                                        @csrf
-                                        @method('PUT')
-                                        <x-table.button>Konfirmasi</x-table.button>
-                                    </form>
-                                    <form method="POST" action="#">
-                                        @csrf
-                                        @method('PUT')
-                                        <x-table.button>Tolak</x-table.button>
-                                    </form>
-                                </x-table.td>
-                            </x-table.tr>
-                        @endforeach
-                    </x-table.tbody>
-                </x-table.table>
+                    @endforeach
+                </tbody>
+            </table>
+        </x-table.container>
 
-                <x-container.pagination>
-                    {{ $pesanans->links() }}
-                </x-container.pagination>
-
-            </div>
-
-        </x-container.main>
-
-    </x-container.admin-page>
-</x-layout>
+        <x-table.container variant="footing">
+            {{ $pesanans->withQueryString()->links() }}
+        </x-table.container>
+    </x-table.container>
+</x-layout-dashboard>

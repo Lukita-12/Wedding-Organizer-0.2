@@ -11,8 +11,7 @@ class PesananController extends Controller
 {
     public function index()
     {
-        $pesanans = Pesanan::with(['user', 'paketPernikahan'])
-            ->latest()->simplePaginate(6);
+        $pesanans = Pesanan::with(['pelanggan'])->latest()->simplePaginate(6);
 
         return view('admin.pesanan.index', compact('pesanans'));
     }
@@ -38,7 +37,7 @@ class PesananController extends Controller
      */
     public function show(Pesanan $pesanan)
     {
-        //
+        dd('Hello!');
     }
 
     /**

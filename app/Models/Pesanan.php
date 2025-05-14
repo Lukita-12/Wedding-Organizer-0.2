@@ -17,9 +17,9 @@ class Pesanan extends Model
         'tgl_pesanan'        => 'datetime',
     ];
 
-    public function user()
+    public function pelanggan()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Pelanggan::class);
     }
 
     public function paketPernikahan()

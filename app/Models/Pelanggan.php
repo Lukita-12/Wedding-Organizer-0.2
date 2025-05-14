@@ -28,4 +28,9 @@ class Pelanggan extends Model
     {
         return $this->hasMany(Kerjasama::class);
     }
+
+    public function pesanan(): HasMany
+    {
+        return $this->hasMany(Pesanan::class);
+    }
 }
