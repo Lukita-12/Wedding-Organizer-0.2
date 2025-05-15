@@ -58,8 +58,8 @@ class PaketPernikahan extends Model
     }
 
     // Custom paket pernikahan
-    public function customerEkslusif()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'custom_paket_for');
+        return $this->belongsTo(User::class);
     }
 }

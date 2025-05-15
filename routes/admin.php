@@ -52,10 +52,13 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/paket-pernikahan', 'index')->name('admin.paket_pernikahan.index');
         Route::get('/paket-pernikahan/create', 'create')->name('admin.paket_pernikahan.create');
         Route::post('/paket-pernikahan', 'store')->name('admin.paket_pernikahan.store');
+        Route::get('/paket-pernikahan/search', 'search')->name('admin.paket_pernikahan.search');
+        Route::get('/paket-pernikahan/filter', 'filter')->name('admin.paket_pernikahan.filter');
+
         Route::get('/paket-pernikahan/{paketPernikahan}', 'show')->name('admin.paket_pernikahan.show');
         Route::get('/paket-pernikahan/{paketPernikahan}/edit', 'edit')->name('admin.paket_pernikahan.edit');
         Route::put('/paket-pernikahan/{paketPernikahan}', 'update')->name('admin.paket_pernikahan.update');
-        Route::delete('/paket-pernikahan/{paketPernikahan}', 'destroy')->name('admin.paket_pernikahan.delete');
+        Route::delete('/paket-pernikahan/{paketPernikahan}', 'destroy')->name('admin.paket_pernikahan.destroy');
     });
 
     Route::controller(PesananController::class)->group(function () {
