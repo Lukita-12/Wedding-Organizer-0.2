@@ -7,7 +7,7 @@
             <x-form.container variant="form">
                 <x-form.container variant="">
                     <x-form.label for="pemilik">Pemilik & Nama Usaha</x-form.label>
-                    <x-form.select name="request_mitra_id" id="request_mitra_id">
+                    <x-form.select name="request_mitra_id" id="request_mitra_id" required>
                         @foreach ($requestMitras as $requestMitra)
                             <option value="{{ $requestMitra->id }}" {{ (string) old('request_mitra_id', $kerjasama->request_mitra_id) == (string) $requestMitra->id ? 'selected' : '' }}>
                                 {{ $requestMitra->nama_pemilik }}, {{ $requestMitra->nama_usaha }}
@@ -19,19 +19,19 @@
 
                 <div class="w-full flex flex-col gap-1">
                     <x-form.label for="noTelp_usaha">No. Telpon/WA</x-form.label>
-                    <x-form.input type="text" name="noTelp_usaha" id="noTelp_usaha" :value="old('noTelp_usaha', $kerjasama->noTelp_usaha)" placeholder="No. telpon/WA..." />
+                    <x-form.input type="text" name="noTelp_usaha" id="noTelp_usaha" :value="old('noTelp_usaha', $kerjasama->noTelp_usaha)" placeholder="No. telpon/WA..." required />
                     <x-form.error errorFor="noTelp_usaha" />
                 </div>
 
                 <x-form.container variant="">
                     <x-form.label for="email_usaha">Email usaha</x-form.label>
-                    <x-form.input type="email" name="email_usaha" id="email_usaha" :value="old('email_usaha', $kerjasama->email_usaha)" placeholder="Email usaha..." />
+                    <x-form.input type="email" name="email_usaha" id="email_usaha" :value="old('email_usaha', $kerjasama->email_usaha)" placeholder="Email usaha..." required />
                     <x-form.error errorFor="email_usaha" />
                 </x-form.container>
 
                 <x-form.container variant="">
                     <x-form.label for="alamat_usaha">Alamat usaha</x-form.label>
-                    <x-form.textarea type="text" name="alamat_usaha" id="alamat_usaha" placeholder="Alamat usaha...">
+                    <x-form.textarea type="text" name="alamat_usaha" id="alamat_usaha" placeholder="Alamat usaha..." required>
                         {{ old('alamat_usaha', $kerjasama->alamat_usaha) }}
                     </x-form.textarea>
                     <x-form.error errorFor="alamat_usaha" />

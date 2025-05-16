@@ -9,7 +9,7 @@
 
             <x-table.container variant="filter">
                 <x-table.filter action="{{ route('admin.paket_pernikahan.filter') }}" name="status_paket" id="status_paket">
-                    <option value="">Semua</option>
+                    <option value="">All</option>
                     <option value="Tersedia" {{ request('status_paket') == 'Tersedia' ? 'selected' : '' }}>Tersedia</option>
                     <option value="Eksklusif" {{ request('status_paket') == 'Eksklusif' ? 'selected' : '' }}>Eksklusif</option>
                     <option value="Tidak tersedia" {{ request('status_paket') == 'Tidak tersedia' ? 'selected' : '' }}>Tidak tersedia</option>

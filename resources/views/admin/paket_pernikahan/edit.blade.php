@@ -6,7 +6,7 @@
             <x-form.container variant="form">
                 <div>
                     <x-form.label for="nama_paket">Nama paket</x-form.label>
-                    <x-form.input type="text" name="nama_paket" id="nama_paket" :value="old('nama_paket', $paketPernikahan->nama_paket)" placeholder="Nama paket..." />
+                    <x-form.input type="text" name="nama_paket" id="nama_paket" :value="old('nama_paket', $paketPernikahan->nama_paket)" placeholder="Nama paket..." required />
                     <x-form.error errorFor="nama_paket" />
                 </div>
 
@@ -32,13 +32,13 @@
 
                 <div>
                     <x-form.label for="hargaDP_paket">Harga DP Rp.</x-form.label>
-                    <x-form.input type="text" name="hargaDP_paket" id="hargaDP_paket" :value="old('hargaDP_paket', number_format($paketPernikahan->hargaDP_paket, 0, ',', '.'))" placeholder="999.999.999" />
+                    <x-form.input type="text" name="hargaDP_paket" id="hargaDP_paket" :value="old('hargaDP_paket', number_format($paketPernikahan->hargaDP_paket, 0, ',', '.'))" placeholder="999.999.999" required />
                     <x-form.error errorFor="hargaDP_paket" />
                 </div>
 
                 <div>
                     <x-form.label for="hargaLunas_paket">Harga lunas Rp.</x-form.label>
-                    <x-form.input type="text" name="hargaLunas_paket" id="hargaLunas_paket" :value="old('hargaLunas_paket', number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.'))" placeholder="999.999.999" />
+                    <x-form.input type="text" name="hargaLunas_paket" id="hargaLunas_paket" :value="old('hargaLunas_paket', number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.'))" placeholder="999.999.999" required />
                     <x-form.error errorFor="hargaLunas_paket" />
                 </div>
 

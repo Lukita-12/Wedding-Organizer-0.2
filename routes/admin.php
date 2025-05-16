@@ -63,10 +63,17 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     Route::controller(PesananController::class)->group(function () {
         Route::get('/pesanan', 'index')->name('admin.pesanan.index');
+        Route::get('/pesanan/create', 'create')->name('admin.pesanan.create');
+        Route::post('/pesanan', 'store')->name('admin.pesanan.store');
+        Route::get('/pesanan/search', 'search')->name('admin.pesanan.search');
+        Route::get('/pesanan/filter', 'filter')->name('admin.pesanan.filter');
 
         Route::get('/pesanan/{pesanan}', 'show')->name('admin.pesanan.show');
-        Route::put('/pesanan/{pesanan}/accept', 'accept')->name('admin.pesanan.accept');
-        Route::put('/pesanan/{pesanan}/reject', 'reject')->name('admin.pesanan.reject');
+        Route::get('/pesanan/{pesanan}/edit', 'edit')->name('admin.pesanan.edit');
+        Route::put('/pesanan/{pesanan}', 'update')->name('admin.pesanan.update');
+        Route::delete('/pesanan/{pesanan}', 'destroy')->name('admin.pesanan.destroy');
+        Route::patch('/pesanan/{pesanan}/accept', 'accept')->name('admin.pesanan.accept');
+        Route::patch('/pesanan/{pesanan}/reject', 'reject')->name('admin.pesanan.reject');
     });
 
     Route::controller(BankController::class)->group(function () {
