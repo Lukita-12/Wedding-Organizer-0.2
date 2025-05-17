@@ -16,14 +16,14 @@ return new class extends Migration
         Schema::create('pesanan', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Pelanggan::class)->nullable()->constrained()->nullOnDelete();
-            $table->foreignIdFor(PaketPernikahan::class)->nullable()->constrained('paket_pernikahan')->nullOnDelete();
+            $table->foreignIdFor(PaketPernikahan::class)->nullable()->constrained()->nullOnDelete();
 
             $table->date('tgl_pesanan');
             $table->string('pengantin_pria');
             $table->string('pengantin_wanita');
             $table->date('tanggal_acara');
             $table->date('tanggal_diskusi');
-            $table->decimal('total_harga_pesanan', 15, 2);
+            $table->decimal('total_harga_pesanan', 15, 2)->nullable();
             $table->string('status_pesanan')->default('Dalam proses');
             $table->timestamps();
         });

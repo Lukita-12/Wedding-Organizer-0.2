@@ -21,7 +21,8 @@ class PesananPolicy
      */
     public function view(User $user, Pesanan $pesanan): bool
     {
-        return  $user->role === 'admin' || $user->id === $pesanan->user_id;
+        // return  $user->role === 'admin' || $user->id === $pesanan->user_id;
+        return $pesanan->user_id === $user->id;
     }
 
     /**

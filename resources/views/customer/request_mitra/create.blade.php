@@ -4,13 +4,10 @@
         @unless ($hasPelanggan)
             <div class="flex flex-col items-center gap-4">
                 <span class="w-md poppins-medium text-slate-700 text-center text-xl">Informasi pelanggan diperlukan sebelum membuat kerjasama!</span>
-
                 <span class="my-1"></span>
-
                 <a href="{{ route('customer.pelanggan.create') }}" class="w-2xs poppins-semibold bg-teal-500 text-slate-100 text-center text-lg px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">
                     + Buat
                 </a>
-
                 <span class="w-full border-2 border-slate-700 border-dashed"></span>
             </div>
         @endunless

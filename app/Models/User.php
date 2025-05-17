@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -71,9 +72,17 @@ class User extends Authenticatable
         return $this->hasMany(Pelanggan::class);
     }
 
-    public function pesanan():HasMany
+    public function pesanan(): HasManyThrough
     {
-        return $this->hasMany(Pesanan::class);
+        // return $this->hasManyThrough(Pesanan::class, Pelanggan::class, 'user_id', 'pelanggan_id', 'id', 'id');
+        return $this->hasManyThrough(
+            Pesanan::class,     // Model tujuan akhir (anak cucu): Pesanan
+            Pelanggan::class,   // Model perantara (anak): Pelanggan
+            'user_id',          // foreign key di tabel pelanggan yang menunjuk ke tabel users
+            'pelanggan_id',     // foreign key di tabel pesanan yang menunjuk ke tabel pelanggan
+            'id',               // local key di tabel users
+            'id'                // local key di tabel pelanggan
+        );
     }
 
     public function pembayaran()

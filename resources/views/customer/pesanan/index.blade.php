@@ -1,41 +1,27 @@
 <x-layout>
 
-    <div class="container">
-        <h1>Pesanan Saya</h1>
-
-        @if($pesanans->isEmpty())
-            <p>Belum ada pesanan.</p>
-        @else
-            @foreach($pesanans as $pesanan)
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            {{ $pesanan->paketPernikahan?->nama_paket ?? 'Tanpa Paket' }}
-                        </h5>
-                        <p class="card-text">
-                            Tanggal Acara: {{ ($pesanan->tanggal_acara)->format('d M Y') }} <br>
-                            Diskusi: {{ ($pesanan->tanggal_diskusi)->format('d M Y') }} <br>
-                            Status: {{ ucfirst($pesanan->status_pesanan) }}
-                        </p>
+    <div class="grid grid-cols-2 gap-3">
+        @foreach ($pesanans as $pesanan)
+            <div class="bg-slate-200 flex justify-between px-4 py-1 shadow shadow-slate-500/80">
+                <div class="flex flex-col">
+                    <span class="poppins-semibold text-teal-600 text-lg">{{ $pesanan->pelanggan->nama_pelanggan }}</span>
+                    <span class="poppins text-slate-500 text-sm">{{ $pesanan->pelanggan->email_pelanggan }}</span>
+                    <span class="my-2"></span>
+                    <span class="poppins text-slate-500">
+                        <span class="poppins-semibold text-slate-700">Paket: </span>{{ $pesanan->paketPernikahan->nama_paket ?? '-' }}
+                    </span>
+                </div>
+                <div  class="flex flex-col justify-between items-end">
+                    <a href="#" class="poppins text-slate-700 text-sm transition delay-50 duration-300 hover:text-teal-500">Lihat ></a>
+                    <div class="flex flex-col justify-end items-end">
+                        <span class="poppins text-teal-600">{{ $pesanan->status_pesanan }}</span>
+                        <span class="poppins text-slate-700 text-lg">
+                            <span class="poppins-bold">Total: </span>Rp. {{ number_format($pesanan->total_harga_pesanan, 0, ',', '.') }}
+                        </span>
                     </div>
                 </div>
-                <div>
-                    @can('update', $pesanan)
-                        <a href="{{ route('customer.pesanan.edit', $pesanan) }}" class="btn btn-warning">Edit</a>
-                    @endcan
-
-                    @can('delete', $pesanan)
-                        <form action="{{ route('customer.pesanan.destroy', $pesanan) }}" method="POST" style="display:inline">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Yakin ingin membatalkan?')">
-                                Batalkan
-                            </button>
-                        </form>
-                    @endcan
-                </div>
-            @endforeach
-        @endif
+            </div>
+        @endforeach
     </div>
 
 </x-layout>

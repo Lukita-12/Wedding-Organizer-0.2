@@ -15,16 +15,30 @@ class PesananController extends Controller
 
     public function index()
     {
-        $pesanans = Pesanan::with('paketPernikahan')
-                ->where('user_id', Auth::id())
-                ->latest()
-                ->get();
+        $pesanans = Auth::user()->pesanan()->with('pelanggan', 'paketPernikahan')->latest()->get(); // It's okay, it's just VS COde don't have the extension for it
+
+        return view('customer.pesanan.index', [
+            'pesanans' => $pesanans,
+        ]);
+        /*
+        $pesanans = Pesanan::with('paketPernikahan')->where('user_id', Auth::id())->latest()->get();
 
         return view('/customer.pesanan.index', compact('pesanans'));
+        */
     }
 
     public function create(Request $request)
     {
+        $pelanggans     = Auth::user()->pelanggan;
+        $hasPelanggan   = $pelanggans->isNotEmpty();
+        $paketPernikahans = PaketPernikahan::where('status_paket', 'Tersedia')->latest()->get();
+
+        return view('customer.pesanan.create', [
+            'pelanggans'        => $pelanggans,
+            'hasPelanggan'      => $hasPelanggan,
+            'paketPernikahans'  => $paketPernikahans,
+        ]);
+        /*
         $paketId = $request->query('paket-pernikahan');
         $selectedPaket = null;
 
@@ -36,10 +50,29 @@ class PesananController extends Controller
         return view('/customer.pesanan.create', [
             'selectedPaket' => $selectedPaket,
         ]);
+        */
     }
 
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'pelanggan_id'          => ['required', 'exists:pelanggan,id'],
+            'paket_pernikahan_id'   => ['nullable', 'exists:paket_pernikahan,id'],
+
+            'pengantin_pria'        => ['required'],
+            'pengantin_wanita'      => ['required'],
+            'tanggal_acara'         => ['required', 'date'],
+            'tanggal_diskusi'       => ['required', 'date'],
+        ]);
+        $paket = PaketPernikahan::findOrFail($validatedData['paket_pernikahan_id']);
+
+        $validatedData['total_harga_pesanan']   = $paket->hargaLunas_paket;
+        $validatedData['tgl_pesanan']           = now();
+
+        Pesanan::create($validatedData);
+
+        return redirect()->route('home');
+        /*
         $validatedData = $request->validate([
             'paket_pernikahan_id'   => ['nullable', 'exists:paket_pernikahan,id',],
             'pengantin_pria'        => ['required'],
@@ -65,6 +98,7 @@ class PesananController extends Controller
         return redirect()->route('customer.pembayaran.create',
             $pesanan->id
         );
+        */
     }
 
     public function show(Pesanan $pesanan)
