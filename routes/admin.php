@@ -84,8 +84,15 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::put('/bank/{bank}', 'update')->name('admin.bank.update');
         Route::delete('/bank/{bank}', 'destroy')->name('admin.bank.destroy');
     });
-});
 
-Route::controller(PembayaranController::class)->group(function() {
-    Route::get('/admin/pembayaran', 'index')->name('admin.pembayaran.index');
+    Route::controller(PembayaranController::class)->group(function() {
+        Route::get('/pembayaran', 'index')->name('admin.pembayaran.index');
+        Route::get('/pembayaran/create', 'create')->name('admin.pembayaran.create');
+        Route::post('/pembayaran', 'store')->name('admin.pembayaran.store');
+        Route::get('/pembayaran/search', 'search')->name('admin.pembayaran.search');
+
+        Route::get('/pembayaran/{pembayaran}/edit', 'edit')->name('admin.pembayaran.edit');
+        Route::put('/pembayaran/{pembayaran}', 'update')->name('admin.pembayaran.update');
+        Route::delete('/pembayaran/{pembayaran}', 'destroy')->name('admin.pembayaran.destroy');
+    });
 });

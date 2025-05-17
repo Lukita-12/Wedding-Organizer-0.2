@@ -14,12 +14,10 @@ return new class extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Pesanan::class)
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete();
-            $table->date('tgl_pembayaran');
-            $table->string('bukti_pembayaran');
+            $table->foreignIdFor(Pesanan::class)->nullable()->constrained()->nullOnDelete();
+            $table->date('tgl_pembayaran')->nullable();
+            $table->string('bukti_pembayaran_dp')->nullable();
+            $table->string('bukti_pembayaran_lunas')->nullable();
             $table->enum('bayar_dp', ['Sudah dibayar', 'Belum dibayar'])->default('Belum dibayar');
             $table->enum('bayar_lunas', ['Sudah dibayar', 'Belum dibayar'])->default('Belum dibayar');
             $table->timestamps();

@@ -82,4 +82,10 @@
             {{ $pesanans->withQueryString()->links() }}
         </x-table.container>
     </x-table.container>
+
+    @if (session('warning'))
+        <div class="bg-yellow-200 text-yellow-800 px-4 py-2 rounded mb-3">
+            {{ session('warning') }}
+        </div>
+    @endif
 </x-layout-dashboard>

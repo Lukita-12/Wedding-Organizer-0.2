@@ -1,7 +1,10 @@
 import './bootstrap';
 
-import './rowClick';
-import './redirectPrevious';
+import './utils/rowClick';
+import './utils/redirectPrevious';
+import { imagePreview } from './utils/imagePreview';
 
-import './kerjasama';
 import './utils/hargaFormatter';
+import './kerjasama';
+
+window.imagePreview = imagePreview;

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PaketPernikahan;
 use App\Models\Pelanggan;
+use App\Models\Pembayaran;
 use App\Models\Pesanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PesananController extends Controller
 {
@@ -139,13 +141,18 @@ class PesananController extends Controller
     // Action
     public function accept(Pesanan $pesanan)
     {
-        $pesanan->update([
-            'status_pesanan' => 'Diterima',
+        if ($pesanan->pembayaran) {
+            return redirect()->back()->with('warning', 'Pesanan ini sudah memiliki data pembayaran!');
+        }
+        DB::transaction(function () use ($pesanan) {
+            $pesanan->update(['status_pesanan' => 'Diterima']);
+        });
+
+        Pembayaran::create([
+            'pesanan_id' => $pesanan->id,
         ]);
 
-        return redirect()
-            ->route('admin.pesanan.index')
-            ->with('success', 'Pesanan berhasil di-konfirmasi!');
+        return redirect()->route('admin.pesanan.index');
     }
 
     public function reject(Pesanan $pesanan)

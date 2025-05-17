@@ -20,6 +20,7 @@
                 <x-sidebar.nav-link href="{{ route('admin.kerjasama.index') }}">Kerjasama</x-sidebar.nav-link>
                 <x-sidebar.nav-link href="{{ route('admin.paket_pernikahan.index') }}">Paket pernikahan</x-sidebar.nav-link>
                 <x-sidebar.nav-link href="{{ route('admin.pesanan.index') }}">Pesanan</x-sidebar.nav-link>
+                <x-sidebar.nav-link href="{{ route('admin.pembayaran.index') }}">Pembayaran</x-sidebar.nav-link>
             </nav>
         </x-sidebar.container>
 

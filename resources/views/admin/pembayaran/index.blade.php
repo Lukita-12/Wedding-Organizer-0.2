@@ -1,59 +1,67 @@
-<x-layout>
+<x-layout-dashboard>
+    <x-slot:heading>
+        Pembayaran
+    </x-slot:heading>
 
-    <x-container.admin-page>
-        <x-sidebar.sidebar />
+    <x-table.container variant="main">
+        <x-table.container variant="heading">
+            <x-table.search action="{{ route('admin.pembayaran.search') }}" placeholder="Cari..." />
+            <x-table.link variant="create" href="{{ route('admin.pembayaran.create') }}">+ Tambah</x-table.link>
+        </x-table.container>
 
-        <x-container.main>
-            <x-header.header />
-
-            <div class="border-sketch rounded-lg">
-
-                <x-header.container>
-                    <div class="flex items-center gap-2">
-                        <x-header.span-dot />
-                        <x-header.h1>PEMBAYARAN</x-header.h1>
-                        <x-header.button-link href="#">+ Baru</x-header.button-link>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <x-header.search />
-                    </div>
-                </x-header.container>
-
-                <x-table.table>
-                    <x-table.thead>
-                        <x-table.tr>
-                            <x-table.td>No.</x-table.td>
-                            <x-table.td>Paket Penikahan</x-table.td>
-                            <x-table.td>Tanggal Pembayaran</x-table.td>
-                            <x-table.td>Bukti Pembayaran</x-table.td>
-                            <x-table.td>Bayar DP</x-table.td>
-                            <x-table.td>Bayar Lunas</x-table.td>
-                            <x-table.td>Total pesanan</x-table.td>
-                            <x-table.td>Aksi</x-table.td>
+        <x-table.container variant="table">
+            <table>
+                <thead>
+                    <tr>
+                        <x-table.td variant="head" class="px-4!">No.</x-table.td>
+                        <x-table.td variant="head">Nama Pelanggan</x-table.td>
+                        <x-table.td variant="head">Nama Paket Pernikahan</x-table.td>
+                        <x-table.td variant="head">Tanggal Pemesanan</x-table.td>
+                        <x-table.td variant="head">Tanggal Pembayaran</x-table.td>
+                        <x-table.td variant="head">Bukti Pembayaran DP</x-table.td>
+                        <x-table.td variant="head">Bukti Pembayaran Lunas</x-table.td>
+                        <x-table.td variant="head">Status Pembayaran DP</x-table.td>
+                        <x-table.td variant="head">Status Pembayaran Lunas</x-table.td>
+                        <x-table.td variant="head">Action</x-table.td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($pembayarans as $pembayaran)
+                        <x-table.tr variant="body">
+                            <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
+                            <x-table.td>{{ $pembayaran->pesanan->pelanggan->nama_pelanggan }}</x-table.td>
+                            <x-table.td>{{ $pembayaran->pesanan->paketPernikahan->nama_paket ?? '-' }}</x-table.td>
+                            <x-table.td>{{ $pembayaran->pesanan->tgl_pesanan->format('d M Y') }}</x-table.td>
+                            <x-table.td>{{ optional($pembayaran->tgl_pembayaran)->format('d M Y') ?? '-' }}</x-table.td>
+                            <x-table.td>
+                                <a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran_dp) }}" target="_blank" class="text-teal-500 underline hover:text-teal-700">
+                                    {{ $pembayaran->bukti_pembayaran_dp ?? '-' }}</x-table.td>
+                                </a>
+                            <x-table.td>
+                                <a href="{{ asset('storage/' . $pembayaran->bukti_pembayaran_lunas) }}" target="_blank" class="text-teal-500 underline hover:text-teal-700">
+                                    {{ $pembayaran->bukti_pembayaran_lunas ?? '-' }}</x-table.td>
+                                </a>
+                            <x-table.td>{{ $pembayaran->bayar_dp }}</x-table.td>
+                            <x-table.td>{{ $pembayaran->bayar_lunas }}</x-table.td>
+                            <x-table.td>
+                                <x-table.container variant="button">
+                                    <x-table.link variant="edit" href="{{ route('admin.pembayaran.edit', $pembayaran) }}">Edit</x-table.link>
+                                    <form method="POST" action="{{ route('admin.pembayaran.destroy', $pembayaran) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <x-table.button variant="delete" type="submit">Hapus</x-table.button>
+                                    </form>
+                                </x-table.container>
+                            </x-table.td>
                         </x-table.tr>
-                    </x-table.thead>
-                    <x-table.tbody>
-                        @foreach ($pembayarans as $index => $pembayaran)
-                            <x-table.tr>
-                                <x-table.td>{{ $index + 1 }}</x-table.td>
-                                <x-table.td>{{ $pembayaran->pesanan->paketPernikahan->nama_paket }}</x-table.td>
-                                <x-table.td>{{ $pembayaran->tgl_pembayaran->format('d M Y') }}</x-table.td>
-                                <x-table.td>{{ $pembayaran->bukti_pembayaran }}</x-table.td>
-                                <x-table.td>{{ $pembayaran->bayar_dp }}</x-table.td>
-                                <x-table.td>{{ $pembayaran->bayar_lunas }}</x-table.td>
-                                <x-table.td>Rp. {{ number_format($pembayaran->pesanan->total_harga_pesanan, 0, ',', '.') }}</x-table.td>
-                                <x-table.td>
-                                    <x-table.button-link href="#">Lihat</x-table.button-link>
-                                </x-table.td>
-                            </x-table.tr>
-                        @endforeach
-                    </x-table.tbody>
-                </x-table.table>
+                    @endforeach
+                </tbody>
+            </table>
+        </x-table.container>
 
-            </div>
+        <x-table.container variant="footing">
+            <span>{{ $pembayarans->withQueryString()->links() }}</span>
+        </x-table.container>
+    </x-table.container>
 
-        </x-container.main>
-    
-    </x-container.admin-page>
-
-</x-layout>
+</x-layout-dashboard>
