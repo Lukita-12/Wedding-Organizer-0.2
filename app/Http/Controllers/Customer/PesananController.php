@@ -15,16 +15,11 @@ class PesananController extends Controller
 
     public function index()
     {
-        $pesanans = Auth::user()->pesanan()->with('pelanggan', 'paketPernikahan')->latest()->get(); // It's okay, it's just VS COde don't have the extension for it
+        $pesanans = Auth::user()->pesanan()->with('pelanggan', 'paketPernikahan', 'pembayaran')->latest()->get(); // It's fine, it's just VS Code don't have the extension for it
 
         return view('customer.pesanan.index', [
             'pesanans' => $pesanans,
         ]);
-        /*
-        $pesanans = Pesanan::with('paketPernikahan')->where('user_id', Auth::id())->latest()->get();
-
-        return view('/customer.pesanan.index', compact('pesanans'));
-        */
     }
 
     public function create(Request $request)
@@ -38,19 +33,6 @@ class PesananController extends Controller
             'hasPelanggan'      => $hasPelanggan,
             'paketPernikahans'  => $paketPernikahans,
         ]);
-        /*
-        $paketId = $request->query('paket-pernikahan');
-        $selectedPaket = null;
-
-        if ($paketId) {
-            $selectedPaket = PaketPernikahan::findOrFail($paketId); // akan throw 404 kalau tidak ada
-            $this->authorize('view', $selectedPaket); // cek akses ke paket (eksklusif/tidak)   
-        }
-
-        return view('/customer.pesanan.create', [
-            'selectedPaket' => $selectedPaket,
-        ]);
-        */
     }
 
     public function store(Request $request)
@@ -64,41 +46,19 @@ class PesananController extends Controller
             'tanggal_acara'         => ['required', 'date'],
             'tanggal_diskusi'       => ['required', 'date'],
         ]);
-        $paket = PaketPernikahan::findOrFail($validatedData['paket_pernikahan_id']);
 
-        $validatedData['total_harga_pesanan']   = $paket->hargaLunas_paket;
-        $validatedData['tgl_pesanan']           = now();
-
-        Pesanan::create($validatedData);
-
-        return redirect()->route('home');
-        /*
-        $validatedData = $request->validate([
-            'paket_pernikahan_id'   => ['nullable', 'exists:paket_pernikahan,id',],
-            'pengantin_pria'        => ['required'],
-            'pengantin_wanita'      => ['required'],
-            'tanggal_acara'         => ['required', 'date'],
-            'tanggal_diskusi'       => ['required', 'date'],
-        ]);
-
-        // Isi otomatis
-        $validatedData['user_id'] = Auth::id();
         $validatedData['tgl_pesanan'] = now();
 
-        // Jika customer memilih paket, ambil harga dari paket tersebut
-        if ($request->filled('paket_pernikahan_id')) {
-            $paket = PaketPernikahan::findOrFail($request->paket_pernikahan_id);
+        if ($validatedData['paket_pernikahan_id']) {
+            $paket = PaketPernikahan::findOrFail($validatedData['paket_pernikahan_id']);
             $validatedData['total_harga_pesanan'] = $paket->hargaLunas_paket;
         } else {
-            $validatedData['total_harga_pesanan'] = 0;
+            $validatedData['total_harga_pesanan'] = null;
         }
-        
-        $pesanan = Pesanan::create($validatedData);
 
-        return redirect()->route('customer.pembayaran.create',
-            $pesanan->id
-        );
-        */
+        Pesanan::create($validatedData);
+        
+        return redirect()->route('home');
     }
 
     public function show(Pesanan $pesanan)
@@ -109,6 +69,7 @@ class PesananController extends Controller
 
     public function edit(Pesanan $pesanan)
     {
+        /*
         $this->authorize('update', $pesanan);
 
         $paketPernikahans = PaketPernikahan::where('status_paket', 'Tersedia')
@@ -120,6 +81,7 @@ class PesananController extends Controller
         return view('customer.pesanan.edit', 
             compact('pesanan', 'paketPernikahans')
         );
+        */
     }
 
     /**
@@ -127,6 +89,7 @@ class PesananController extends Controller
      */
     public function update(Request $request, Pesanan $pesanan)
     {
+        /*
         // Pastikan user hanya bisa update pesanan miliknya
         $this->authorize('update', $pesanan);
 
@@ -141,6 +104,7 @@ class PesananController extends Controller
         $pesanan->update($validated);
 
         return redirect()->route('customer.pesanan.index')->with('success', 'Pesanan berhasil diperbarui.');
+        */
     }
 
     // Cancel

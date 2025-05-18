@@ -19,3 +19,26 @@ export function imagePreview(event, previewId) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
+export function handleFileUpload(event, previewId, inputId) {
+    if (!event || !previewId || !inputId) {
+        console.warn('handleFileUpload: Parameter tidak lengkap!');
+        return;
+    }
+
+    const file = event.target.files[0];
+    if (file) {
+        const preview = document.getElementById(previewId);
+        const input = document.getElementById(inputId);
+
+        if (preview) {
+            preview.src = URL.createObjectURL(file);
+            preview.classList.remove('hidden');
+            preview.onload = () => URL.revokeObjectURL(preview.src);
+        }
+
+        if (input) {
+            input.value = 'Sudah dibayar';
+        }
+    }
+}

@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
+use App\Models\Kerjasama;
+use App\Models\Pembayaran;
+use App\Models\Pesanan;
+use App\Models\RequestMitra;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,10 +15,22 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $akuns = User::latest()->simplePaginate(5);
+        // Card
+        $jumlahPermintaan   = RequestMitra::count();
+        $jumlahPembayaran   = Pembayaran::count();
+        $jumlahKerjasama    = Kerjasama::count();
+        $jumlahPesanan      = Pesanan::count();
+        // Table
+        $akuns  = User::latest()->simplePaginate(3);
+        $banks  = Bank::latest()->simplePaginate(3);
 
         return view('dashboard', [
-            'akuns' => $akuns,
+            'jumlahPermintaan'  => $jumlahPermintaan,
+            'jumlahPembayaran'  => $jumlahPembayaran,
+            'jumlahKerjasama'   => $jumlahKerjasama,
+            'jumlahPesanan'     => $jumlahPesanan,
+            'akuns'             => $akuns,
+            'banks'             => $banks,
         ]);
     }
 

@@ -12,7 +12,11 @@
                     </span>
                 </div>
                 <div  class="flex flex-col justify-between items-end">
-                    <a href="#" class="poppins text-slate-700 text-sm transition delay-50 duration-300 hover:text-teal-500">Lihat ></a>
+                    @if ($pesanan->pembayaran !== null)
+                        <a href="{{ route('customer.pembayaran.edit', $pesanan->pembayaran->id) }}" class="poppins text-slate-700 text-sm transition delay-50 duration-300 hover:text-teal-500">Bayar ></a>
+                    @else
+                        <span class="poppins text-slate-700 text-sm transition delay-50 duration-300 hover:text-teal-500">Menunggu konfirmasi</span>
+                    @endif
                     <div class="flex flex-col justify-end items-end">
                         <span class="poppins text-teal-600">{{ $pesanan->status_pesanan }}</span>
                         <span class="poppins text-slate-700 text-lg">

@@ -3,7 +3,7 @@
     <x-form.container variant="main">
         @unless ($hasPelanggan)
             <div class="flex flex-col items-center gap-4">
-                <span class="w-md poppins-medium text-slate-700 text-center text-xl">Informasi pelanggan diperlukan sebelum membuat kerjasama!</span>
+                <span class="w-md poppins-medium text-slate-700 text-center text-xl">Informasi pelanggan diperlukan sebelum membuat pesanan!</span>
                 <span class="my-1"></span>
                 <a href="{{ route('customer.pelanggan.create') }}" class="w-2xs poppins-semibold bg-teal-500 text-slate-100 text-center text-lg px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">
                     + Buat

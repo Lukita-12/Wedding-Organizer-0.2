@@ -22,33 +22,12 @@ class PembayaranController extends Controller
 
     public function create(Pesanan $pesanan)
     {
-         // Pastikan hanya pemilik pesanan yang bisa akses
-         $this->authorize('bayar', $pesanan);
-
-        return view('customer.pembayaran.create', [
-            'pesanan' => $pesanan,
-        ]);
+        //
     }
 
     public function store(Request $request, Pesanan $pesanan)
     {
-        $validatedData = $request->validate([
-            'pesanan_id'        => ['required', 'exists:pesanan,id'],
-            'bukti_pembayaran'  => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:10240'],
-            'bayar_dp'          => ['required'],
-            'bayar_lunas'       => ['nullable'],
-        ]);
-
-        // Handle file upload
-        $imagePath = $request->file('bukti_pembayaran')->store('bukti_pembayaran', 'public');
-        
-        $validatedData['tgl_pembayaran'] = now();
-        $validatedData['bukti_pembayaran'] = $imagePath;
-        // $validatedData['bayar_lunas'] = 'Belum dibayar' ;
-        
-        Pembayaran::create($validatedData);
-
-        return redirect('/');
+        //
     }
 
     /**
@@ -59,20 +38,39 @@ class PembayaranController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Pembayaran $pembayaran)
     {
-        //
+        return view('customer.pembayaran.edit', [
+            'pembayaran' => $pembayaran,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Pembayaran $pembayaran)
     {
-        //
+        $validatedData = $request->validate([
+            'pesanan_id'            => ['required', 'exists:pesanan,id'],
+            'bukti_pembayaran_dp'   => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'bukti_pembayaran_lunas'=> ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'bayar_dp'              => ['required', 'in:Belum dibayar,Sudah dibayar'],
+            'bayar_lunas'           => ['required', 'in:Belum dibayar,Sudah dibayar'],
+        ]);
+
+        $validatedData['tgl_pembayaran'] = now();
+
+        if ($request->hasFile('bukti_pembayaran_dp')) {
+            $validatedData['bukti_pembayaran_dp']   = $request->file('bukti_pembayaran_dp')->store('images/bukti_pembayaran/dp', 'public');
+        } else {
+            $validatedData['bukti_pembayaran_dp']   = $pembayaran->bukti_pembayaran_dp;
+        }
+        if ($request->hasFile('bukti_pembayaran_lunas')) {
+            $validatedData['bukti_pembayaran_lunas']= $request->file('bukti_pembayaran_lunas')->store('images/bukti_pembayaran/lunas', 'public');
+        } else {
+            $validatedData['bukti_pembayaran_lunas']= $pembayaran->bukti_pembayaran_lunas;
+        }
+
+        $pembayaran->update($validatedData);
+
+        return redirect()->route('home');
     }
 
     /**

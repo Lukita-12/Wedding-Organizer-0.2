@@ -2,41 +2,6 @@
     <x-slot:heading>
         Dashboard
     </x-slot:heading>
-    
-    <!-- Card -->
-    <x-card.container variant="small-main" class="hidden">
-        <x-card.card-link variant="small-card" href="{{ route('admin.request_mitra.index') }}">
-            <x-card.span variant="small-icon" class="material-symbols-outlined">contract</x-card.span>
-            <x-card.container variant="small-content">
-                <x-card.span variant="small-title">Permintaan</x-card.span>
-                <x-card.span variant="small-number">0</x-card.span>
-            </x-card.card-link>
-        </x-card.container>
-
-        <x-card.card-link variant="small-card" href="{{ route('admin.kerjasama.index') }}">
-            <x-card.span variant="small-icon" class="material-symbols-outlined">handshake</x-card.span>
-            <x-card.container variant="small-content">
-                <x-card.span variant="small-title">Kerjasama</x-card.span>
-                <x-card.span variant="small-number">0</x-card.span>
-            </x-card.card-link>
-        </x-card.container>
-
-        <x-card.card-link variant="small-card" href="{{ route('admin.pesanan.index') }}">
-            <x-card.span variant="small-icon" class="material-symbols-outlined">shoppingmode</x-card.span>
-            <x-card.container variant="small-content">
-                <x-card.span variant="small-title">Pesanan</x-card.span>
-                <x-card.span variant="small-number">0</x-card.span>
-            </x-card.card-link>
-        </x-card.container>
-
-        <x-card.card-link variant="small-card" href="{{ route('admin.pembayaran.index') }}">
-            <x-card.span variant="small-icon" class="material-symbols-outlined">payments</x-card.span>
-            <x-card.container variant="small-content">
-                <x-card.span variant="small-title">Permbayaran</x-card.span>
-                <x-card.span variant="small-number">0</x-card.span>
-            </x-card.card-link>
-        </x-card.container>
-    </x-card.container>
 
     <!-- Card -->
     <div class="w-full flex gap-6">
@@ -44,7 +9,7 @@
             <span class="text-slate-700 text-6xl text-center material-symbols-outlined">contract</span>
             <div class="flex flex-col">
                 <span class="poppins-semibold text-slate-700 text-xl">Permintaan</span>
-                <span class="poppins-semibold text-slate-700 text-xl">0</span>
+                <span class="poppins-semibold text-slate-700 text-xl">{{ $jumlahPermintaan }}</span>
             </div>
         </a>
 
@@ -52,7 +17,23 @@
             <span class="text-slate-700 text-6xl text-center material-symbols-outlined">handshake</span>
             <div class="flex flex-col">
                 <span class="poppins-semibold text-slate-700 text-xl">Kerjasama</span>
-                <span class="poppins-semibold text-slate-700 text-xl">0</span>
+                <span class="poppins-semibold text-slate-700 text-xl">{{ $jumlahKerjasama }}</span>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.pesanan.index') }}" class="w-full bg-slate-200 flex justify-center items-center px-4 py-2 gap-1 shadow shadow-slate-500 transition delay-50 duration:300 hover:bg-slate-300">
+            <span class="text-slate-700 text-6xl text-center material-symbols-outlined">shoppingmode</span>
+            <div class="flex flex-col">
+                <span class="poppins-semibold text-slate-700 text-xl">Pesanan</span>
+                <span class="poppins-semibold text-slate-700 text-xl">{{ $jumlahPesanan }}</span>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.pembayaran.index') }}" class="w-full bg-slate-200 flex justify-center items-center px-4 py-2 gap-1 shadow shadow-slate-500 transition delay-50 duration:300 hover:bg-slate-300">
+            <span class="text-slate-700 text-6xl text-center material-symbols-outlined">payments</span>
+            <div class="flex flex-col">
+                <span class="poppins-semibold text-slate-700 text-xl">Pembayaran</span>
+                <span class="poppins-semibold text-slate-700 text-xl">{{ $jumlahPembayaran }}</span>
             </div>
         </a>
     </div>
@@ -61,7 +42,7 @@
     <div class="w-full bg-slate-200 flex flex-col shadow shadow-slate-500">
         <div class="w-full flex justify-between items-center px-4 py-1 border-b-2 border-slate-500">
             <span class="poppins-semibold text-slate-700 text-2xl">Akun</span>
-            <a href="#" class="inline-block poppins-semibold text-slate-700 text-2xl">></a>
+            <a href="#" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
         </div>
 
         <div class="overflow-auto">
@@ -90,26 +71,77 @@
         </div>
 
         <div class="w-full flex justify-center px-3 py-3">
-            <a href="#" class="inline-block inter-italic text-slate-700 text-center italic underline">Lebih banyak ></a>
+            <a href="#" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
         </div>
     </div>
 
-    <div>
-        <div></div>
-
-        <table>
-            <thead>
-                <tr>
-                    <td>No.1</td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($banks as $bank)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <div class="grid grid-cols-2 gap-3">
+        <x-table.container variant="main">
+            <x-table.container variant="heading">
+                <span class="poppins-semibold text-slate-700 text-2xl">Bank</span>
+                <a href="#" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
+            </x-table.container>
+    
+            <x-table.container variant="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <x-table.td variant="head">No.</x-table.td>
+                            <x-table.td variant="head">Bank</x-table.td>
+                            <x-table.td variant="head">No. Rekening</x-table.td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($banks as $bank)
+                            <x-table.tr variant="body">
+                                <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
+                                <x-table.td>{{ $bank->nama_bank }}</x-table.td>
+                                <x-table.td>{{ $bank->no_rekening }}</x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </x-table.container>
+            
+            <x-table.container variant="footing" class="flex justify-center">
+                <a href="#" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
+            </x-table.container>
+        </x-table.container>
+    
+        <x-table.container variant="main">
+            <x-table.container variant="heading">
+                <span class="poppins-semibold text-slate-700 text-2xl">Akun</span>
+                <a href="#" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
+            </x-table.container>
+    
+            <x-table.container variant="table">
+                <table>
+                    <thead>
+                        <tr>
+                            <x-table.td variant="head" class="px-4!">No.</x-table.td>
+                            <x-table.td variant="head">Username</x-table.td>
+                            <x-table.td variant="head">Role</x-table.td>
+                            <x-table.td variant="head">Email</x-table.td>
+                            <x-table.td variant="head">Password</x-table.td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($akuns as $akun)
+                            <x-table.tr variant="body">
+                                <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
+                                <x-table.td>{{ $akun->name }}</x-table.td>
+                                <x-table.td>{{ $akun->role }}</x-table.td>
+                                <x-table.td>{{ $akun->email }}</x-table.td>
+                                <x-table.td>{{ $akun->password }}</x-table.td>
+                            </x-table.tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </x-table.container>
+    
+            <x-table.container variant="footing" class="flex justify-center">
+                <a href="#" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
+            </x-table.container>
+        </x-table.container>
     </div>
 </x-layout-dashboard>

@@ -49,7 +49,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::controller(PembayaranController::class)->group(function () {
-        Route::get('/pembayaran/{pesanan}/create', 'create')->name('customer.pembayaran.create');
-        Route::post('/pembayaran/{pesanan}', 'store')->name('customer.pembayaran.store');
+        Route::get('/pembayaran/{pembayaran}/edit', 'edit')->name('customer.pembayaran.edit');
+        Route::put('/pembayaran/{pembayaran}', 'update')->name('customer.pembayaran.update');
     });
 });
