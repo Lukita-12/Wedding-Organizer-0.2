@@ -16,7 +16,10 @@
             <fieldset {{ !$hasPelanggan ? 'disabled' : '' }} class="{{ !$hasPelanggan ? 'opacity-50' : '' }} py-4">
                 <x-form.container variant="form">
                     <div>
-                        <x-form.label for="pelanggan">Pelanggan</x-form.label>
+                        <div class="flex justify-between">
+                            <x-form.label for="pelanggan">Pelanggan</x-form.label>
+                            <a href="{{ route('customer.pelanggan.create') }}" class="poppins-medium text-slate-700 text-lg px-3 py-1 transition delay-50 duration:300 hover:text-teal-500">+ Baru</a>
+                        </div>
                         <x-form.select name="pelanggan_id" id="pelanggan_id" required>
                             <option value="">Pilih pelanggan</option>
                             @foreach ($pelanggans as $pelanggan)

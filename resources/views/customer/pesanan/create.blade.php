@@ -35,8 +35,9 @@
                             <option value="">Pilih paket pernikahan</option>
                             <option value="">Tanpa paket pernikahan</option>
                             @foreach ($paketPernikahans as $paketPernikahan)
-                                <option value="{{ $paketPernikahan->id }}" data-harga="{{ $paketPernikahan->hargaLunas_paket }}"
-                                    {{ (string) old('paket_pernikahan_id') === (string) $paketPernikahan->id ? 'selected' : '' }}>
+                                <option value="{{ $paketPernikahan->id }}"
+                                    data-harga="{{ $paketPernikahan->hargaLunas_paket }}"
+                                    {{ (string) old('paket_pernikahan_id', $paket_id) === (string) $paketPernikahan->id ? 'selected' : '' }}>
                                     {{ $paketPernikahan->nama_paket }}
                                 </option>
                             @endforeach
@@ -75,7 +76,7 @@
                     </div>
     
                     <x-form.container variant="button">
-                        <x-form.link href="{{ route('customer.pesanan.index') }}">Batal</x-form.link>
+                        <x-form.link href="{{ route('home') }}">Batal</x-form.link>
                         <x-form.button type="submit">Simpan</x-form.button>
                     </x-form.container>
                 </x-form.container>

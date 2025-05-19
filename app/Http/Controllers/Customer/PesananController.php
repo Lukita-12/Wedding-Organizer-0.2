@@ -24,11 +24,13 @@ class PesananController extends Controller
 
     public function create(Request $request)
     {
-        $pelanggans     = Auth::user()->pelanggan;
-        $hasPelanggan   = $pelanggans->isNotEmpty();
-        $paketPernikahans = PaketPernikahan::where('status_paket', 'Tersedia')->latest()->get();
+        $paketId            = $request->query('paket_id');
+        $pelanggans         = Auth::user()->pelanggan;
+        $hasPelanggan       = $pelanggans->isNotEmpty();
+        $paketPernikahans   = PaketPernikahan::where('status_paket', 'Tersedia')->latest()->get();
 
         return view('customer.pesanan.create', [
+            'paket_id'          => $paketId,
             'pelanggans'        => $pelanggans,
             'hasPelanggan'      => $hasPelanggan,
             'paketPernikahans'  => $paketPernikahans,

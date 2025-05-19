@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\PaketPernikahan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class PaketPernikahanController extends Controller
 {
     public function index()
     {
+        $paketPernikahans = PaketPernikahan::latest()->get();
+        /*
         $userId = Auth::id(); // ID user yang sedang login
 
         $paketPernikahans = PaketPernikahan::where(function ($query) use ($userId) {
@@ -20,6 +21,7 @@ class PaketPernikahanController extends Controller
                     ->where('custom_paket_for', $userId);
                 });
         })->get();
+        */
 
         return view('/customer.paket_pernikahan.index', [
             'paketPernikahans' => $paketPernikahans,

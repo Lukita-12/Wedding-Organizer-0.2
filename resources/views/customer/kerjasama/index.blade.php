@@ -2,6 +2,7 @@
     <div class="flex justify-between items-center px-4 py-1">
         <nav class="flex gap-1">
             <a href="{{ route('home') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Home</a>
+            <a href="{{ route('customer.paket_pernikahan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Paket Pernikahan</a>
             <a href="{{ route('customer.kerjasama.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Kerjasama</a>
             <a href="{{ route('customer.pesanan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Pesanan</a>
         </nav>
