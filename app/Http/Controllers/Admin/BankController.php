@@ -67,4 +67,18 @@ class BankController extends Controller
 
         return redirect()->route('admin.bank.index');
     }
+
+    // Search
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $banks = Bank::when($search, function ($query, $search) {
+            return $query->where('nama_bank', 'like', '%' . $search . '%');
+        })->simplePaginate(6);
+
+        return view('admin.bank.index', [
+            'banks' => $banks,
+        ]);
+    }
 }

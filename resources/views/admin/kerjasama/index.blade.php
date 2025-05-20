@@ -60,7 +60,7 @@
         </x-table.container>
     
         <x-table.container variant="footing">
-            {{ $kerjasamas->links() }}
+            {{ $kerjasamas->withQueryString()->links() }}
         </x-table.container>
     </x-table.container>
 </x-layout-dashboard>

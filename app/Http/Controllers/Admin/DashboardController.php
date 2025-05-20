@@ -21,14 +21,16 @@ class DashboardController extends Controller
         $jumlahKerjasama    = Kerjasama::count();
         $jumlahPesanan      = Pesanan::count();
         // Table
-        $akuns  = User::latest()->simplePaginate(3);
-        $banks  = Bank::latest()->simplePaginate(3);
+        $pesanans   = Pesanan::with('pelanggan', 'paketPernikahan')->latest()->simplePaginate(3);
+        $akuns      = User::latest()->simplePaginate(3);
+        $banks      = Bank::latest()->simplePaginate(3);
 
         return view('dashboard', [
             'jumlahPermintaan'  => $jumlahPermintaan,
             'jumlahPembayaran'  => $jumlahPembayaran,
             'jumlahKerjasama'   => $jumlahKerjasama,
             'jumlahPesanan'     => $jumlahPesanan,
+            'pesanans'          => $pesanans,
             'akuns'             => $akuns,
             'banks'             => $banks,
         ]);

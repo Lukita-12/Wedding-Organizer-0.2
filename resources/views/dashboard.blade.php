@@ -41,8 +41,8 @@
     <!-- Table -->
     <div class="w-full bg-slate-200 flex flex-col shadow shadow-slate-500">
         <div class="w-full flex justify-between items-center px-4 py-1 border-b-2 border-slate-500">
-            <span class="poppins-semibold text-slate-700 text-2xl">Akun</span>
-            <a href="#" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
+            <span class="poppins-semibold text-slate-700 text-2xl">Pesanan</span>
+            <a href="{{ route('admin.pesanan.index') }}" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
         </div>
 
         <div class="overflow-auto">
@@ -50,20 +50,34 @@
                 <thead>
                     <tr>
                         <td class="poppins-semibold text-slate-700 text-center text-lg px-4 py-2 whitespace-nowrap">No.</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Username</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Role</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Email</td>
-                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Password</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Nama Pelanggan</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Paket Pernikahan</td>
+
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Tanggal Pesanan</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Pengantin Pria</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Pengantin Wanita</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Tanggal Acara</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Tanggal Diskusi</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Total Pesanan</td>
+                        <td class="poppins-semibold text-slate-700 text-center text-lg px-12 py-2 whitespace-nowrap">Status Pesanan</td>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($akuns as $akun)
+                    @foreach ($pesanans as $pesanan)
                         <tr class="odd:bg-slate-100 even:bg-slate-200">
                             <td class="poppins text-slate-700 text-center px-4 py-3 whitespace-nowrap">{{ $loop->iteration }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $akun->name }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $akun->role }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $akun->email }}</td>
-                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $akun->password }}</td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">
+                                {{ $pesanan->pelanggan->nama_pelanggan }}, <span class="text-teal-500">{{ $pesanan->pelanggan->email_pelanggan }}</span>
+                            </td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $pesanan->paketPernikahan->nama_paket ?? '-' }}</td>
+
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $pesanan->tgl_pesanan->format('d M Y') }}</td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $pesanan->pengantin_pria }}</td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $pesanan->pengantin_wanita }}</td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $pesanan->tanggal_diskusi->format('d M Y') }}</td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $pesanan->tanggal_acara->format('d M Y') }}</td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">Rp. {{ number_format($pesanan->total_harga_pesanan, 0, ',', '.') }}</td>
+                            <td class="poppins text-slate-700 text-center px-12 py-3 whitespace-nowrap">{{ $pesanan->status_pesanan }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -71,7 +85,7 @@
         </div>
 
         <div class="w-full flex justify-center px-3 py-3">
-            <a href="#" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
+            <a href="{{ route('admin.pesanan.index') }}" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
         </div>
     </div>
 
@@ -79,7 +93,7 @@
         <x-table.container variant="main">
             <x-table.container variant="heading">
                 <span class="poppins-semibold text-slate-700 text-2xl">Bank</span>
-                <a href="#" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
+                <a href="{{ route('admin.bank.index') }}" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
             </x-table.container>
     
             <x-table.container variant="table">
@@ -104,14 +118,14 @@
             </x-table.container>
             
             <x-table.container variant="footing" class="flex justify-center">
-                <a href="#" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
+                <a href="{{ route('admin.bank.index') }}" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
             </x-table.container>
         </x-table.container>
     
         <x-table.container variant="main">
             <x-table.container variant="heading">
                 <span class="poppins-semibold text-slate-700 text-2xl">Akun</span>
-                <a href="#" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
+                <a href="{{ route('admin.akun.index') }}" class="inline-block poppins-semibold text-slate-700 text-2xl hover:text-teal-500">></a>
             </x-table.container>
     
             <x-table.container variant="table">
@@ -140,7 +154,7 @@
             </x-table.container>
     
             <x-table.container variant="footing" class="flex justify-center">
-                <a href="#" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
+                <a href="{{ route('admin.akun.index') }}" class="inline-block inter-italic text-slate-700 text-center italic underline hover:text-teal-500">Lebih banyak ></a>
             </x-table.container>
         </x-table.container>
     </div>

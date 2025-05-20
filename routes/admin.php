@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AkunController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PaketPernikahanController;
@@ -80,9 +81,22 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/bank', 'index')->name('admin.bank.index');
         Route::get('/bank/create', 'create')->name('admin.bank.create');
         Route::post('/bank', 'store')->name('admin.bank.store');
+        Route::get('/bank/search', 'search')->name('admin.bank.search');
+
         Route::get('/bank/{bank}/edit', 'edit')->name('admin.bank.edit');
         Route::put('/bank/{bank}', 'update')->name('admin.bank.update');
         Route::delete('/bank/{bank}', 'destroy')->name('admin.bank.destroy');
+    });
+
+    Route::controller(AkunController::class)->group(function () {
+        Route::get('/akun', 'index')->name('admin.akun.index');
+        Route::get('/akun/create', 'create')->name('admin.akun.create');
+        Route::post('/akun', 'store')->name('admin.akun.store');
+        Route::get('/akun/search', 'search')->name('admin.akun.search');
+
+        Route::get('/akun/{user}/edit', 'edit')->name('admin.akun.edit');
+        Route::put('/akun/{user}', 'update')->name('admin.akun.update');
+        Route::delete('/akun/{user}', 'destroy')->name('admin.akun.destroy');
     });
 
     Route::controller(PembayaranController::class)->group(function() {
