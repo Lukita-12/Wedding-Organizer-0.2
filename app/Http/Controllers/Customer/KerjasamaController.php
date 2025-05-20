@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kerjasama;
+use App\Models\RequestMitra;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +23,14 @@ class KerjasamaController extends Controller
                 $query->where('user_id', Auth::id());
             })->latest()->get();
 
+        $requestMitras = RequestMitra::with('pelanggan', 'kerjasama')
+            ->whereHas('pelanggan', function ($query) {
+                $query->where('user_id', Auth::id());
+            })->latest()->get();
+
         return view('/customer.kerjasama.index', [
-            'kerjasamas' => $kerjasamas,
+            'kerjasamas'    => $kerjasamas,
+            'requestMitras' => $requestMitras,
         ]);
     }
 

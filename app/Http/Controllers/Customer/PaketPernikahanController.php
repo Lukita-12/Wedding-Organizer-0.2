@@ -10,7 +10,7 @@ class PaketPernikahanController extends Controller
 {
     public function index()
     {
-        $paketPernikahans = PaketPernikahan::latest()->get();
+        $paketPernikahans = PaketPernikahan::where('status_paket', 'tersedia')->latest()->get();
         /*
         $userId = Auth::id(); // ID user yang sedang login
 

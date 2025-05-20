@@ -35,17 +35,22 @@
     </div>
 
     <div class="w-full h-108 grid grid-cols-2 px-4 py-2 gap-3 overflow-y-auto">
-        @foreach ($kerjasamas as $kerjasama)
+        @foreach ($requestMitras as $requestMitra)
             <div class="h-fit bg-slate-200 flex justify-between items-end shadow shadow-slate-500/80 px-3 py-1">
                 <div class="flex flex-col">
-                    <span class="poppins-medium text-slate-700 text-lg">{{ $kerjasama->requestMitra->nama_usaha ?? '-' }}</span>
-                    <span class="poppins text-slate-700 text-sm">{{ $kerjasama->requestMitra->nama_pemilik ?? '-' }}</span>
-                    <span class="poppins text-slate-700 text-sm mt-3">{{ $kerjasama->requestMitra->jenis_usaha ?? '-' }}</span>
+                    <span class="poppins-medium text-slate-700 text-lg">{{ $requestMitra->nama_usaha ?? '-' }}</span>
+                    <span class="poppins text-slate-700 text-sm">{{ $requestMitra->nama_pemilik ?? '-' }}</span>
+                    <span class="poppins text-slate-700 text-sm mt-3">{{ $requestMitra->jenis_usaha ?? '-' }}</span>
                 </div>
 
-                <a href="{{ route('customer.kerjasama.edit', $kerjasama) }}" class="inline-block poppins-semibold bg-teal-500 text-slate-100 text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">
-                    Edit
-                </a>
+                <div class="flex flex-col justify-between items-end gap-1">
+                    <span class="poppins-medium text-slate-700">{{ $requestMitra->status_request }}</span>
+                    @if ($requestMitra->kerjasama !==null)
+                        <a href="{{ route('customer.kerjasama.edit', $requestMitra->kerjasama->id) }}" class="inline-block w-fit h-fit poppins-semibold bg-teal-500 text-slate-100 text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">
+                            Edit
+                        </a>
+                    @endif
+                </div>
             </div>
         @endforeach
     </div>
