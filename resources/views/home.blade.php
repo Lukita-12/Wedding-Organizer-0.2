@@ -1,164 +1,67 @@
-<x-layout>
+<x-layout-home>
+    <!-- Kerjasama -->
+    <div class="w-full h-108 flex">
+        <div class="w-full h-full bg-[url('/public/images/snowing.jpg')] bg-cover bg-center"></div>
 
-    <!-- Header -->
-    <div class="border-sketch py-2 flex justify-between items-center">
-        <nav class="flex gap-1">
-            <a href="{{ url('/home') }}" class="border border-dashed border-gray-700
-                px-2 poppins text-lg text-center rounded-sm">
-                Home
-            </a>
-            <a href="{{ route('customer.paket_pernikahan.index') }}" class="border border-dashed border-gray-700
-                px-2 poppins text-lg text-center rounded-sm">
-                Paket pernikahan
-            </a>
-            <a href="{{ route('customer.kerjasama.index') }}" class="border border-dashed border-gray-700
-                px-2 poppins text-lg text-center rounded-sm">
-                Kerjasama
-            </a>
-            <a href="{{ route('customer.pesanan.index') }}" class="border border-dashed border-gray-700
-                px-2 poppins text-lg text-center rounded-sm">
-                Pesanan
-            </a>
-            <a href="#" class="border border-dashed border-gray-700
-                px-2 poppins text-lg text-center rounded-sm">
-                Tentang kami
-            </a>
-        </nav>
-        
-        <div class="flex items-center gap-3">
-            <input type="text" placeholder="Search..."
-                class="border border-dashed border-gray-700
-                    px-4 py-1 inter text-lg rounded-full">
-            @guest
-                <a href="{{ route('register') }}" class="bg-gray-400 text-white px-4 py-1 inline-block poppins-medium text-lg text-center rounded-md">Register</a>
-                <a href="{{ route('login') }}" class="bg-gray-400 text-white px-4 py-1 inline-block poppins-medium text-lg text-center rounded-md">Log in</a>
-            @endguest
+        <div class="w-full flex flex-col justify-center items-center gap-5">
+            <span class="w-xl poppins-semibold text-slate-700 text-4xl text-center px-3 py-1">BUAT KERJASAMA DENGAN HATMA WEDDING ORGANIZER</span>
             @auth
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="bg-gray-400 text-white px-4 py-1 inline-block poppins-medium text-lg text-center rounded-md">
-                        Log out
-                    </button>
-                </form>
+                <a href="{{ route('customer.request_mitra.create') }}" class="w-1/4 poppins-semibold bg-teal-500 text-slate-100 text-2xl text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">DAFTAR</a>
             @endauth
+            @guest
+                <a href="{{ route('login') }}" class="w-1/4 poppins-semibold bg-teal-500 text-slate-100 text-2xl text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">Log In</a>
+            @endguest
         </div>
     </div>
 
-    <!-- Jumbotron -->
-    <div class="border border-dashed border-gray-700   
-        h-135 bg-[url('/public/images/flower-c.jpg')] bg-cover bg-center">
-        <div class="w-full h-full flex flex-col justify-center items-center gap-8">
-            <h1 class="w-120 poppins-semibold text-white text-5xl text-center">
-                HATMA WEDDING ORGANIZER
-            </h1>
-            <input type="text" placeholder="Search..."
-                class="border border-dashed border-gray-300
-                    w-1/3 px-4 py-1 inter text-white text-2xl rounded-full">
-        </div>
-    </div>
-
-    <!-- Container -->
-    <div class="border border-dashed border-gray-700 h-120">
-
-        <!-- Header -->
-        <div class="border border-dashed border-gray-700
-            py-1 flex justify-between items-center">
-            <div class="flex gap-3 items-center">
-                <span class="bg-gray-700 w-3 h-3 rounded-full"></span>
-                <h2 class="text-gray-700 poppins-semibold text-3xl">Paket Pernikahan</h2>
+    <!-- Paket pernikahan -->
+    <div class="h-108 overflow-auto px-4">
+        <div class="flex justify-between items-end">
+            <div class="flex items-center py-2 gap-2">
+                <!-- <span class="w-2 h-2 bg-slate-500 rounded-full"></span> -->
+                <spans class="poppins-semibold text-slate-700 text-2xl">Paket Pernikahan</span>
             </div>
-            <a href="#" class="underline inter-italic">Lebih banyak...</a>
-        </div>
-    
-        <!-- Card -->
-        <div class="border-sketch w-fit flex flex-col rounded-xl">
-            <x-card.thumbnail src="{{ asset('../public/images/flower-red-night.jpg') }}" alt="Thumbnail" />
-            <div class="flex flex-col px-3 py-1">
-                <x-card.title>Nama paket</x-card.title>
-                <x-container.tags>
-                    <x-card.tag href="#">Tag</x-card.tag>
-                    <x-card.tag href="#">Tag</x-card.tag>
-                </x-container.tags>
-                <x-card.price>Rp. 100.XXX.XXX - Rp. 200.XXX.XXX</x-card.price>
-            </div>
+            <spans class="poppins-medium text-teal-500 transition delay-50 duration-300 hover:text-teal-700">Lebih banyak ></span>
         </div>
 
-    </div>
-
-    <!-- Container -->
-    <div class="border border-dashed border-gray-700 h-120">
-        <div class="flex h-full">
-            <div class="w-1/2 bg-[url('/public/images/grass-snow.jpg')] bg-cover bg-center"></div>
-            <div class="w-1/2 flex flex-col justify-center items-center space-y-4">
-                <h1 class="border border-dashed border-gray-700
-                    w-140 poppins-semibold text-4xl text-slate-700 text-center">
-                    BUAT KERJASAMA DENGAN HATMA WEDDING ORGANIZER
-                </h1>
-                <a href="{{ route('customer.request_mitra.create') }}" class="px-4 py-1 poppins-semibold text-xl text-white bg-gray-400 rounded-md">DAFTAR</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Container -->
-    <div class="border border-dashed border-gray-700 h-120">
-
-        <!-- Header -->
-        <div class="border border-dashed border-gray-700
-            py-1 flex justify-between items-center">
-            <div class="flex gap-3 items-center">
-                <span class="bg-gray-700 w-3 h-3 rounded-full"></span>
-                <h2 class="text-gray-700 poppins-semibold text-3xl">Ulasan</h2>
-            </div>
-            <a href="#" class="underline inter-italic">Lebih banyak...</a>
-        </div>
-
-        <!-- Card container -->
-        <div class="border border-dashed border-gray-700
-            flex flex-row justify-center space-x-4 mt-4">
-            <!-- Card -->
-            <div class="border border-dashed border-gray-700 w-105 rounded-xl">
-    
-                <img src="{{ asset('../public/images/flower-red-winter.jpg') }}" alt="Thumbnail" class="w-full h-56 object-cover rounded-t-xl">
-    
-                <div class="flex flex-col px-3 py-3 gap-4">
-                    <p class="inter-medium text-justify">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fugit laboriosam rerum aliquid hic veniam voluptatum assumenda delectus, sed beatae.
-                    </p>
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('../public/images/cat-girl.jpg') }}" alt="profile" class="w-9 h-9 object-cover rounded-full">
-                        <h3 class="poppins-medium text-lg">Username</h3>
+        <div class="grid grid-cols-4 gap-3">
+            @foreach ($paketPernikahans as $paketPernikahan)
+                <div class="bg-slate-200 flex flex-col px-1 py-1 gap-1 shadow shadow-500/80">
+                    <div class="h-45 bg-[url('/public/images/snowing.jpg')] bg-cover bg-center flex items-end">
+                        <div class="w-full backdrop-blur-sm px-2 py-1">
+                            <span class="poppins border border-slate-700 text-slate-700 text-sm px-1 transition delay-50 duration-500 hover:bg-slate-100/50"># Tag</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center px-3 py-1">
+                        <div class="flex flex-col">
+                            <span class="poppins-semibold text-slate-700 text-lg">{{ $paketPernikahan->nama_paket }}</span>
+                            <span class="poppins text-slate-500 text-sm text-center">{{ $paketPernikahan->hargaDP_paket }}-{{ $paketPernikahan->hargaLunas_paket }}</span>
+                        </div>
+                        <a href="{{ route('customer.pesanan.create', ['paket_id' => $paketPernikahan->id]) }}" target="_blank" class="poppins-medium h-fit bg-teal-600 text-slate-100 text-center items-center px-3 py-1 transition delay-50 duration-500 hover:bg-teal-700">Pesan</a>
                     </div>
                 </div>
-    
-            </div>
-            <!-- Card -->
-            <div class="border border-dashed border-gray-700 w-105 rounded-xl">
-    
-                <img src="{{ asset('../public/images/flower-red-winter.jpg') }}" alt="Thumbnail" class="w-full h-56 object-cover rounded-t-xl">
-    
-                <div class="flex flex-col px-3 py-3 gap-4">
-                    <p class="inter-medium text-justify">
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod fugit laboriosam rerum aliquid hic veniam voluptatum assumenda delectus, sed beatae.
-                    </p>
-                    <div class="flex items-center gap-2">
-                        <img src="{{ asset('../public/images/cat-girl.jpg') }}" alt="profile" class="w-9 h-9 object-cover rounded-full">
-                        <h3 class="poppins-medium text-lg">Username</h3>
+            @endforeach
+        </div>
+    </div>
+
+    <!-- Ulasan -->
+    <div class="h-108 flex flex-col px-4 py-2 gap-3">
+        <div class="flex justify-between items-end">
+            <span class="poppins-semibold text-slate-700 text-3xl">Ulasan</span>
+            <a href="#" class="poppins-italic text-slate-700 underline transition delay-50 duration-500 hover:text-teal-500">Lebih banyak...</a>
+        </div>
+        <div class="grid grid-cols-3 gap-3 items-center">
+            <div class="h-fit bg-slate-200 felx flex-col px-1 py-1 shadow-md shadow-700">
+                <div class="w-full h-56 bg-[url('/public/images/cat-girl.jpg')] bg-cover bg-center px-2 py-2">
+                    <div class="w-fit bg-slate-200 flex items-center px-1 py-1 gap-3 rounded-full">
+                        <span class="w-8 h-8 bg-[url('/public/images/landscape-panoramic.jpg')] bg-cover bg-center rounded-full"></span>
+                        <span class="poppins-medium text-slate-700 text">Username</span>
                     </div>
                 </div>
-    
+                <div>
+                    <span class="poppins text-slate-700 text-sm px-3 py-3">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum veritatis perferendis velit id amet dolor, est ad reiciendis laboriosam repellendus placeat tempora voluptas odit blanditiis.</span>
+                </div>
             </div>
         </div>
-
     </div>
-
-    <!-- Footer -->
-    <div class="border border-dashed border-gray-700 h-67">
-    </div>
-
-    <!-- Copyright -->
-    <div class="border border-dashed border-gray-700
-        py-2 flex justify-center items-center">
-        <p class="lora text-sm text-center">Copyright 2025</p>
-    </div>
-
-</x-layout>
+</x-layout-home>

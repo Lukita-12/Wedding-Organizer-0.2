@@ -1,4 +1,4 @@
-<x-layout-customer>
+<x-layout-home>
     <div class="h-135 overflow-auto">        
         <div class="grid grid-cols-4 gap-3">
             @foreach ($paketPernikahans as $paketPernikahan)
@@ -19,5 +19,4 @@
             @endforeach
         </div>
     </div>
-
-</x-layout-customer>
+</x-layout-home>
