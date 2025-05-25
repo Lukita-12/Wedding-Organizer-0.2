@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,34 +10,28 @@ use Illuminate\Validation\Rules\Password;
 
 class AkunController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        $users = User::latest()->simplePaginate(6);
-
-        return view('admin.akun.index', [
-            'users' => $users,
-        ]);
+        dd('Hello!');
     }
 
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        return view('admin.akun.create');
+        //
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'name'              => ['required'],
-            'role'              => ['required', 'in:customer,admin'],
-            'email'             => ['required', 'email', 'max:254'],
-            'email_verified_at' => ['nullable', 'date'],
-            'password'          => ['required', Password::min(8), 'confirmed'],
-            'remember_token'    => ['nullable'],
-        ]);
-
-        User::create($validatedData);
-
-        return redirect()->route('admin.akun.index');
+        //
     }
 
     /**
@@ -48,13 +42,19 @@ class AkunController extends Controller
         //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit(User $user)
     {
-        return view('admin.akun.edit', [
+        return view('customer.akun.edit', [
             'user' => $user,
         ]);
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, User $user)
     {
         $validatedData = $request->validate([
@@ -62,7 +62,6 @@ class AkunController extends Controller
             'email'             => ['required', 'email', 'max:254'],
             'email_verified_at' => ['nullable', 'date'],
             'password'          => ['nullable', Password::min(8), 'confirmed'],
-            'role'              => ['required', 'in:customer,admin'],
             'profile_pic'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
             'remember_token'    => ['nullable'],
         ]);
@@ -83,27 +82,14 @@ class AkunController extends Controller
 
         $user->update($validatedData);
 
-        return redirect()->route('admin.akun.index');
+        return redirect()->route('home');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy(User $user)
     {
-        $user->delete();
-
-        return redirect()->route('admin.akun.index');
-    }
-
-    // Search
-    public function search(Request $request)
-    {
-        $search = $request->input('search');
-
-        $users = User::when($search, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
-        })->simplePaginate(6);
-
-        return view('admin.akun.index', [
-            'users' => $users,
-        ]);
+        //
     }
 }

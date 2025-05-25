@@ -3,11 +3,13 @@
         @foreach ($ulasans as $ulasan)
             <div class="h-fit bg-slate-200 felx flex-col px-1 py-1 shadow-md shadow-700">
                 @php
-                    $imagePath = asset('storage/' . $ulasan->upload_file);
+                    $imagePath  = asset('storage/' . $ulasan->upload_file);
                 @endphp
                 <div class="w-full h-56 bg-cover bg-center px-2 py-2" style="background-image: url('{{ $imagePath }}')">
                     <div class="w-fit backdrop-blur-lg flex items-center px-1 py-1 gap-2 rounded-l-full">
-                        <span class="w-7 h-7 bg-[url('/public/images/landscape-panoramic.jpg')] bg-cover bg-center rounded-full"></span>
+                        <img src="{{ $ulasan->user->profile_pic ? asset('storage/' . $ulasan->user->profile_pic) : '#' }}"
+                            alt="Profile picture" class="w-7 h-7 bg-cover bg-center rounded-full">
+                            
                         <span class="poppins-medium text-slate-700">{{ $ulasan->user->name }}</span>
                     </div>
                 </div>

@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'profile_pic',
     ];
 
     /**
@@ -93,5 +94,12 @@ class User extends Authenticatable
     public function ulasan(): HasMany
     {
         return $this->hasMany(Ulasan::class);
+    }
+
+    public function getProfilePictureAttribute()
+    {
+        return $this->profile_pic
+            ? asset('storage/' . $this->profile_pic)
+            : asset('images/profile-ad.jpg');
     }
 }

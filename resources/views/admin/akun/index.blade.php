@@ -16,6 +16,7 @@
                     <tr>
                         <x-table.td variant="head" class="px-4!">No.</x-table.td>
                         <x-table.td variant="head">Username</x-table.td>
+                        <x-table.td variant="head">Profile Picture</x-table.td>
                         <x-table.td variant="head">Role</x-table.td>
                         <x-table.td variant="head">Email</x-table.td>
                         <x-table.td variant="head">Password</x-table.td>
@@ -27,6 +28,11 @@
                         <x-table.tr variant="body">
                             <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
                             <x-table.td>{{ $user->name }}</x-table.td>
+                            <x-table.td>
+                                <a href="{{ asset('storage/' . $user->profile_pic) }}" target="_blank" class="hover:text-blue-500">
+                                    {{ $user->profile_pic ?? '-' }}
+                                </a>
+                            </x-table.td>
                             <x-table.td>{{ $user->role }}</x-table.td>
                             <x-table.td>{{ $user->email }}</x-table.td>
                             <x-table.td>{{ $user->password }}</x-table.td>

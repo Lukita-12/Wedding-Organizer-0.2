@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Customer\AkunController;
 use App\Http\Controllers\Customer\KerjasamaController;
 use App\Http\Controllers\Customer\PaketPernikahanController;
 use App\Http\Controllers\Customer\PelangganController;
@@ -58,5 +59,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/ulasan', 'index')->name('customer.ulasan.index');
         Route::get('/ulasan/create', 'create')->name('customer.ulasan.create');
         Route::post('/ulasan', 'store')->name('customer.ulasan.store');
+    });
+
+    Route::controller(AkunController::class)->group(function () {
+        Route::get('/akun', 'index')->name('customer.akun.index');
+        Route::get('/akun/{user}/edit', 'edit')->name('customer.akun.edit');
+        Route::put('/akun/{user}', 'update')->name('customer.akun.update');
     });
 });

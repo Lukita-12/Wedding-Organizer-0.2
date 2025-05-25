@@ -17,10 +17,22 @@
             <a href="{{ route('customer.pesanan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Pesanan</a>
             <a href="{{ route('customer.ulasan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Galery</a>
         </nav>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="poppins-semibold bg-red-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-red-700">Log Out</button>
-        </form>
+
+        <div class="flex items-center gap-2">
+            @guest
+                <a href="{{ route('register') }}" class="poppins-semibold bg-teal-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-teal-700">Register</a>
+                <a href="{{ route('login') }}" class="poppins-semibold bg-teal-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-teal-700">Log In</a>
+            @endguest
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="poppins-semibold bg-red-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-red-700">Log Out</button>
+                </form>
+                <span class="w-1 h-1 border border-teal-500"></span>
+                <img src="{{ auth()->user()->profile_picture }}" alt="Profile picture"
+                    class="cursor-pointer w-9 h-9 object-cover rounded-full transition delay-50 duration:300 hover:ring-2 hover:ring-teal-500 hover:ring-offset-2">
+            @endauth
+        </div>
     </div>
 
     <main class="">
