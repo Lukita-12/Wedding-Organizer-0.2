@@ -6,6 +6,7 @@ use App\Http\Controllers\Customer\PelangganController;
 use App\Http\Controllers\Customer\PembayaranController;
 use App\Http\Controllers\Customer\PesananController;
 use App\Http\Controllers\Customer\RequestMitraController;
+use App\Http\Controllers\Customer\UlasanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/kerjasama', [KerjasamaController::class, 'index'])->name('customer.kerjasama.index');
@@ -51,5 +52,11 @@ Route::middleware(['auth'])->group(function () {
     Route::controller(PembayaranController::class)->group(function () {
         Route::get('/pembayaran/{pembayaran}/edit', 'edit')->name('customer.pembayaran.edit');
         Route::put('/pembayaran/{pembayaran}', 'update')->name('customer.pembayaran.update');
+    });
+
+    Route::controller(UlasanController::class)->group(function () {
+        Route::get('/ulasan', 'index')->name('customer.ulasan.index');
+        Route::get('/ulasan/create', 'create')->name('customer.ulasan.create');
+        Route::post('/ulasan', 'store')->name('customer.ulasan.store');
     });
 });

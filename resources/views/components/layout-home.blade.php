@@ -15,6 +15,7 @@
             <a href="{{ route('customer.paket_pernikahan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Paket Pernikahan</a>
             <a href="{{ route('customer.kerjasama.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Kerjasama</a>
             <a href="{{ route('customer.pesanan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Pesanan</a>
+            <a href="{{ route('customer.ulasan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Ulasan</a>
         </nav>
         <form method="POST" action="{{ route('logout') }}">
             @csrf

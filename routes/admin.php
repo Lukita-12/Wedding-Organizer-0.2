@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\PelangganController;
 use App\Http\Controllers\Admin\PembayaranController;
 use App\Http\Controllers\Admin\PesananController;
 use App\Http\Controllers\Admin\RequestMitraController;
+use App\Http\Controllers\Admin\UlasanController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
@@ -108,5 +109,16 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/pembayaran/{pembayaran}/edit', 'edit')->name('admin.pembayaran.edit');
         Route::put('/pembayaran/{pembayaran}', 'update')->name('admin.pembayaran.update');
         Route::delete('/pembayaran/{pembayaran}', 'destroy')->name('admin.pembayaran.destroy');
+    });
+
+    Route::controller(UlasanController::class)->group(function () {
+        Route::get('/ulasan', 'index')->name('admin.ulasan.index');
+        Route::get('/ulasan/create', 'create')->name('admin.ulasan.create');
+        Route::post('/ulasan', 'store')->name('admin.ulasan.store');
+        Route::get('/ulasan/search', 'search')->name('admin.ulasan.search');
+
+        Route::get('/ulasan/{ulasan}/edit', 'edit')->name('admin.ulasan.edit');
+        Route::put('/ulasan/{ulasan}', 'update')->name('admin.ulasan.update');
+        Route::delete('/ulasan/{ulasan}', 'destroy')->name('admin.ulasan.destroy');
     });
 });

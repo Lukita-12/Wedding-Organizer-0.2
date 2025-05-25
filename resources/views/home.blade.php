@@ -21,7 +21,7 @@
                 <!-- <span class="w-2 h-2 bg-slate-500 rounded-full"></span> -->
                 <spans class="poppins-semibold text-slate-700 text-2xl">Paket Pernikahan</span>
             </div>
-            <spans class="poppins-medium text-teal-500 transition delay-50 duration-300 hover:text-teal-700">Lebih banyak ></span>
+            <spans class="poppins-italic text-slate-700 underline transition delay-50 duration-300 hover:text-teal-700">Lebih banyak ></span>
         </div>
 
         <div class="grid grid-cols-4 gap-3">
@@ -53,7 +53,7 @@
         <div class="grid grid-cols-3 gap-3 items-center">
             <div class="h-fit bg-slate-200 felx flex-col px-1 py-1 shadow-md shadow-700">
                 <div class="w-full h-56 bg-[url('/public/images/cat-girl.jpg')] bg-cover bg-center px-2 py-2">
-                    <div class="w-fit bg-slate-200 flex items-center px-1 py-1 gap-3 rounded-full">
+                    <div class="w-fit bg-slate-200 flex items-center px-1 py-1 gap-2 rounded-full">
                         <span class="w-8 h-8 bg-[url('/public/images/landscape-panoramic.jpg')] bg-cover bg-center rounded-full"></span>
                         <span class="poppins-medium text-slate-700 text">Username</span>
                     </div>
