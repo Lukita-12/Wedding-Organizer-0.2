@@ -1,7 +1,7 @@
 <x-layout>
 
     <x-form.container variant="main">
-        <x-form.form action="{{ route('admin.kerjasama.update', $kerjasama) }}">
+        <x-form.form action="{{ route('admin.kerjasama.update', $kerjasama) }}" enctype="multipart/form-data">
             @method('PUT')
 
             <x-form.container variant="form">
@@ -16,6 +16,23 @@
                     </x-form.select>
                     <x-form.error errorFor="request_mitra_id" />
                 </x-form.container>
+
+                <div>
+                    <input type="file" name="upload_file" id="upload_file" class="hidden" accept="image/*" onchange="imagePreview(event, 'upload-file')">
+                    
+                    <label for="upload_file">
+                        @php
+                            $imagePath = $kerjasama->upload_file ?? null;
+                        @endphp
+                        <div class="h-40 flex flex-col justify-center items-center p-1 border-2 border-slate-500 border-dashed cursor-pointer overflow-hidden">
+                            <img src="{{ $imagePath ? asset('storage/' . $imagePath) : '#' }}" alt="Gambar/Logo Usaha" id="upload-file" 
+                                class="{{ $imagePath ? 'object-contain h-full' : 'hidden object-contain h-full' }}">
+                            <span class="poppins-semibold bg-slate-100 w-full h-full flex justify-center items-center text-slate-600 text-center text-2xl transition delay-50 duration-300 hover:bg-slate-300 hover:text-teal-600 {{ $imagePath ? 'hidden' : '' }}">+ Gambar</span>
+                        </div>
+                    </label>
+
+                    <x-form.error errorFor="upload_file" />
+                </div>
 
                 <div class="w-full flex flex-col gap-1">
                     <x-form.label for="noTelp_usaha">No. Telpon/WA</x-form.label>

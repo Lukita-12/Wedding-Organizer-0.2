@@ -34,18 +34,24 @@ class KerjasamaController extends Controller
     {
         $validatedData = $request->validate([
             'request_mitra_id'  => ['required', 'exists:request_mitra,id'],
-            'noTelp_usaha'      => ['required'],
-            'email_usaha'       => ['required', 'email', 'max:254'],
-            'alamat_usaha'      => ['required'],
-            'harga01'           => ['required', 'string'],
-            'ket_harga01'       => ['required'],
-            'harga02'           => ['required', 'string'],
-            'ket_harga02'       => ['required'],
+            'upload_file'       => ['nullable', 'image','mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'noTelp_usaha'      => ['nullable'],
+            'email_usaha'       => ['nullable', 'email', 'max:254'],
+            'alamat_usaha'      => ['nullable'],
+            'harga01'           => ['nullable', 'string'],
+            'ket_harga01'       => ['nullable'],
+            'harga02'           => ['nullable', 'string'],
+            'ket_harga02'       => ['nullable'],
         ]);
 
         // Cek apakah sudah ada kerjasama untuk request mitra yang sama
         if (Kerjasama::where('request_mitra_id', $validatedData['request_mitra_id'])->exists()) {
             return back()->with('error', 'Kerjasama dengan jenis usaha ini sudah ada!')->withInput();
+        }
+
+        // Upload Image
+        if ($request->hasFile('upload_file')){
+            $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/images', 'public');
         }
 
         // Remove thousand separators (dots) and convert comma to decimal point
@@ -81,14 +87,22 @@ class KerjasamaController extends Controller
     public function update(Request $request, Kerjasama $kerjasama)
     {
         $validatedData = $request->validate([
+            'upload_file'   => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
             'noTelp_usaha'  => ['required'],
             'email_usaha'   => ['required', 'email', 'max:254'],
             'alamat_usaha'  => ['required'],
             'harga01'       => ['required', 'string'],
             'ket_harga01'   => ['required'],
-            'harga02'       => ['required', 'string'],
-            'ket_harga02'   => ['required'],
+            'harga02'       => ['nullable', 'string'],
+            'ket_harga02'   => ['nullable'],
         ]);
+
+        // Upload image
+        if ($request->hasFile('upload_file')) {
+            $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/images', 'public');
+        } else {
+            $validatedData['upload_file'] = $kerjasama->upload_file;
+        }
 
         // Remove thousand separators (dots) and convert comma to decimal point
         $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);

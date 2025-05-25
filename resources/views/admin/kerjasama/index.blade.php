@@ -18,6 +18,8 @@
                         <x-table.td variant="head">Nama Usaha</x-table.td>
                         <x-table.td variant="head">Nama Pemilik</x-table.td>
                         <x-table.td variant="head">Jenis Usaha</x-table.td>
+                        <x-table.td variant="head">Gambar/Logo Usaha</x-table.td>
+
                         <x-table.td variant="head">No. Telpon</x-table.td>
                         <x-table.td variant="head">Email</x-table.td>
                         <x-table.td variant="head">Alamat</x-table.td>
@@ -36,6 +38,11 @@
                             <x-table.td>{{ $kerjasama->requestMitra->nama_pemilik ?? '-' }}</x-table.td>
                             <x-table.td>{{ $kerjasama->requestMitra->jenis_usaha ?? '-' }}</x-table.td>
         
+                            <x-table.td>
+                                <a href="{{ asset('storage/'. $kerjasama->upload_file) }}" target="_blank" class="hover:text-blue-500">
+                                    {{ $kerjasama->upload_file ?? '-' }}
+                                </a>
+                            </x-table.td>
                             <x-table.td>{{ $kerjasama->noTelp_usaha ?? '-' }}</x-table.td>
                             <x-table.td>{{ $kerjasama->email_usaha ?? '-' }}</x-table.td>
                             <x-table.td>{{ $kerjasama->alamat_usaha ?? '-' }}</x-table.td>

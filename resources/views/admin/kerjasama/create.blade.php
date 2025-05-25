@@ -1,7 +1,7 @@
 <x-layout>
 
     <x-form.container variant="main">
-        <x-form.form action="{{ route('admin.kerjasama.store') }}">
+        <x-form.form action="{{ route('admin.kerjasama.store') }}" enctype="multipart/form-data">
             <x-form.container variant="form">
                 <x-form.container variant="">
                     <x-form.label for="pemilik">Pemilik & Nama Usaha</x-form.label>
@@ -14,6 +14,19 @@
                     </x-form.select>
                     <x-form.error errorFor="request_mitra_id" />
                 </x-form.container>
+
+                <div>
+                    <input type="file" name="upload_file" id="upload_file" class="hidden" accept="image/*" onchange="imagePreview(event, 'upload-file')">
+
+                    <label for="upload_file">
+                        <div class="h-40 flex flex-col justify-center items-center p-1 border-2 border-slate-500 border-dashed cursor-pointer overflow-hidden">
+                            <img src="#" alt="Gambar/Logo Usaha" id="upload-file" class="hidden object-contain h-full">
+                            <span class="poppins-semibold bg-slate-100 w-full h-full flex justify-center items-center text-slate-600 text-center text-2xl transition delay-50 duration-300 hover:bg-slate-300 hover:text-teal-600">+ Gambar</span>
+                        </div>
+                    </label>
+
+                    <x-form.error errorFor="upload_file" />
+                </div>
 
                 <div class="w-full flex flex-col gap-1">
                     <x-form.label for="noTelp_usaha">No. Telpon/WA</x-form.label>

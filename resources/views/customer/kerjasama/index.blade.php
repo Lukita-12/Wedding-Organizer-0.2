@@ -1,25 +1,4 @@
-<x-layout>
-    <div class="flex justify-between items-center px-4 py-1">
-        <nav class="flex gap-1">
-            <a href="{{ route('home') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Home</a>
-            <a href="{{ route('customer.paket_pernikahan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Paket Pernikahan</a>
-            <a href="{{ route('customer.kerjasama.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Kerjasama</a>
-            <a href="{{ route('customer.pesanan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3">Pesanan</a>
-        </nav>
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="poppins-semibold bg-red-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-red-700">Log Out</button>
-        </form>
-    </div>
-
-    <div class="w-full h-135 bg-[url('/public/images/flower-red-winter.jpg')] bg-cover bg-center flex flex-col justify-center items-center">
-        <div class="backdrop-blur-sm w-full flex flex-col items-center py-4 gap-3">
-            <span class="w-md poppins-bold text-slate-100 text-center text-5xl">HATMA WEDDING ORGANIZER</span>
-            <span class="my-1"></span>
-            <a href="{{ route('customer.pesanan.create') }}" class="w-3xs poppins-semibold bg-teal-500/80 text-slate-100 text-3xl text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">PESAN</a>
-        </div>
-    </div>
-
+<x-layout-home>
     <div class="w-full h-108 flex">
         <div class="w-full h-full bg-[url('/public/images/snowing.jpg')] bg-cover bg-center"></div>
 
@@ -34,25 +13,39 @@
         </div>
     </div>
 
-    <div class="w-full h-108 grid grid-cols-2 px-4 py-2 gap-3 overflow-y-auto">
-        @foreach ($requestMitras as $requestMitra)
-            <div class="h-fit bg-slate-200 flex justify-between items-end shadow shadow-slate-500/80 px-3 py-1">
-                <div class="flex flex-col">
-                    <span class="poppins-medium text-slate-700 text-lg">{{ $requestMitra->nama_usaha ?? '-' }}</span>
-                    <span class="poppins text-slate-700 text-sm">{{ $requestMitra->nama_pemilik ?? '-' }}</span>
-                    <span class="poppins text-slate-700 text-sm mt-3">{{ $requestMitra->jenis_usaha ?? '-' }}</span>
+    <div class="flex flex-col w-full h-108 px-4 py-2 gap-3 overflow-y-auto">
+        <span class="poppins-semibold text-slate-700 text-2xl">Kerjasama</span>
+        <div class="grid grid-cols-2 gap-3">
+            @foreach ($requestMitras as $requestMitra)
+                <div class="h-fit bg-slate-200 flex justify-between items-end shadow shadow-slate-500/80">
+                    <div class="flex items-center gap-2">
+                        @if ($requestMitra->kerjasama)
+                            @php
+                                $imagePath = $requestMitra->kerjasama->upload_file ?? null;
+                            @endphp
+                            <img src="{{ asset($imagePath ? 'storage/' . $imagePath : 'images/forest-winter.jpg') }}"
+                                alt="Thumbnail" class="{{ $imagePath ? 'w-20 h-20 object-cover object-center' : 'w-20 h-20 object-cover object-center' }}">
+                        @else
+                            <img src="{{ asset('images/forest-winter.jpg') }}" class="w-20 h-20 object-cover object-center">
+                        @endif                            
+                        <div class="flex flex-col">
+                            <span class="poppins-medium text-slate-700 text-lg">{{ $requestMitra->nama_usaha ?? '-' }}</span>
+                            <span class="poppins text-slate-700 text-sm">{{ $requestMitra->nama_pemilik ?? '-' }}</span>
+                            <span class="poppins text-slate-700 text-sm mt-3">{{ $requestMitra->jenis_usaha ?? '-' }}</span>
+                        </div>
+                    </div>
+    
+                    <div class="flex flex-col justify-between items-end px-3 py-1 gap-1">
+                        @if ($requestMitra->kerjasama)
+                            <a href="{{ route('customer.kerjasama.edit', $requestMitra->kerjasama->id) }}" class="inline-block w-fit h-fit poppins-semibold bg-teal-500 text-slate-100 text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">
+                                Edit
+                            </a>
+                        @else
+                            <span class="poppins-medium text-slate-700">{{ $requestMitra->status_request }}</span>
+                        @endif
+                    </div>
                 </div>
-
-                <div class="flex flex-col justify-between items-end gap-1">
-                    <span class="poppins-medium text-slate-700">{{ $requestMitra->status_request }}</span>
-                    @if ($requestMitra->kerjasama !==null)
-                        <a href="{{ route('customer.kerjasama.edit', $requestMitra->kerjasama->id) }}" class="inline-block w-fit h-fit poppins-semibold bg-teal-500 text-slate-100 text-center px-3 py-1 transition delay-50 duration-300 hover:bg-teal-700">
-                            Edit
-                        </a>
-                    @endif
-                </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
     </div>
-
-</x-layout>
+</x-layout-home>

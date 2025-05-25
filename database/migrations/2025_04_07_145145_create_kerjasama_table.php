@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('kerjasama', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(RequestMitra::class)->nullable()->constrained()->nullOnDelete();
+            $table->string('upload_file')->nullable();
             $table->string('noTelp_usaha')->nullable();
             $table->string('email_usaha')->nullable();
             $table->string('alamat_usaha')->nullable();

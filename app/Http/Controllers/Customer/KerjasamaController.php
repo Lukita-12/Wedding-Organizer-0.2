@@ -76,14 +76,22 @@ class KerjasamaController extends Controller
             'nama_usaha'    => ['required'],
             'jenis_usaha'   => ['required'],
 
+            'upload_file'   => ['nullable', 'image','mimes:jpg,jpeg,png,webp', 'max:10240'],
             'noTelp_usaha'  => ['required'],
             'email_usaha'   => ['required', 'email', 'max:254'],
             'alamat_usaha'  => ['required'],
             'harga01'       => ['required', 'string'],
             'ket_harga01'   => ['required'],
-            'harga02'       => ['required', 'string'],
-            'ket_harga02'   => ['required'],
+            'harga02'       => ['nullable', 'string'],
+            'ket_harga02'   => ['nullable'],
         ]);
+
+        // Image upload
+        if ($request->hasFile('upload_file')) {
+            $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/images', 'public');
+        } else {
+            $validatedData['upload_file'] = $kerjasama->upload_file;
+        }
 
         // Remove thousand separators (dots) and convert comma to decimal point
         $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
@@ -95,6 +103,7 @@ class KerjasamaController extends Controller
 
         DB::transaction(function () use ($validatedData, $kerjasama) {
             $kerjasama->update([
+                'upload_file'   => $validatedData['upload_file'],
                 'noTelp_usaha'  => $validatedData['noTelp_usaha'],
                 'email_usaha'   => $validatedData['email_usaha'],
                 'alamat_usaha'  => $validatedData['alamat_usaha'],
