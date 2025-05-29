@@ -8,15 +8,12 @@ use Illuminate\Http\Request;
 
 class RequestMitraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $requestMitras = RequestMitra::latest()->get();
+        $requestMitras = RequestMitra::with('pelanggan')->latest()->get();
 
         return view('laporan.request_mitra.index', [
-            'requestMmitras' => $requestMitras,
+            'requestMitras' => $requestMitras,
         ]);
     }
 
