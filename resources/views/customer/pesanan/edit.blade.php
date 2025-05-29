@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PESANAN
+    </x-slot:heading>
 
     <div>
         <h1>Edit pesanan</h1>
@@ -76,5 +79,4 @@
             </x-form.container>
         </x-form.layout>
     </div>
-
-</x-layout>
+</x-layout-form>

@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PEMBAYARAN
+    </x-slot:heading>
 
     <div>
         <h1>Pembayaran Pesanan</h1>
@@ -54,5 +57,4 @@
                 </x-form.container>
         </x-form.layout>
     </div>
-
-</x-layout>
+</x-layout-form>

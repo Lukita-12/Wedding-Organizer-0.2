@@ -10,8 +10,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $paketPernikahans   = PaketPernikahan::latest()->simplePaginate(4);
-        $ulasans            = Ulasan::with('user')->latest()->simplePaginate(6);
+        $paketPernikahans   = PaketPernikahan::latest()->where('status_paket', 'Tersedia')->simplePaginate(3);
+        $ulasans            = Ulasan::with('user')->latest()->simplePaginate(3);
 
         return view('home', [
             'paketPernikahans'  => $paketPernikahans,

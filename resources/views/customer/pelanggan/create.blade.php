@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PELANGGAN
+    </x-slot:heading>
 
     <x-form.container variant="main">
         <x-form.form method="POST" action="{{ route('customer.pelanggan.store') }}">
@@ -45,5 +48,4 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
-
-</x-layout>
+</x-layout-form>

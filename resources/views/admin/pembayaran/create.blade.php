@@ -1,4 +1,8 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PEMBAYARAN
+    </x-slot:heading>
+
     <x-form.container variant="main">
         <x-form.form action="{{ route('admin.pembayaran.store') }}" enctype="multipart/form-data">
             <x-form.container variant="form">
@@ -74,4 +78,4 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
-</x-layout>
+</x-layout-form>

@@ -1,4 +1,8 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PAKET PERNIKAHAN
+    </x-slot:heading>
+
     <x-form.container variant="main">
         <x-form.form action="{{ route('admin.paket_pernikahan.store') }}">
             <x-form.container variant="form">
@@ -89,4 +93,4 @@
             statusSelect.addEventListener('change', toggleUserSelect);
         });
     </script>
-</x-layout>
+</x-layout-form>

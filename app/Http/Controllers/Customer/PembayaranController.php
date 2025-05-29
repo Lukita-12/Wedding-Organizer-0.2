@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Pembayaran;
 use App\Models\Pesanan;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -40,8 +41,11 @@ class PembayaranController extends Controller
 
     public function edit(Pembayaran $pembayaran)
     {
+        $banks = Bank::latest()->get();
+
         return view('customer.pembayaran.edit', [
-            'pembayaran' => $pembayaran,
+            'pembayaran'=> $pembayaran,
+            'banks'     => $banks,
         ]);
     }
 

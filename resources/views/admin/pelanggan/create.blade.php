@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PELANGGAN
+    </x-slot:heading>
 
     <div class="w-full bg-slate-200 shadow shadow-slate-500 px-4 py-2">
         <form method="POST" action="{{ route('admin.pelanggan.store') }}">
@@ -73,5 +76,4 @@
             </div>
         </form>
     </div>
-
-</x-layout>
+</x-layout-form>

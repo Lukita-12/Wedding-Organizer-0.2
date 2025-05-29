@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        AKUN
+    </x-slot:heading>
 
     <x-form.container variant="main">
         <x-form.form action="{{ route('customer.akun.update', $user) }}" enctype="multipart/form-data">
@@ -60,5 +63,4 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
-
-</x-layout>
+</x-layout-form>

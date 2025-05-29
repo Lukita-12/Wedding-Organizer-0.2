@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        KERJASAMA
+    </x-slot:heading>
 
     <x-form.container variant="main">
         <x-form.form action="{{ route('customer.kerjasama.update', $kerjasama) }}" enctype="multipart/form-data">
@@ -111,5 +114,4 @@
             </script>
         @endif
     </x-form.container>
-
-</x-layout>
+</x-layout-form>

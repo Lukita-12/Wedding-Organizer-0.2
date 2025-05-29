@@ -9,13 +9,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="bg-slate-100">
-    <div class="flex justify-between items-center px-4 py-1">
+    <div class="bg-teal-700/80 flex justify-between items-center px-4 py-1">
         <nav class="flex gap-1">
-            <a href="{{ route('home') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Home</a>
-            <a href="{{ route('customer.paket_pernikahan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Paket Pernikahan</a>
-            <a href="{{ route('customer.kerjasama.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Kerjasama</a>
-            <a href="{{ route('customer.pesanan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Pesanan</a>
-            <a href="{{ route('customer.ulasan.index') }}" class="border border-dashed poppins-medium text-slate-700 text-lg px-3 transition delay-50 duration-300 hover:bg-teal-500 hover:text-slate-100">Galery</a>
+            <a href="{{ route('home') }}" class="poppins-medium text-slate-100 text-lg px-3 transition delay-50 duration-300 hover:text-teal-500">Home</a>
+            <a href="{{ route('customer.paket_pernikahan.index') }}" class="poppins-medium text-slate-100 text-lg px-3 transition delay-50 duration-300 hover:text-teal-500">Paket Pernikahan</a>
+            <a href="{{ route('customer.kerjasama.index') }}" class="poppins-medium text-slate-100 text-lg px-3 transition delay-50 duration-300 hover:text-teal-500">Kerjasama</a>
+            <a href="{{ route('customer.pesanan.index') }}" class="poppins-medium text-slate-100 text-lg px-3 transition delay-50 duration-300 hover:text-teal-500">Pesanan</a>
+            <a href="{{ route('customer.ulasan.index') }}" class="poppins-medium text-slate-100 text-lg px-3 transition delay-50 duration-300 hover:text-teal-500">Galery</a>
         </nav>
 
         <div class="flex items-center gap-2">
@@ -29,7 +29,7 @@
                     <button type="submit" class="poppins-semibold bg-red-500 text-slate-100 text-lg px-3 py-1 transition delay-50 duration:300 hover:bg-red-700">Log Out</button>
                 </form>
                 <span class="w-1 h-1 border border-teal-500"></span>
-                <img src="{{ auth()->user()->profile_picture }}" alt="Profile picture"
+                <img src="{{ auth()->user()->profile_picture ?? '-' }}" alt="Profile picture"
                     class="cursor-pointer w-9 h-9 object-cover rounded-full transition delay-50 duration:300 hover:ring-2 hover:ring-teal-500 hover:ring-offset-2">
             @endauth
         </div>

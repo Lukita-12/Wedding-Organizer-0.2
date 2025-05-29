@@ -40,7 +40,7 @@
     <main class="flex-1 overflow-auto">
         <div class="sticky top-0 left-0 w-full bg-slate-200 flex justify-between items-center shadow shadow-slate-700 px-4 py-1">
             <span class="poppins-semibold text-teal-700 text-2xl">{{ $heading }}</span>
-            <img src="{{ auth()->user()->profile_picture }}" alt="Profile picture"
+            <img src="{{ auth()->user()->profile_picture ?? '-' }}" alt="Profile picture"
                 class="cursor-pointer w-9 h-9 object-cover rounded-full transition delay-50 duration:300 hover:ring-2 hover:ring-teal-500 hover:ring-offset-2">
         </div>
         

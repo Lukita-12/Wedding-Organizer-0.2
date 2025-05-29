@@ -1,9 +1,47 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PEMBAYARAN
+    </x-slot:heading>
+
     <x-form.container variant="main">
         <x-form.form action="{{ route('customer.pembayaran.update', $pembayaran) }}" enctype="multipart/form-data">
             @method('PUT')
 
             <x-form.container variant="form">
+                <div class="opacity-60">
+                    <div>
+                        <x-form.label for="pelanggan">Pelanggan</x-form.label>
+                        <x-form.input name="" id="" value="{{ $pembayaran->pesanan->pelanggan->nama_pelanggan ?? '-' }}" disabled
+                            class="bg-transparent text-teal-600 border-b-2 border-slate-500" />
+                        <x-form.error errorFor="bayar_lunas" />
+                    </div>
+    
+                    <div>
+                        <x-form.label for="pelanggan">Paket Pernikahan</x-form.label>
+                        <x-form.input name="" id="" value="{{ $pembayaran->paketPernikahan->nama_paket ?? '-' }}" disabled
+                            class="bg-transparent text-teal-600 border-b-2 border-slate-500" />
+                        <x-form.error errorFor="bayar_lunas" />
+                    </div>
+    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <x-form.label for="no_hp">No Telpon/WA</x-form.label>
+                            <x-form.input type="text" name="" id="" value="{{ $pembayaran->pesanan->pelanggan->noTelp_pelanggan }}" disabled
+                                class="bg-transparent text-teal-600 border-b-2 border-slate-500" />
+                            <x-form.error errorFor="bayar_dp" />
+                        </div>
+        
+                        <div>
+                            <x-form.label for="email">Status Pembayaran Lunas</x-form.label>
+                            <x-form.input type="email" name="" id="" value="{{ $pembayaran->pesanan->pelanggan->email_pelanggan }}" disabled
+                                class="bg-transparent text-teal-600 border-b-2 border-slate-500" />
+                            <x-form.error errorFor="bayar_lunas" />
+                        </div>
+                    </div>
+                </div>
+
+                <span class="w-full border-2 border-teal-600 border-dashed my-4"></span>
+
                 <div class="grid grid-cols-2 gap-3">
                     <x-form.input type="text" name="pesanan_id" id="pesanan_id" value="{{ $pembayaran->pesanan_id }}" class="hidden" />
 
@@ -59,6 +97,21 @@
                     </div>
                 </div>
 
+                <div>
+                    <x-form.label for="status_pembayaran_lunas">Transfer Bank:</x-form.label>
+
+                    <div class="flex flex-col">
+                        @foreach ($banks as $bank)
+                            <span class="gapp-1 poppins-medium text-teal-700 text-lg px-3">
+                                Bank: <span class="poppins text-slate-700">{{ $bank->nama_bank }}</span>
+                            </span>
+                            <span class="gapp-1 poppins-medium text-teal-700 text-lg px-3">
+                                No. Rekening: <span class="poppins text-slate-700">{{ $bank->no_rekening }}</span>
+                            </span>
+                        @endforeach
+                    </div>
+                </div>
+
                 <x-form.container variant="button">
                     <x-form.link href="{{ route('customer.pesanan.index') }}">Batal</x-form.link>
                     <x-form.button type="submit">Simpan</x-form.button>
@@ -66,4 +119,4 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
-</x-layout>
+</x-layout-form>

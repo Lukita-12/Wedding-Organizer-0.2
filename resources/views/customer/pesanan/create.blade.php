@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PESANAN
+    </x-slot:heading>
 
     <x-form.container variant="main">
         @unless ($hasPelanggan)
@@ -106,5 +109,4 @@
             paketSelect.addEventListener('change', updateHarga);
         });
     </script>
-
-</x-layout>
+</x-layout-form>

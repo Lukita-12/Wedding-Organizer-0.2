@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        AKUN
+    </x-slot:heading>
 
     <x-form.container variant="main">
         <x-form.form action="{{ route('admin.akun.store') }}">
@@ -43,5 +46,4 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
-
-</x-layout>
+</x-layout-form>

@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        BANK
+    </x-slot:heading>
 
     <x-form.container variant="main">
         <x-form.form action="{{ route('admin.bank.store') }}">
@@ -22,5 +25,4 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
-
-</x-layout>
+</x-layout-form>

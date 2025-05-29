@@ -1,4 +1,7 @@
-<x-layout>
+<x-layout-form>
+    <x-slot:heading>
+        PERMINTAAN KERJASAMA
+    </x-slot:heading>
 
     <x-form.container variant="main">
         <x-form.form action="{{ route('admin.request_mitra.update', $requestMitra) }}">
@@ -48,5 +51,4 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
-
-</x-layout>
+</x-layout-form>
