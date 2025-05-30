@@ -11,7 +11,8 @@
 <body class="bg-slate-100 flex">
     <aside class="w-64 min-h-screen bg-slate-700 flex flex-col justify-between items-center px-3 py-3">
         <x-sidebar.container variant="content">
-            <span class="poppins-semibold text-slate-100 text-2xl">LOGO's</span>
+            <img src="{{ asset('images/hatma-icon.png') }}" alt="Icon" class="bg-cover bg-center h-14">
+
             <span class="w-full border border-slate-100"></span>
             <nav class="w-full flex flex-col gap-1">
                 <x-sidebar.nav-link href="{{ url('/dashboard') }}">Dashboard</x-sidebar.nav-link>

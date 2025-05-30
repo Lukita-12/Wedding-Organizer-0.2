@@ -12,7 +12,7 @@ class PembayaranController extends Controller
     public function index()
     {
         // Eager loading!
-        $pembayarans = Pembayaran::with('pesanan.pelanggan', 'pesanan.paketPernikahan')->latest()->simplePaginate(6);
+        $pembayarans = Pembayaran::with('pesanan')->latest()->simplePaginate(6);
 
         return view('admin.pembayaran.index', [
             'pembayarans' => $pembayarans,

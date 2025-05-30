@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Laporan\InvoiceController;
 use App\Http\Controllers\Laporan\KerjasamaController;
 use App\Http\Controllers\Laporan\PaketPernikahanController;
 use App\Http\Controllers\Laporan\PembayaranController;
@@ -31,5 +32,9 @@ Route::prefix('laporan')->group(function () {
     Route::controller(PaketPernikahanController::class)->group(function () {
         Route::get('/paket-pernikahan/preview', 'preview')->name('laporan.paket_pernikahan.preview');
         Route::get('/paket-pernikahan/print', 'exportPdf')->name('laporan.paket_pernikahan.print');
+    });
+
+    Route::controller(InvoiceController::class)->group(function () {
+        Route::get('/invoice/{pembayaran}', 'preview')->name('laporan.invoice.preview');
     });
 });

@@ -50,6 +50,9 @@
                                 <x-table.td>{{ $pembayaran->bayar_lunas }}</x-table.td>
                                 <x-table.td>
                                     <x-table.container variant="button">
+                                        <a href="{{ route('laporan.invoice.preview', $pembayaran->id) }}" target="_blank" class="inline-block bg-teal-500 poppins text-slate-100 text-sm px-3 py-1">
+                                            Invoice
+                                        </a>
                                         <x-table.link variant="edit" href="{{ route('admin.pembayaran.edit', $pembayaran) }}">Edit</x-table.link>
                                         <form method="POST" action="{{ route('admin.pembayaran.destroy', $pembayaran) }}">
                                             @csrf
