@@ -1,7 +1,7 @@
 <x-layout-home>
     <!-- Kerjasama -->
     <div class="w-full bg-teal-700 h-108 flex px-3 py-2">
-        <div class="w-full h-full bg-[url('/public/images/snowing.jpg')] bg-cover bg-center"></div>
+        <div class="w-full h-full bg-[url('/public/images/deal.jpg')] bg-cover bg-center"></div>
 
         <div class="w-full bg-slate-100 flex flex-col justify-center items-center gap-5">
             <span class="w-xl poppins-semibold text-slate-700 text-4xl text-center px-3 py-1">BUAT KERJASAMA DENGAN HATMA WEDDING ORGANIZER</span>
@@ -49,6 +49,7 @@
         </a>
     </div>
 
+    <!-- Ulasan -->
     <div class="flex flex-row">
         <div class="bg-teal-700 w-1/3 flex flex-col justify-center items-center gap-3 shadow shadow-slate-500">
             <span class="poppins-semibold text-slate-100 text-5xl">ULASAN</span>

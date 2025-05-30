@@ -100,14 +100,16 @@
                 <div>
                     <x-form.label for="status_pembayaran_lunas">Transfer Bank:</x-form.label>
 
-                    <div class="flex flex-col">
+                    <div class="grid grid-cols-3">
                         @foreach ($banks as $bank)
+                        <div class="flex flex-col">
                             <span class="gapp-1 poppins-medium text-teal-700 text-lg px-3">
                                 Bank: <span class="poppins text-slate-700">{{ $bank->nama_bank }}</span>
                             </span>
                             <span class="gapp-1 poppins-medium text-teal-700 text-lg px-3">
                                 No. Rekening: <span class="poppins text-slate-700">{{ $bank->no_rekening }}</span>
                             </span>
+                        </div>
                         @endforeach
                     </div>
                 </div>

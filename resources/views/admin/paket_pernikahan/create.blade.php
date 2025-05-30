@@ -12,35 +12,39 @@
                     <x-form.error errorFor="nama_paket" />
                 </div>
 
-                @foreach ($jenisUsahasSlugged as $inputName => $label)
-                    <x-form.label for="{{ $label }}">{{ ucfirst($label) }}</x-form.label>
-                    <x-form.select name="{{ $inputName }}" id="{{ $inputName }}">
-                        <option value="">Pilih Usaha</option>
-                        <option value="">Kosongkan</option>
-                        @foreach ($kerjasamaByJenis[$label] as $kerjasama)
-                            <option value="{{ $kerjasama->id }}" {{ (string) old($inputName) === (string) $kerjasama->id ? 'selected' : '' }}>
-                                {{ $kerjasama->requestMitra->nama_usaha }}
-                            </option>
-                        @endforeach
-                    </x-form.select>
-                @endforeach
+                <div class="grid grid-cols-2 gap-3">
+                    @foreach ($jenisUsahasSlugged as $inputName => $label)
+                        <div class="flex flex-col">
+                            <x-form.label for="{{ $label }}">{{ ucfirst($label) }}</x-form.label>
+                            <x-form.select name="{{ $inputName }}" id="{{ $inputName }}">
+                                <option value="">Pilih Usaha</option>
+                                <option value="">Kosongkan</option>
+                                @foreach ($kerjasamaByJenis[$label] as $kerjasama)
+                                    <option value="{{ $kerjasama->id }}" {{ (string) old($inputName) === (string) $kerjasama->id ? 'selected' : '' }}>
+                                        {{ $kerjasama->requestMitra->nama_usaha }}
+                                    </option>
+                                @endforeach
+                            </x-form.select>
+                        </div>
+                    @endforeach
 
-                <div>
+                    <div>
                     <x-form.label for="staff_acara">Staff acara</x-form.label>
-                    <x-form.input type="number" name="staff_acara" id="staff_acara" :value="old('staff_acara')" placeholder="Staff acara..." />
-                    <x-form.error errorFor="staff_acara" />
-                </div>
+                        <x-form.input type="number" name="staff_acara" id="staff_acara" :value="old('staff_acara')" placeholder="Staff acara..." />
+                        <x-form.error errorFor="staff_acara" />
+                    </div>
 
-                <div>
-                    <x-form.label for="hargaDP_paket">Harga DP</x-form.label>
-                    <x-form.input type="text" name="hargaDP_paket" id="hargaDP_paket" :value="old('hargaDP_paket')" placeholder="999.999.999" required />
-                    <x-form.error errorFor="hargaDP_paket" />
-                </div>
+                    <div>
+                        <x-form.label for="hargaDP_paket">Harga 01</x-form.label>
+                        <x-form.input type="text" name="hargaDP_paket" id="hargaDP_paket" :value="old('hargaDP_paket')" placeholder="999.999.999" required />
+                        <x-form.error errorFor="hargaDP_paket" />
+                    </div>
 
-                <div>
-                    <x-form.label for="hargaLunas_paket">Harga lunas</x-form.label>
-                    <x-form.input type="text" name="hargaLunas_paket" id="hargaLunas_paket" :value="old('hargaLunas_paket')" placeholder="999.999.999" required />
-                    <x-form.error errorFor="hargaLunas_paket" />
+                    <div>
+                        <x-form.label for="hargaLunas_paket">Harga 02</x-form.label>
+                        <x-form.input type="text" name="hargaLunas_paket" id="hargaLunas_paket" :value="old('hargaLunas_paket')" placeholder="999.999.999" required />
+                        <x-form.error errorFor="hargaLunas_paket" />
+                    </div>
                 </div>
 
                 <div>
