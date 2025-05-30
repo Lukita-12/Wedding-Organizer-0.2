@@ -3,20 +3,20 @@
 namespace App\Http\Controllers\Laporan;
 
 use App\Http\Controllers\Controller;
-use App\Models\Pesanan;
+use App\Models\Pembayaran;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\File;
 use Spatie\Browsershot\Browsershot;
 
-class PesananController extends Controller
+class PembayaranController extends Controller
 {
     public function preview()
     {
-        $pesanans = Pesanan::with('pelanggan', 'paketPernikahan')->latest()->simplePaginate(6);
+        $pembayarans = Pembayaran::with('pesanan')->latest()->simplePaginate(6);
 
-        return view('laporan.pesanan.print', [
-            'pesanans' => $pesanans,
+        return view('laporan.pembayaran.print', [
+            'pembayarans' => $pembayarans,
         ]);
     }
 
@@ -27,20 +27,20 @@ class PesananController extends Controller
             return $currentPage;
         });
         
-        $pesanans = Pesanan::with('pelanggan', 'paketPernikahan')->latest()->simplePaginate(6);
+        $pembayarans = Pembayaran::with('pesanan')->latest()->simplePaginate(6);
 
-        $html = view('laporan.pesanan.print', [
-            'pesanans' => $pesanans,
+        $html = view('laporan.pembayaran.print', [
+            'pembayarans' => $pembayarans,
         ])->render();
 
-        $folderPath = storage_path('app/public/laporan/pesanan');
-        $pdfPath = $folderPath . '/pesanan.pdf';
+        $folderPath = storage_path('app/public/laporan/pembayaran');
+        $pdfPath = $folderPath . '/pembayaran.pdf';
         if (!File::exists($folderPath)) {
             File::makeDirectory($folderPath, 0755, true); // true = recursive
         }
 
         Browsershot::html($html)
-            ->format('A4')
+            ->Browsershot('A4')
             ->landscape()
             ->margins(0, 0, 0, 0)
             ->showBackground()

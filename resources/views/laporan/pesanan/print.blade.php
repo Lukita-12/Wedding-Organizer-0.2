@@ -2,7 +2,7 @@
     <div class="h-screen bg-white flex flex-col justify-center px-10 gap-6">
         <div class="flex flex-col gap-1">
             <div class="text-center">
-                <p class="poppins-bold text-2xl">LAPORAN PERMINTAAN KERJASAMA</p>
+                <p class="poppins-bold text-2xl">LAPORAN PESANAN</p>
                 <p class="poppins-bold text-2xl">HATMA WEDDING ORGANIZER</p>
                 <p class="poppins-bold text-2xl">TAHUN ......../........</p>
             </div>

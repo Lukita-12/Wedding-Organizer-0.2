@@ -1,8 +1,10 @@
 <x-layout>
     <div class="h-screen flex justify-center items-center">
         <div class="bg-slate-200 flex shadow shadow-slate-500/80">
-            <div class="w-1/2 bg-[url('/public/images/landscape-panoramic.jpg')] bg-cover bg-center flex justify-center items-center">
-                <span class="border-y-2 border-slate-100 border-dashed backdrop-blur-sm poppins-bold text-slate-100 text-5xl text-center py-4">HATMA WEDDING <span class="text-teal-500">ORGANIZER</span></span>
+            <div class="w-1/2 bg-[url('/public/images/flower.jpg')] bg-cover bg-center flex justify-center items-center">
+                <span class="border-y-2 border-slate-100 border-dashed backdrop-blur-sm poppins-bold text-slate-100 text-5xl text-center py-4">
+                    HATMA WEDDING <span class="text-teal-500">ORGANIZER</span>
+                </span>
             </div>
     
             <div class="w-1/2 px-12 py-6">

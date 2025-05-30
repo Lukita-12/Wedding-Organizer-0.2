@@ -36,7 +36,7 @@
     </div>
 
     <main class="">
-        <div class="w-full h-135 bg-[url('/public/images/flower-red-winter.jpg')] bg-cover bg-center flex flex-col justify-center items-center">
+        <div class="w-full h-135 bg-[url('/public/images/flower.jpg')] bg-cover bg-center flex flex-col justify-center items-center">
             <div class="backdrop-blur-sm w-full flex flex-col items-center py-4 gap-3">
                 <span class="w-md poppins-bold text-slate-100 text-center text-5xl">HATMA WEDDING ORGANIZER</span>
                 <span class="my-1"></span>
