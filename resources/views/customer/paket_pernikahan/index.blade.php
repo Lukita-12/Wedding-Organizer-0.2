@@ -6,8 +6,11 @@
         
         <div class="w-full grid grid-cols-4 justify-center px-12 gap-3 overflow-auto">
             @foreach ($paketPernikahans as $paketPernikahan)
+                @php
+                    $imagePath = asset('storage/' . $paketPernikahan->upload_file);
+                @endphp
                 <div class="bg-slate-200 w-full flex flex-col px-1 py-1 gap-1 shadow shadow-500/80 shadow shadow-slate-500">
-                    <div class="h-45 bg-[url('/public/images/snowing.jpg')] bg-cover bg-center flex justify-end items-end">
+                    <div class="h-45 bg-cover bg-center flex justify-end items-end" style="background-image: url('{{ $imagePath }}')">
                         <a href="{{ route('customer.pesanan.create', ['paket_id' => $paketPernikahan->id]) }}" target="_blank" class="poppins-medium h-fit bg-teal-600 text-slate-100 text-center px-3 py-1 transition delay-50 duration-500 hover:bg-teal-700">
                             Pesan
                         </a>

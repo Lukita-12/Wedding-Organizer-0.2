@@ -60,9 +60,16 @@ class UlasanController extends Controller
     public function update(Request $request, Ulasan $ulasan)
     {
         $validatedData = $request->validate([
-            'user_id'   => ['required', 'exists:users,id'],
-            'ulasan'    => ['required'],
+            'user_id'       => ['required', 'exists:users,id'],
+            'upload_file'   => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'ulasan'        => ['required'],
         ]);
+
+        if ($request->hasFile('upload_file')) {
+            $validatedData['upload_file']   = $request->file('upload_file')->store('images/ulasan', 'public');
+        } else {
+            $validatedData['upload_file']   = $ulasan->upload_file;
+        }
 
         $ulasan->update($validatedData);
 

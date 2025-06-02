@@ -4,8 +4,24 @@
     </x-slot:heading>
 
     <x-form.container variant="main">
-        <x-form.form action="{{ route('admin.ulasan.update', $ulasan) }}">
+        <x-form.form action="{{ route('admin.ulasan.update', $ulasan) }}" enctype="multipart/form-data">
             @method('PUT')
+
+            <div>
+                <x-form.input type="file" name="upload_file" id="upload_file" accept="image/*" class="hidden" onchange="imagePreview(event, 'upload-file')" />
+
+                <label for="upload_file">
+                    @php
+                        $imagePath = $ulasan->upload_file ?? null;
+                    @endphp
+                    <div class="h-40 flex flex-col justify-center items-center p-1 border-2 border-slate-500 border-dashed cursor-pointer overflow-hidden">
+                        <img id="upload-file" src="{{ $imagePath ? asset('storage/' . $imagePath) : '#' }}" alt="Preview DP"
+                            class="{{ $imagePath ? 'object-contain h-full' : 'hidden object-contain h-full' }}">
+                        <span class="poppins-medium bg-slate-100 w-full h-full flex justify-center items-center text-teal-600 text-center text-lg transition delay-50 duration-300 hover:bg-slate-300 {{ $imagePath ? 'hidden' : '' }}">+ Tambah</span>
+                    </div>
+                </label>
+                <x-form.error errorFor="upload_file" />
+            </div>
 
             <x-form.container variant="form">
                 <x-form.container>

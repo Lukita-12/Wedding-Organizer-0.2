@@ -15,15 +15,18 @@
     </div>
 
     <!-- Paket Pernikahan -->
-    <div class="bg-teal-700 flex flex-col items-center p-5 gap-4 shadow shadow-slate-500">
+    <div class="h-108 bg-teal-700 flex flex-col justify-center items-center p-5 gap-4 shadow shadow-slate-500">
         <span class="poppins-semibold text-slate-100 text-3xl text-center">
             Paket Pernikahan
         </span>
         
         <div class="w-full flex justify-center gap-3">
             @foreach ($paketPernikahans as $paketPernikahan)
+                @php
+                    $imagePath = asset('storage/' . $paketPernikahan->upload_file);
+                @endphp
                 <div class="bg-slate-200 w-1/5 flex flex-col px-1 py-1 gap-1 shadow shadow-500/80 shadow shadow-slate-500">
-                    <div class="h-45 bg-[url('/public/images/snowing.jpg')] bg-cover bg-center flex justify-end items-end">
+                    <div class="h-45 bg-cover bg-center flex justify-end items-end" style="background-image: url('{{ $imagePath }}')">
                         <a href="{{ route('customer.pesanan.create', ['paket_id' => $paketPernikahan->id]) }}" target="_blank" class="poppins-medium h-fit bg-teal-600 text-slate-100 text-center px-3 py-1 transition delay-50 duration-500 hover:bg-teal-700">
                             Pesan
                         </a>
@@ -50,8 +53,8 @@
     </div>
 
     <!-- Ulasan -->
-    <div class="flex flex-row">
-        <div class="bg-teal-700 w-1/3 flex flex-col justify-center items-center gap-3 shadow shadow-slate-500">
+    <div class="h-108 flex flex-row justify-center items-center">
+        <div class="bg-teal-700 w-1/3 h-full flex flex-col justify-center items-center gap-3 shadow shadow-slate-500">
             <span class="poppins-semibold text-slate-100 text-5xl">ULASAN</span>
             
             <a href="{{ route('customer.ulasan.index') }}" class="poppins-italic text-slate-100 text-sm underline hover:text-teal-500">

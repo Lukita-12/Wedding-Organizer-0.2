@@ -113,6 +113,7 @@ class PaketPernikahanController extends Controller
     {
         $validatedData = $request->validate([
             'user_id'           => ['nullable', 'exists:users,id'],
+            'upload_file'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
             'nama_paket'        => ['required', 'string', 'max:255'],
 
             'venue'             => ['nullable', 'exists:kerjasama,id'],
@@ -128,6 +129,12 @@ class PaketPernikahanController extends Controller
             'hargaLunas_paket'  => ['required', 'string'],
             'status_paket'      => ['required', 'in:Tersedia,Tidak tersedia,Eksklusif'],
         ]);
+
+        if ($request->hasFile('upload_file')) {
+            $validatedData['upload_file']   = $request->file('upload_file')->store('images/paket_pernikahan', 'public');
+        } else {
+            $validatedData['upload_file']   = $paketPernikahan->upload_file;
+        }
 
         // Hapus titik dari harga untuk konversi ke integer
         $validatedData['hargaDP_paket']     = (int) str_replace('.', '', $validatedData['hargaDP_paket']);

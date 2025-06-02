@@ -48,28 +48,30 @@
                         <x-form.error errorFor="paket_pernikahan_id" />
                     </div>
     
-                    <div>
-                        <x-form.label for="pengantin_pria">Pengantin Pria</x-form.label>
-                        <x-form.input type="text" name="pengantin_pria" id="pengantin_pria" :value="old('pengantin_pria')" placeholder="Nama pengantin pria..." required />
-                        <x-form.error errorFor="pengantin_pria" />
-                    </div>
-    
-                    <div>
-                        <x-form.label for="pengantin_wanita">Pengantin Wanita</x-form.label>
-                        <x-form.input type="text" name="pengantin_wanita" id="pengantin_wanita" :value="old('pengantin_wanita')" placeholder="Nama pengantin wanita..." />
-                        <x-form.error errorFor="pengantin_wanita" />
-                    </div>
-    
-                    <div>
-                        <x-form.label for="tanggal_diskusi">Tanggal Diskusi/Perencaan</x-form.label>
-                        <x-form.input type="date" name="tanggal_diskusi" id="tanggal_diskusi" :value="old('tanggal_diskusi')" required />
-                        <x-form.error errorFor="tanggal_diskusi" />
-                    </div>
-    
-                    <div>
-                        <x-form.label for="tanggal_acara">Tanggal Acara</x-form.label>
-                        <x-form.input type="date" name="tanggal_acara" id="tanggal_acara" :value="old('tanggal_acara')" required />
-                        <x-form.error errorFor="tanggal_acara" />
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <x-form.label for="pengantin_pria">Pengantin Pria</x-form.label>
+                            <x-form.input type="text" name="pengantin_pria" id="pengantin_pria" :value="old('pengantin_pria')" placeholder="Nama pengantin pria..." required />
+                            <x-form.error errorFor="pengantin_pria" />
+                        </div>
+        
+                        <div>
+                            <x-form.label for="pengantin_wanita">Pengantin Wanita</x-form.label>
+                            <x-form.input type="text" name="pengantin_wanita" id="pengantin_wanita" :value="old('pengantin_wanita')" placeholder="Nama pengantin wanita..." />
+                            <x-form.error errorFor="pengantin_wanita" />
+                        </div>
+        
+                        <div>
+                            <x-form.label for="tanggal_diskusi">Tanggal Diskusi/Perencaan</x-form.label>
+                            <x-form.input type="date" name="tanggal_diskusi" id="tanggal_diskusi" :value="old('tanggal_diskusi')" required />
+                            <x-form.error errorFor="tanggal_diskusi" />
+                        </div>
+        
+                        <div>
+                            <x-form.label for="tanggal_acara">Tanggal Acara</x-form.label>
+                            <x-form.input type="date" name="tanggal_acara" id="tanggal_acara" :value="old('tanggal_acara')" required />
+                            <x-form.error errorFor="tanggal_acara" />
+                        </div>
                     </div>
     
                     <div>

@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('paket_pernikahan', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
+            $table->string('upload_file')->nullable();
             $table->string('nama_paket');
             // Foreign key ke kerjasama, nullable karena boleh dikosongkan
             $table->foreignId('venue')->nullable()->constrained('kerjasama')->nullOnDelete();

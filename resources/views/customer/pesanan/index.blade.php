@@ -9,7 +9,7 @@
                 <div class="bg-slate-200 flex flex-col shadow shadow-slate-500">
                     <div class="h-32 bg-teal-700 flex flex-col justify-between px-3 py-2">
                         <div class="flex justify-between">
-                            <img src="{{ auth()->user()->profile_picture ?? '-' }}" alt="Profile picture" class="h-12 rounded-full">
+                            <img src="{{ auth()->user()->profile_picture ?? '-' }}" alt="Profile picture" class="h-12 w-12 rounded-full">
     
                             @if ($pesanan->pembayaran)
                                 <a href="{{ route('customer.pembayaran.edit', $pesanan->pembayaran->id ?? '-') }}"

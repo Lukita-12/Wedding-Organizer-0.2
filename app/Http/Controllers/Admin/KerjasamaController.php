@@ -88,11 +88,11 @@ class KerjasamaController extends Controller
     {
         $validatedData = $request->validate([
             'upload_file'   => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
-            'noTelp_usaha'  => ['required'],
-            'email_usaha'   => ['required', 'email', 'max:254'],
-            'alamat_usaha'  => ['required'],
-            'harga01'       => ['required', 'string'],
-            'ket_harga01'   => ['required'],
+            'noTelp_usaha'  => ['nullable'],
+            'email_usaha'   => ['nullable', 'email', 'max:254'],
+            'alamat_usaha'  => ['nullable'],
+            'harga01'       => ['nullable', 'string'],
+            'ket_harga01'   => ['nullable'],
             'harga02'       => ['nullable', 'string'],
             'ket_harga02'   => ['nullable'],
         ]);

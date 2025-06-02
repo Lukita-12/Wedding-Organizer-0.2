@@ -4,10 +4,26 @@
     </x-slot:heading>
 
     <x-form.container variant="main">
-        <x-form.form action="{{ route('admin.paket_pernikahan.update', $paketPernikahan) }}">
+        <x-form.form action="{{ route('admin.paket_pernikahan.update', $paketPernikahan) }}" enctype="multipart/form-data">
             @method('PUT')
 
             <x-form.container variant="form">
+                <div>
+                    <x-form.input type="file" name="upload_file" id="upload_file" accept="image/*" class="hidden" onchange="imagePreview(event, 'upload-file')" />
+
+                    <label for="upload_file">
+                        @php
+                            $imagePath= $paketPernikahan->upload_file ?? null;
+                        @endphp
+                        <div class="h-40 flex flex-col justify-center items-center p-1 border-2 border-slate-500 border-dashed cursor-pointer overflow-hidden">
+                            <img id="upload-file" src="{{ $imagePath ? asset('storage/' . $imagePath) : '#' }}" alt="Thunbnail"
+                                class="{{ $imagePath ? 'object-contain h-full' : 'hidden object-contain h-full' }}">
+                            <span class="poppins-medium bg-slate-100 w-full h-full flex justify-center items-center text-teal-600 text-center text-lg transition delay-50 duration-300 hover:bg-slate-300 {{ $imagePath ? 'hidden' : '' }}">+ Tambah</span>
+                        </div>
+                    </label>
+                    <x-form.error errorFor="upload_file" />
+                </div>
+                
                 <div>
                     <x-form.label for="nama_paket">Nama paket</x-form.label>
                     <x-form.input type="text" name="nama_paket" id="nama_paket" :value="old('nama_paket', $paketPernikahan->nama_paket)" placeholder="Nama paket..." required />

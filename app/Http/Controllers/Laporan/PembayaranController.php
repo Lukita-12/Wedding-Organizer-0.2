@@ -13,7 +13,7 @@ class PembayaranController extends Controller
 {
     public function preview()
     {
-        $pembayarans = Pembayaran::with('pesanan')->latest()->simplePaginate(6);
+        $pembayarans = Pembayaran::with('pesanan.pelanggan', 'pesanan.paketPernikahan')->latest()->simplePaginate(6);
 
         return view('laporan.pembayaran.print', [
             'pembayarans' => $pembayarans,
