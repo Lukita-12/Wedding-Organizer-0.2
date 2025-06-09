@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-3">
         <div class="flex justify-end gap-3">
             <x-table.link variant="create" href="{{ route('admin.request_mitra.create') }}">+ Tambah</x-table.link>
-            <x-table.link variant="print" href="{{ route('laporan.request_mitra.print', ['page' => $requestMitras->currentPage()]) }}" target="_blank">Cetak PDF</x-table.link>
+            <x-table.link variant="print" href="{{ route('request_mitra.print', ['page' => $requestMitras->currentPage()]) }}" target="_blank">Cetak PDF</x-table.link>
         </div>
 
         <x-table.container variant="main">

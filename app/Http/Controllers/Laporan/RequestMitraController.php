@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\RequestMitra;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\File;
 use Spatie\Browsershot\Browsershot;
 
 class RequestMitraController extends Controller
@@ -20,32 +19,26 @@ class RequestMitraController extends Controller
         ]);
     }
 
-    public function exportPdf()
+    public function print(Request $request)
     {
-        $currentPage = request()->get('page', 1); // default ke halaman 1 jika tidak ada
+        $currentPage = $request->input('page', 1);
+
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
-        
-        $requestMitras = RequestMitra::with('pelanggan')->latest()->simplePaginate(6);
 
         $html = view('laporan.request_mitra.print', [
-            'requestMitras' => $requestMitras,
+            'requestMitras' => RequestMitra::with('pelanggan')->latest()->simplePaginate(6),
         ])->render();
 
-        $folderPath = storage_path('app/public/laporan/request_mitra');
-        $pdfPath = $folderPath . '/request_mitra.pdf';
-        if (!File::exists($folderPath)) {
-            File::makeDirectory($folderPath, 0755, true); // true = recursive
-        }
-
-        Browsershot::html($html)
-            ->format('A4')
+        $pdf = Browsershot::html($html)
+            ->paperSize(210, 330) // F4 ukuran dalam mm
+            ->margins(10, 10, 10, 10)
             ->landscape()
-            ->margins(0, 0, 0, 0)
             ->showBackground()
-            ->savePdf($pdfPath);
+            ->pdf();
 
-        return response()->download($pdfPath);
+        return response($pdf)
+            ->header('Content-Type', 'application/pdf');
     }
 }

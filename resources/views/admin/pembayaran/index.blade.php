@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-3">
         <div class="flex justify-end gap-3">
             <x-table.link variant="create" href="{{ route('admin.pembayaran.create') }}">+ Tambah</x-table.link>
-            <x-table.link variant="print" href="{{ route('laporan.pembayaran.print', ['page' => $pembayarans->currentPage()]) }}" target="_blank">Cetak PDF</x-table.link>
+            <x-table.link variant="print" href="{{ route('pembayaran.print', ['page' => $pembayarans->currentPage()]) }}" target="_blank">Cetak PDF</x-table.link>
         </div>
 
         <x-table.container variant="main">
@@ -50,7 +50,7 @@
                                 <x-table.td>{{ $pembayaran->bayar_lunas }}</x-table.td>
                                 <x-table.td>
                                     <x-table.container variant="button">
-                                        <a href="{{ route('laporan.invoice.preview', $pembayaran->id) }}" target="_blank" class="inline-block bg-teal-500 poppins text-slate-100 text-sm px-3 py-1">
+                                        <a href="{{ route('invoice.preview', $pembayaran->id) }}" target="_blank" class="inline-block bg-teal-500 poppins text-slate-100 text-sm px-3 py-1">
                                             Invoice
                                         </a>
                                         <x-table.link variant="edit" href="{{ route('admin.pembayaran.edit', $pembayaran) }}">Edit</x-table.link>
