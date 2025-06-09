@@ -26,13 +26,13 @@ class SessionController extends Controller
     public function store(Request $request)
     {
         // Validate
-        $validatedData = $request->validate([
+        $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
         // Attemp
-        if (! Auth::attempt($validatedData)) {
+        if (! Auth::attempt($credentials)) {
             throw ValidationException::withMessages([
                 'email' => 'Sorry, credentials does not match!'
             ]);
@@ -41,10 +41,19 @@ class SessionController extends Controller
         // Regenerate
         request()->session()->regenerate();
 
+        // Redirect berdasarkan role
+        $user = Auth::user();
+        
+        if ($user->role === 'admin') {
+            return redirect()->route('dashboard'); // contoh: route untuk admin
+        } elseif ($user->role === 'customer') {
+            return redirect()->route('home'); // contoh: route untuk customer
+        }
+
         // Redirect
         return redirect('/');
     }
-
+    
     /**
      * Display the specified resource.
      */
