@@ -14,4 +14,5 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 require __DIR__ . '/customer.php';
-require __DIR__ . '/report.php';
+require __DIR__ . '/print.php';
+// require __DIR__ . '/report.php';

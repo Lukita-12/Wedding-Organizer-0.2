@@ -43,11 +43,7 @@
             <table>
                 <thead>
                     <tr class="font-bold h-[3rem] align-middle">
-                        <td class="border text-center px-2 py-1">
-                            <div class="">
-                                No.
-                            </div>
-                        </td>
+                        <td class="border text-center px-2 py-1">No.</td>
                         <td class="border text-center px-2 py-1">Nama Pelanggan</td>
                         <td class="border text-center px-2 py-1">Paket Pernikahan</td>
         

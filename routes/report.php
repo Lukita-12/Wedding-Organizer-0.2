@@ -19,19 +19,9 @@ Route::prefix('laporan')->group(function () {
         Route::get('/kerjasama/print', 'exportPdf')->name('laporan.kerjasama.print');
     });
 
-    Route::controller(PesananController::class)->group(function () {
-        Route::get('/pesanan/preview', 'preview')->name('laporan.pesanan.preview');        
-        Route::get('/pesanan/printed', 'print')->name('laporan.pesanan.print');
-    });
-
     Route::controller(PembayaranController::class)->group(function () {
         Route::get('/pembayaran/preview', 'preview')->name('laporan.pembayaran.preview');
         Route::get('/pembayaran/print', 'exportPdf')->name('laporan.pembayaran.print');
-    });
-
-    Route::controller(PaketPernikahanController::class)->group(function () {
-        Route::get('/paket-pernikahan/preview', 'preview')->name('laporan.paket_pernikahan.preview');
-        Route::get('/paket-pernikahan/print', 'exportPdf')->name('laporan.paket_pernikahan.print');
     });
 
     Route::controller(InvoiceController::class)->group(function () {

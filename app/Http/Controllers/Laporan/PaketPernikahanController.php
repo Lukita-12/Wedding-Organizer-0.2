@@ -24,36 +24,32 @@ class PaketPernikahanController extends Controller
         ]);
     }
 
-    public function exportPdf()
+    public function print(Request $request)
     {
-        $currentPage = request()->get('page', 1); // default ke halaman 1 jika tidak ada
+        $currentPage = $request->input('page', 1);
+
         Paginator::currentPageResolver(function () use ($currentPage) {
             return $currentPage;
         });
 
-        $paketPernikahans = PaketPernikahan::with([
+        $paketPernikahans = PaketPernikahan::with(
             'venueUsaha.requestMitra', 'dekorasiUsaha.requestMitra', 'tataRiasUsaha.requestMitra',
             'cateringUsaha.requestMitra', 'kuePernikahanUsaha.requestMitra', 'fotograferUsaha.requestMitra',
             'entertainmentUsaha.requestMitra', 'user'
-        ])->latest()->simplePaginate(6);
+        )->latest()->simplePaginate(6);
 
         $html = view('laporan.paket_pernikahan.print', [
             'paketPernikahans' => $paketPernikahans,
         ])->render();
 
-        $folderPath = storage_path('app/public/laporan/paket_pernikahan');
-        $pdfPath = $folderPath . '/paket_pernikahan.pdf';
-        if (!File::exists($folderPath)) {
-            File::makeDirectory($folderPath, 0755, true); // true = recursive
-        }
-
-        Browsershot::html($html)
-            ->paperSize(8.27, 13) // ukuran F4 dalam inch: lebar x tinggi
-            ->landscape()         // hapus ini jika ingin potret (portrait)
-            ->margins(0, 0, 0, 0)
+        $pdf = Browsershot::html($html)
+            ->paperSize(210, 330) // F4 ukuran dalam mm
+            ->margins(10, 10, 10, 10)
+            ->landscape()
             ->showBackground()
-            ->savePdf($pdfPath);
+            ->pdf();
 
-        return response()->download($pdfPath);
+        return response($pdf)
+            ->header('Content-Type', 'application/pdf');
     }
 }

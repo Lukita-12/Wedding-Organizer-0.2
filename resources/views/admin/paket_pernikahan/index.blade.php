@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-3">
         <div class="flex justify-end gap-3">
             <x-table.link variant="create" href="{{ route('admin.paket_pernikahan.create') }}">+ Tambah</x-table.link>
-            <x-table.link variant="print" href="{{ route('laporan.paket_pernikahan.print', ['page' => $paketPernikahans->currentPage()]) }}" target="_blank">Cetak PDF</x-table.link>
+            <x-table.link variant="print" href="{{ route('paket_pernikahan.print', ['page' => $paketPernikahans->currentPage()]) }}" target="_blank">Cetak PDF</x-table.link>
         </div>
 
         <x-table.container variant="main">
