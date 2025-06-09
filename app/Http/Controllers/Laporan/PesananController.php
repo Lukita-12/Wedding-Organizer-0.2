@@ -15,11 +15,36 @@ class PesananController extends Controller
     {
         $pesanans = Pesanan::with('pelanggan', 'paketPernikahan')->latest()->simplePaginate(6);
 
-        return view('laporan.pesanan.print', [
+        return view('laporan.pesanan.preview', [
             'pesanans' => $pesanans,
         ]);
     }
 
+    public function print(Request $request)
+    {
+        $currentPage = $request->input('page', 1);
+
+        Paginator::currentPageResolver(function () use ($currentPage) {
+            return $currentPage;
+        });
+
+        $html = view('laporan.pesanan.preview', [
+            'pesanans' => Pesanan::with('pelanggan', 'paketPernikahan')->latest()->simplePaginate(6)
+        ])->render();
+
+        $pdf = Browsershot::html($html)
+            ->paperSize(210, 330) // F4 ukuran dalam mm
+            ->margins(10, 10, 10, 10)
+            ->landscape()
+            ->showBackground()
+            ->pdf();
+
+        return response($pdf)
+            ->header('Content-Type', 'application/pdf');
+    }
+
+
+    /*
     public function exportPdf()
     {
         $currentPage = request()->get('page', 1); // default ke halaman 1 jika tidak ada
@@ -48,4 +73,5 @@ class PesananController extends Controller
 
         return response()->download($pdfPath);
     }
+    */
 }

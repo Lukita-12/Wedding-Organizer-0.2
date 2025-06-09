@@ -14,6 +14,7 @@ use App\Policies\PelangganPolicy;
 use App\Policies\PembayaranPolicy;
 use App\Policies\PesananPolicy;
 use App\Policies\RequestMitraPolicy;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -39,5 +40,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::preventLazyLoading();
+        Carbon::setLocale('id');
     }
 }

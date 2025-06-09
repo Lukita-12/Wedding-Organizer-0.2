@@ -20,8 +20,8 @@ Route::prefix('laporan')->group(function () {
     });
 
     Route::controller(PesananController::class)->group(function () {
-        Route::get('/pesanan/preview', 'preview')->name('laporan.pesanan.preview');
-        Route::get('/pesanan/print', 'exportPdf')->name('laporan.pesanan.print');
+        Route::get('/pesanan/preview', 'preview')->name('laporan.pesanan.preview');        
+        Route::get('/pesanan/printed', 'print')->name('laporan.pesanan.print');
     });
 
     Route::controller(PembayaranController::class)->group(function () {
