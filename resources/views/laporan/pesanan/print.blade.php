@@ -19,7 +19,6 @@
                 <tr>
                     <td class="poppins-semibold text-center px-3 py-1 border">No.</td>
                     <td class="poppins-semibold text-center px-3 py-1 border">Pelanggan</td>
-                    <td class="poppins-semibold text-center px-3 py-1 border">Paket Pernikahan</td>
     
                     <td class="poppins-semibold text-center px-3 py-1 border">Tanggal Pesanan</td>
                     <td class="poppins-semibold text-center px-3 py-1 border">Pengantin Pria</td>
@@ -35,7 +34,6 @@
                     <tr>
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $loop->iteration }}</td>
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->pelanggan->nama_pelanggan }}</td>
-                        <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->paketPernikahan->nama_paket ?? '-' }}</td>
         
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->tgl_pesanan->format('d m Y') }}</td>
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->pengantin_pria }}</td>

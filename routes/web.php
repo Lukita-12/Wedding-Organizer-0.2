@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -8,7 +7,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 require __DIR__ . '/auth.php';

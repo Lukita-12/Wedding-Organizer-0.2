@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         collect([
-            [1, 'Rinne', 'rinne@example.com', 'qwertyui', 'admin', 'images/profile/images/profile-ad.png'],
-            [2, 'Rie', 'rie@example.com', 'qwertyui', 'customer', 'images/profile/images/cat-girl.jpg']
+            [111, 'Rinne', 'rinne@example.com', 'qwertyui', 'admin', 'images/profile/images/profile-ad.png'],
+            [112, 'Rie', 'rie@example.com', 'qwertyui', 'customer', 'images/profile/images/cat-girl.jpg']
         ])->each(function ($item) {
             User::factory()->create([
                 'id'            => $item[0],

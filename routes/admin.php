@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AkunController;
 use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PaketPernikahanController;
 use App\Http\Controllers\Admin\PelangganController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\Admin\UlasanController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::controller(PelangganController::class)->group(function () {
         Route::get('/pelanggan', 'index')->name('admin.pelanggan.index');
         Route::get('/pelanggan/create', 'create')->name('admin.pelanggan.create');

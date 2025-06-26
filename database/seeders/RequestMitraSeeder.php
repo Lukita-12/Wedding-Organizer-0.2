@@ -14,9 +14,12 @@ class RequestMitraSeeder extends Seeder
     public function run(): void
     {
         collect([
-            ['1', '1', 'HanniCake', 'Kue Pernikahan', 'Hanni', 'Diterima'],
-            ['2', '1', 'BeePicture', 'Fotografer', 'Rizal', 'Diterima'],
-            ['3', '1', 'V Five', 'Entertainment', 'Maria', 'Diterima'],
+            ['1', '1', 'Hanin Cake Wedding & Birthday', 'Kue Pernikahan', 'Hanni', 'Diterima'],
+            ['2', '2', 'Sora Pictures', 'Fotografer', 'Syahji Mahrajadin', 'Diterima'],
+            ['3', '3', 'Big Boss Entertainment', 'Entertainment', 'Muhammad Luqman Alkatiri', 'Diterima'],
+            ['4', '4', 'Mega Wedding', 'Tata rias', 'Tasya Musyaraffah', 'Diterima'],
+            ['5', '5', 'Ayu Catering', 'Catering', 'Yuanita Dian', 'Diterima'],
+            ['6', '6', 'Dawis Dekorasi', 'Dekorasi', 'Jihad Thamrin', 'Diterima'],
         ])->each(function ($item) {
             RequestMitra::factory()->create([
                 'id'            => $item[0],

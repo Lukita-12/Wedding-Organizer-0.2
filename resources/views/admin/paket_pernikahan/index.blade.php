@@ -29,7 +29,6 @@
                         <tr>
                             <x-table.td variant="head" class="px-4!">No.</x-table.td>
                             <x-table.td variant="head">Nama Paket</x-table.td>
-                            <x-table.td variant="head">Eksklusif User</x-table.td>
     
                             <x-table.td variant="head">Venue</x-table.td>
                             <x-table.td variant="head">Dekorasi</x-table.td>
@@ -40,8 +39,8 @@
                             <x-table.td variant="head">Entertainment</x-table.td>
                             <x-table.td variant="head">Staff Acara</x-table.td>
     
-                            <x-table.td variant="head">Harga DP</x-table.td>
-                            <x-table.td variant="head">Harga Lunas</x-table.td>
+                            <x-table.td variant="head">Harga 01</x-table.td>
+                            <x-table.td variant="head">Harga 02</x-table.td>
                             <x-table.td variant="head">Status Paket</x-table.td>
                             <x-table.td variant="head">Aksi</x-table.td>
                         </tr>
@@ -51,9 +50,6 @@
                             <x-table.tr variant="body" class="row-click cursor-pointer" data-url="#">
                                 <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
                                 <x-table.td>{{ $paketPernikahan->nama_paket }}</x-table.td>
-                                <x-table.td>
-                                    {{ $paketPernikahan->user->name ?? '-' }}, <span class="text-teal-500">{{ $paketPernikahan->user->email ?? '-'}}</span>
-                                </x-table.td>
     
                                 <x-table.td>{{ $paketPernikahan->venueUsaha         ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
                                 <x-table.td>{{ $paketPernikahan->dekorasiUsaha      ->requestMitra->nama_usaha ?? '-' }}</x-table.td>

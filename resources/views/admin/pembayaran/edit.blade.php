@@ -23,7 +23,7 @@
 
                 <div>
                     <x-form.label for="tanggal_pembayaran">Tanggal Pembayaran</x-form.label>
-                    <x-form.input type="date" name="tgl_pembayaran" id="tgl_pembayaran" :value="old('tgl_pembayaran', $pembayaran->tgl_pembayaran->format('Y-m-d'))" />
+                    <x-form.input type="date" name="tgl_pembayaran" id="tgl_pembayaran" :value="old('tgl_pembayaran', $pembayaran->tgl_pembayaran->format('Y-m-d') ?? '-')" />
                     <x-form.error errorFor="tgl_pembayaran" />
                 </div>
 

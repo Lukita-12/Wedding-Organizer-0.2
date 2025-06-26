@@ -45,7 +45,6 @@
                     <tr class="font-bold h-[3rem] align-middle">
                         <td class="border text-center px-2 py-1">No.</td>
                         <td class="border text-center px-2 py-1">Nama Pelanggan</td>
-                        <td class="border text-center px-2 py-1">Paket Pernikahan</td>
         
                         <td class="border text-center px-2 py-1 whitespace-nowrap">Tanggal Pesanan</td>
                         <td class="border text-center px-2 py-1">Pengantin Pria</td>
@@ -61,7 +60,6 @@
                         <tr class="text-sm h-[3rem] align-middle">
                             <td class="border text-center px-2 py-1">{{ $loop->iteration }}</td>
                             <td class="border text-center px-2 py-1">{{ $pesanan->pelanggan->nama_pelanggan }}</td>
-                            <td class="border text-center px-2 py-1">{{ $pesanan->paketPernikahan->nama_paket ?? '-' }}</td>
         
                             <td class="border text-center px-2 py-1 whitespace-nowrap">{{ $pesanan->tgl_pesanan->format('d M Y') }}</td>
                             <td class="border text-center px-2 py-1">{{ $pesanan->pengantin_pria }}</td>

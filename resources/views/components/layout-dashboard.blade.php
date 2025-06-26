@@ -15,7 +15,7 @@
 
             <span class="w-full border border-slate-100"></span>
             <nav class="w-full flex flex-col gap-1">
-                <x-sidebar.nav-link href="{{ url('/dashboard') }}">Dashboard</x-sidebar.nav-link>
+                <x-sidebar.nav-link href="{{ url('/admin/dashboard') }}">Dashboard</x-sidebar.nav-link>
                 <x-sidebar.nav-link href="{{ route('admin.bank.index') }}">Bank</x-sidebar.nav-link>
                 <x-sidebar.nav-link href="{{ route('admin.akun.index') }}">Akun</x-sidebar.nav-link>
                 <x-sidebar.nav-link href="{{ route('admin.pelanggan.index') }}">Pelanggan</x-sidebar.nav-link>
