@@ -11,7 +11,7 @@ class UlasanController extends Controller
 {
     public function index()
     {
-        $ulasans = Ulasan::with('user')->latest()->simplePaginate(6);
+        $ulasans = Ulasan::with('user.pelanggan')->latest()->simplePaginate(6);
 
         return view('admin.ulasan.index', [
             'ulasans' => $ulasans,

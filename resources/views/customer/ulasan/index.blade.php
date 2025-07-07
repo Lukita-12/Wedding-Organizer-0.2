@@ -1,5 +1,5 @@
 <x-layout-home>
-    <div class="h-270 flex flex-col items-center p-5 gap-4 shadow shadow-slate-500">
+    <div class="h-155 flex flex-col items-center p-5 gap-4 shadow shadow-slate-500">
         <span class="poppins-semibold text-teal-700 text-3xl text-center">
             Ulasan
         </span>
@@ -16,7 +16,7 @@
                             <img src="{{ $ulasan->user->profile_pic ? asset('storage/' . $ulasan->user->profile_pic) : '' }}" alt="Profile picture"
                                 class="w-7 h-7 bg-cover bg-center rounded-full">
     
-                            <span class="poppins-medium text-slate-100 line-clamp-1">{{ $ulasan->user->name }}</span>
+                            <span class="poppins-medium text-slate-100 line-clamp-1">{{ $ulasan->user->pelanggan->first()->nama_pelanggan }}</span>
                         </div>
                     </div>
 

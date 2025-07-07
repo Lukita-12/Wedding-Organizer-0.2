@@ -24,7 +24,7 @@
                     @foreach ($ulasans as $ulasan)
                         <x-table.tr variant="body">
                             <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
-                            <x-table.td>{{ $ulasan->user->name }}</x-table.td>
+                            <x-table.td>{{ $ulasan->user->pelanggan->first()->nama_pelanggan }}</x-table.td>
                             <x-table.td>{{ $ulasan->ulasan }}</x-table.td>
                             <x-table.td>
                                 <x-table.container variant="button">

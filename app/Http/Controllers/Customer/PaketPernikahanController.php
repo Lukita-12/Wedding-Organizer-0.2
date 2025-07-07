@@ -49,7 +49,9 @@ class PaketPernikahanController extends Controller
      */
     public function show(PaketPernikahan $paketPernikahan)
     {
-        //
+        return view('/customer.paket_pernikahan.show', [
+            'paketPernikahan' => $paketPernikahan,
+        ]);
     }
 
     /**

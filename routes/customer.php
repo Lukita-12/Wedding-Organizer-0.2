@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::controller(PaketPernikahanController::class)->group(function () {
         Route::get('/paket-pernikahan', 'index')->name('customer.paket_pernikahan.index');
+        Route::get('/paket-pernikahan/{paketPernikahan}', 'show')->name('customer.paket_pernikahan.show');
     });
 
     Route::controller(PesananController::class)->group(function () {
