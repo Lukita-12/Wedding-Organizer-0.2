@@ -24,6 +24,45 @@ class PaketPernikahanController extends Controller
 
     public function create()
     {
+        // Ambil kerjasama per kategori yang status_request-nya "Diterima"
+        $kerjasamasByJenis = [
+            'venue' => Kerjasama::whereHas('requestMitra', function ($query) {
+                $query->where('jenis_usaha', 'Venue')->where('status_request', 'Diterima');
+            })->with('requestMitra')->get(),
+
+            'dekorasi' => Kerjasama::whereHas('requestMitra', function ($query) {
+                $query->where('jenis_usaha', 'Dekorasi')->where('status_request', 'Diterima');
+            })->with('requestMitra')->get(),
+
+            'tata_rias' => Kerjasama::whereHas('requestMitra', function ($query) {
+                $query->where('jenis_usaha', 'Tata Rias')->where('status_request', 'Diterima');
+            })->with('requestMitra')->get(),
+
+            'catering' => Kerjasama::whereHas('requestMitra', function ($query) {
+                $query->where('jenis_usaha', 'Catering')->where('status_request', 'Diterima');
+            })->with('requestMitra')->get(),
+
+            'kue_pernikahan' => Kerjasama::whereHas('requestMitra', function ($query) {
+                $query->where('jenis_usaha', 'Kue Pernikahan')->where('status_request', 'Diterima');
+            })->with('requestMitra')->get(),
+
+            'fotografer' => Kerjasama::whereHas('requestMitra', function ($query) {
+                $query->where('jenis_usaha', 'Fotografer')->where('status_request', 'Diterima');
+            })->with('requestMitra')->get(),
+
+            'entertainment' => Kerjasama::whereHas('requestMitra', function ($query) {
+                $query->where('jenis_usaha', 'Entertainment')->where('status_request', 'Diterima');
+            })->with('requestMitra')->get(),
+        ];
+
+        $users = User::where('role', 'customer')->get(); // Hanya user dengan role customer
+
+        return view('admin.paket_pernikahan.create', [
+            'kerjasamasByJenis' => $kerjasamasByJenis,
+            'users' => $users
+        ]);
+
+        /*
         $jenisUsahas = ['Venue', 'Dekorasi', 'Tata rias', 'Catering', 'Kue pernikahan', 'Fotografer', 'Entertainment'];
         $jenisUsahasSlugged = collect($jenisUsahas)->mapWithKeys(fn($item) => [Str::slug($item, '_') => $item]);
 
@@ -42,10 +81,71 @@ class PaketPernikahanController extends Controller
             'kerjasamaByJenis'  => $kerjasamaByJenis,
             'users'             => $users,
         ]);
+        */
     }
 
     public function store(Request $request)
     {
+        // Validasi semua input termasuk pilihan harga per kategori
+        $validatedData = $request->validate([
+            'nama_paket' => ['required', 'string', 'max:255'],
+            'upload_file' => ['nullable', 'file', 'mimes:jpg,jpeg,png', 'max:2048'],
+            'status_paket' => ['required', 'in:Tersedia,Tidak tersedia,Eksklusif'],
+            'user_id' => ['nullable', 'exists:users,id'],
+
+            // Foreign key kerjasama & harga pilihan
+            'venue' => ['nullable', 'exists:kerjasama,id'],
+            'venue_ket_harga' => ['nullable', 'in:harga01,harga02'],
+            'dekorasi' => ['nullable', 'exists:kerjasama,id'],
+            'dekorasi_ket_harga' => ['nullable', 'in:harga01,harga02'],
+            'tata_rias' => ['nullable', 'exists:kerjasama,id'],
+            'tata_rias_ket_harga' => ['nullable', 'in:harga01,harga02'],
+            'catering' => ['nullable', 'exists:kerjasama,id'],
+            'catering_ket_harga' => ['nullable', 'in:harga01,harga02'],
+            'kue_pernikahan' => ['nullable', 'exists:kerjasama,id'],
+            'kue_pernikahan_ket_harga' => ['nullable', 'in:harga01,harga02'],
+            'fotografer' => ['nullable', 'exists:kerjasama,id'],
+            'fotografer_ket_harga' => ['nullable', 'in:harga01,harga02'],
+            'entertainment' => ['nullable', 'exists:kerjasama,id'],
+            'entertainment_ket_harga' => ['nullable', 'in:harga01,harga02'],
+
+            'staff_acara' => ['nullable', 'integer', 'min:0'],
+        ]);
+
+        // Hitung harga total dari pilihan kerjasama
+        $totalHarga = 0;
+        $dpPersentase = 0.2; // 20% dari total harga untuk DP
+
+        foreach (['venue', 'dekorasi', 'tata_rias', 'catering', 'kue_pernikahan', 'fotografer', 'entertainment'] as $kategori) {
+            $kerjasamaId = $validatedData[$kategori] ?? null;
+            $ketHarga = $validatedData[$kategori . '_ket_harga'] ?? null;
+
+            if ($kerjasamaId && $ketHarga) {
+                $kerjasama = Kerjasama::find($kerjasamaId);
+                $hargaField = $ketHarga === 'harga01' ? 'harga01' : 'harga02';
+                $totalHarga += $kerjasama->$hargaField ?? 0;
+            }
+        }
+
+        $validatedData['hargaLunas_paket'] = $totalHarga;
+        $validatedData['hargaDP_paket'] = $totalHarga * $dpPersentase;
+
+        // Upload file jika ada
+        if ($request->hasFile('upload_file')) {
+            $path = $request->file('upload_file')->store('paket_pernikahan', 'public');
+            $validatedData['upload_file'] = $path;
+        }
+
+        PaketPernikahan::create($validatedData);
+
+        return redirect()->route('admin.paket_pernikahan.index')->with('success', 'Paket pernikahan berhasil dibuat.');
+    }
+
+    /*
+    public function store(Request $request)
+    {
+        dd($request->all());
+
         $validatedData = $request->validate([
             'user_id'           => ['nullable', 'exists:users,id'],
             'nama_paket'        => ['required', 'string', 'max:255'],
@@ -72,6 +172,7 @@ class PaketPernikahanController extends Controller
 
         return redirect('/admin/paket-pernikahan');
     }
+    */
 
     public function show(PaketPernikahan $paketPernikahan)
     {

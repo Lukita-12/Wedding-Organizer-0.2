@@ -44,9 +44,6 @@ class PaketPernikahanController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(PaketPernikahan $paketPernikahan)
     {
         return view('/customer.paket_pernikahan.show', [

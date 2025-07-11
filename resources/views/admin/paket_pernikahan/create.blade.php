@@ -12,60 +12,46 @@
                     <x-form.error errorFor="nama_paket" />
                 </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                    @foreach ($jenisUsahasSlugged as $inputName => $label)
-                        <div class="flex flex-col">
-                            <x-form.label for="{{ $label }}">{{ ucfirst($label) }}</x-form.label>
-                            <x-form.select name="{{ $inputName }}" id="{{ $inputName }}">
-                                <option value="">Pilih Usaha</option>
-                                <option value="">Kosongkan</option>
-                                @foreach ($kerjasamaByJenis[$label] as $kerjasama)
-                                    <option value="{{ $kerjasama->id }}" {{ (string) old($inputName) === (string) $kerjasama->id ? 'selected' : '' }}>
-                                        {{ $kerjasama->requestMitra->nama_usaha }}
-                                    </option>
-                                @endforeach
-                            </x-form.select>
-                        </div>
-                    @endforeach
-
+                @foreach ($kerjasamasByJenis as $jenis => $kerjasamas)
                     <div>
-                    <x-form.label for="staff_acara">Staff acara</x-form.label>
-                        <x-form.input type="number" name="staff_acara" id="staff_acara" :value="old('staff_acara')" placeholder="Staff acara..." />
-                        <x-form.error errorFor="staff_acara" />
+                        <x-form.label for="{{ $jenis }}">{{ ucfirst(str_replace('_', ' ', $jenis)) }}</x-form.label>
+                        <x-form.select name="{{ $jenis }}" id="{{ $jenis }}">
+                            <option value="">Pilih {{ ucfirst(str_replace('_', ' ', $jenis)) }}</option>
+                            @foreach ($kerjasamas as $kerjasama)
+                                <option value="{{ $kerjasama->id }}"
+                                    data-ket-harga01="{{ $kerjasama->ket_harga01 }}"
+                                    data-ket-harga02="{{ $kerjasama->ket_harga02 }}">
+                                    {{ $kerjasama->requestMitra->nama_usaha }}
+                                </option>
+                            @endforeach
+                        </x-form.select>
                     </div>
 
                     <div>
-                        <x-form.label for="hargaDP_paket">Harga 01</x-form.label>
-                        <x-form.input type="text" name="hargaDP_paket" id="hargaDP_paket" :value="old('hargaDP_paket')" placeholder="999.999.999" required />
-                        <x-form.error errorFor="hargaDP_paket" />
+                        <x-form.label for="{{ $jenis }}_ket_harga">Pilih Keterangan Harga</x-form.label>
+                        <x-form.select name="{{ $jenis }}_ket_harga" id="{{ $jenis }}_ket_harga">
+                            <option value="">Pilih Keterangan Harga</option>
+                        </x-form.select>
                     </div>
-
-                    <div>
-                        <x-form.label for="hargaLunas_paket">Harga 02</x-form.label>
-                        <x-form.input type="text" name="hargaLunas_paket" id="hargaLunas_paket" :value="old('hargaLunas_paket')" placeholder="999.999.999" required />
-                        <x-form.error errorFor="hargaLunas_paket" />
-                    </div>
-                </div>
+                @endforeach
 
                 <div>
-                    <x-form.label for="status_paket">Status paket pernikahan</x-form.label>
+                    <x-form.label for="status_paket">Status Paket</x-form.label>
                     <x-form.select name="status_paket" id="status_paket">
-                        <option value="Tersedia" {{ old('status_paket') === 'Tersedia' ? 'selected' : '' }}>Tersedia</option>
-                        <option value="Tidak tersedia" {{ old('status_paket') === 'Tidak tersedia' ? 'selected' : '' }}>Tidak tersedia</option>
-                        <option value="Eksklusif" {{ old('status_paket') === 'Eksklusif' ? 'selected' : '' }}>Eksklusif</option>
+                        <option value="Tersedia">Tersedia</option>
+                        <option value="Tidak tersedia">Tidak Tersedia</option>
+                        <option value="Eksklusif">Eksklusif</option>
                     </x-form.select>
-                    <x-form.error errorFor="status_paket" />
                 </div>
 
                 <div>
-                    <x-form.label for="user">User</x-form.label>
+                    <x-form.label for="user_id">User (Jika Eksklusif)</x-form.label>
                     <x-form.select name="user_id" id="user_id">
                         <option value="">Pilih User</option>
                         @foreach ($users as $user)
-                            <option value="{{ $user->id }}" {{ (string) old('user_id') === (string) $user->id ? 'selected' : '' }}>{{ $user->name }}</option>
+                            <option value="{{ $user->id }}">{{ $user->name }}</option>
                         @endforeach
                     </x-form.select>
-                    <x-form.error errorFor="user_id" />
                 </div>
 
                 <x-form.container variant="button">
@@ -75,6 +61,41 @@
             </x-form.container>
         </x-form.form>
     </x-form.container>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const jenisList = ['venue', 'dekorasi', 'tata_rias', 'catering', 'kue_pernikahan', 'fotografer', 'entertainment'];
+
+            jenisList.forEach(function(jenis) {
+                const selectKerjasama = document.getElementById(jenis);
+                const selectKetHarga = document.getElementById(jenis + '_ket_harga');
+
+                function updateKetHargaOptions() {
+                    const selectedOption = selectKerjasama.options[selectKerjasama.selectedIndex];
+                    const ketHarga01 = selectedOption.getAttribute('data-ket-harga01');
+                    const ketHarga02 = selectedOption.getAttribute('data-ket-harga02');
+
+                    // Reset opsi keterangan harga
+                    selectKetHarga.innerHTML = '<option value="">Pilih Keterangan Harga</option>';
+
+                    // Tambahkan opsi hanya jika ada data
+                    if (ketHarga01) {
+                        selectKetHarga.innerHTML += `<option value="harga01">${ketHarga01}</option>`;
+                    }
+                    if (ketHarga02) {
+                        selectKetHarga.innerHTML += `<option value="harga02">${ketHarga02}</option>`;
+                    }
+                }
+
+                // Update saat pilihan kerjasama berubah
+                selectKerjasama.addEventListener('change', updateKetHargaOptions);
+
+                // Jalankan sekali untuk inisialisasi jika ada old value
+                updateKetHargaOptions();
+            });
+        });
+    </script>
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

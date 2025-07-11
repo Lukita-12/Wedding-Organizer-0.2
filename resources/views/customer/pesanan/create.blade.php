@@ -20,23 +20,54 @@
                 <x-form.container variant="form">
                     <div>
                         <x-form.label for="pelanggan_id">Pelanggan</x-form.label>
-                        <x-form.select name="pelanggan_id" id="pelanggan_id" required>
-                            <option value="">Pilih pelanggan</option>
-                            @foreach ($pelanggans as $pelanggan)
-                                <option value="{{ $pelanggan->id }}"
-                                    {{ (string) old('pelanggan_id') === (string) $pelanggan->id ? 'selected' : '' }}>
-                                    {{ $pelanggan->nama_pelanggan }}
-                                </option>
-                            @endforeach
-                        </x-form.select>
+                        <div class="flex gap-3">
+                            <div class="w-full">
+                                <x-form.select name="pelanggan_id" id="pelanggan_id" required>
+                                    <option value="">Pilih pelanggan</option>
+                                    @foreach ($pelanggans as $pelanggan)
+                                        <option value="{{ $pelanggan->id }}"
+                                            data-jk="{{ $pelanggan->jk_pelanggan }}"
+                                            data-telp="{{ $pelanggan->noTelp_pelanggan }}"
+                                            data-email="{{ $pelanggan->email_pelanggan }}"
+                                            data-alamat="{{ $pelanggan->alamat_pelanggan }}"
+                                            {{ (string) old('pelanggan_id') === (string) $pelanggan->id ? 'selected' : '' }}>
+                                            {{ $pelanggan->nama_pelanggan }}
+                                        </option>
+                                    @endforeach
+                                </x-form.select>
+                            </div>
+
+                            <div class="min-w-fit">
+                                <a href="{{ route('customer.pelanggan.create') }}" class="inline-block poppins-medium text-lg bg-teal-500 text-slate-100 px-3 py-1 rounded-sm hover:bg-teal-700">+ Baru</a>
+                            </div>
+                        </div>
                         <x-form.error errorFor="pelanggan_id" />
                     </div>
+
+                    <!-- Auto-fill fields -->
+                    <div class="poppins bg-slate-300 grid grid-cols-2 p-3 text-slate-500 rounded-sm">
+                        <div class="w-fit font-medium flex flex-col gap-1">
+                            <p>Nama Lengkap :</p>
+                            <p>Jenis Kelamin :</p>
+                            <p>No. Telpon/WA :</p>
+                            <p>Email :</p>
+                            <p>Alamat :</p>
+                        </div>
+                        <div class="text-end flex flex-col gap-1">
+                            <p><span id="nama_lengkap">-</span></p>
+                            <p><span id="jenis_kelamin">-</span></p>
+                            <p><span id="no_telpon">-</span></p>
+                            <p><span id="email">-</span></p>
+                            <p><span id="alamat">-</span></p>
+                        </div>
+                    </div>
+
     
+                    <!-- Paket Pernikahan -->
                     <div>
                         <x-form.label for="paket_pernikahan">Paket Pernikahan</x-form.label>
                         <x-form.select name="paket_pernikahan_id" id="paket_pernikahan_id">
-                            <option value="">Pilih paket pernikahan</option>
-                            <option value="">Tanpa paket pernikahan</option>
+                            <option value="">Tanpa paket yang dipilih</option>
                             @foreach ($paketPernikahans as $paketPernikahan)
                                 <option value="{{ $paketPernikahan->id }}"
                                     data-harga="{{ $paketPernikahan->hargaLunas_paket }}"
@@ -47,8 +78,35 @@
                         </x-form.select>
                         <x-form.error errorFor="paket_pernikahan_id" />
                     </div>
+
+                    <div class="poppins bg-slate-300 grid grid-cols-2 p-3 text-slate-500 rounded-sm">
+                        <div class="w-fit font-medium flex flex-col gap-1">
+                            <p>Venue :</p>
+                            <p>Dekorasi :</p>
+                            <p>Tata rias :</p>
+                            <p>Catering :</p>
+                            <p>Kue Pernikahan :</p>
+                            <p>Foto :</p>
+                            <p>Entertainment :</p>
+                        </div>
+                        <div class="text-end flex flex-col gap-1">
+                            <p>venue</p>
+                            <p>dekorasi</p>
+                            <p>tata_rias</p>
+                            <p>catering</p>
+                            <p>kue_pernikahan</p>
+                            <p>fotografer</p>
+                            <p>entertainment</p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <a href="{{ route('customer.paket_pernikahan.index') }}" class="inline-block poppins-medium text-teal-700 underline hover:text-teal-500">Lihat Paket ></a>
+                    </div>
     
                     <div class="grid grid-cols-2 gap-4">
+                        <?php
+                        /*
                         <div>
                             <x-form.label for="pengantin_pria">Pengantin Pria</x-form.label>
                             <x-form.input type="text" name="pengantin_pria" id="pengantin_pria" :value="old('pengantin_pria')" placeholder="Nama pengantin pria..." required />
@@ -60,6 +118,8 @@
                             <x-form.input type="text" name="pengantin_wanita" id="pengantin_wanita" :value="old('pengantin_wanita')" placeholder="Nama pengantin wanita..." />
                             <x-form.error errorFor="pengantin_wanita" />
                         </div>
+                        */
+                        ?>
         
                         <div>
                             <x-form.label for="tanggal_diskusi">Tanggal Diskusi/Perencaan</x-form.label>
@@ -74,11 +134,16 @@
                         </div>
                     </div>
     
+                    <!-- Total harga -->
+                    <?php
+                    /*
                     <div>
                         <x-form.label for="total_harga">Total Harga</x-form.label>
                         <x-form.input type="text" name="total_harga_pesanan" id="total_harga_pesanan" value="{{ number_format(old('harga_lunas_paket', 0), 0, ',', '.') }}" placeholder="000.000.000" disabled />
                         <x-form.error errorFor="total_harga_pesanan" />
                     </div>
+                    */
+                    ?>
     
                     <x-form.container variant="button">
                         <x-form.link href="{{ route('home') }}">Batal</x-form.link>
@@ -111,4 +176,37 @@
             paketSelect.addEventListener('change', updateHarga);
         });
     </script>
+
+    <!-- Data Pelanggan -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const pelangganSelect = document.getElementById('pelanggan_id');
+
+            // Target untuk menampilkan data
+            const namaSpan = document.getElementById('nama_lengkap');
+            const jkSpan = document.getElementById('jenis_kelamin');
+            const telpSpan = document.getElementById('no_telpon');
+            const emailSpan = document.getElementById('email');
+            const alamatSpan = document.getElementById('alamat');
+
+            function updateGrid() {
+                const selected = pelangganSelect.options[pelangganSelect.selectedIndex];
+
+                // Ambil data dari option attributes
+                namaSpan.textContent = selected.text || '-';
+                jkSpan.textContent = selected.getAttribute('data-jk') || '-';
+                telpSpan.textContent = selected.getAttribute('data-telp') || '-';
+                emailSpan.textContent = selected.getAttribute('data-email') || '-';
+                alamatSpan.textContent = selected.getAttribute('data-alamat') || '-';
+            }
+
+            // Jalankan saat halaman dimuat jika ada pelanggan terpilih
+            updateGrid();
+
+            // Jalankan saat user mengganti pilihan pelanggan
+            pelangganSelect.addEventListener('change', updateGrid);
+        });
+    </script>
+
+
 </x-layout-form>
