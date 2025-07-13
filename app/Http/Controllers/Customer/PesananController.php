@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\PaketPernikahan;
 use App\Models\Pesanan;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,24 +25,26 @@ class PesananController extends Controller
 
     public function create(Request $request)
     {
-        $paketId            = $request->query('paket_id');
-        $pelanggans         = Auth::user()->pelanggan;
-        $hasPelanggan       = $pelanggans->isNotEmpty();
-        $paketPernikahans   = PaketPernikahan::with([ 'venueUsaha', 'dekorasiUsaha', 'tataRiasUsaha',
-                                    'cateringUsaha', 'kuePernikahanUsaha', 'fotograferUsaha',
-                                    'entertainmentUsaha'
-                                ])
-                                ->where('status_paket', 'Tersedia')
-                                ->latest()
-                                ->get();
+        $pelanggans       = Auth::user()->pelanggan;
+        $hasPelanggan     = $pelanggans->isNotEmpty();
+        $selectedPaketId  = $request->query('paket_id'); // Ambil paket_id dari query string
+        $paketPernikahans = PaketPernikahan::with([
+                                'venueUsaha', 'dekorasiUsaha', 'tataRiasUsaha',
+                                'cateringUsaha', 'kuePernikahanUsaha',
+                                'fotograferUsaha', 'entertainmentUsaha'
+                            ])
+                            ->where('status_paket', 'Tersedia')
+                            ->latest()
+                            ->get();
 
         return view('customer.pesanan.create', [
-            'paket_id'          => $paketId,
-            'pelanggans'        => $pelanggans,
-            'hasPelanggan'      => $hasPelanggan,
-            'paketPernikahans'  => $paketPernikahans,
+            'selectedPaketId'  => $selectedPaketId, // Kirim ke Blade
+            'pelanggans'       => $pelanggans,
+            'hasPelanggan'     => $hasPelanggan,
+            'paketPernikahans' => $paketPernikahans,
         ]);
     }
+
 
     public function store(Request $request)
     {
@@ -52,17 +55,18 @@ class PesananController extends Controller
             'tanggal_diskusi'       => ['required', 'date'],
         ]);
 
-        $validatedData['pengantin_pria']        = '-';
-        $validatedData['pengantin_wanita']      = '-';
-        $validatedData['total_harga_pesanan']   = '00.0';
-        $validatedData['tgl_pesanan']           = now();
+        $validatedData['tgl_pesanan']     = now();
+        $validatedData['status_pesanan'] = 'Dalam proses';
 
-        // if ($validatedData['paket_pernikahan_id']) {
-        //     $paket = PaketPernikahan::findOrFail($validatedData['paket_pernikahan_id']);
-        //     $validatedData['total_harga_pesanan'] = $paket->hargaLunas_paket;
-        // } else {
-        //     $validatedData['total_harga_pesanan'] = null; // atau input manual jika perlu
-        // }
+        // Isi harga jika ada paket pernikahan
+        if ($validatedData['paket_pernikahan_id']) {
+            $paket = PaketPernikahan::find($validatedData['paket_pernikahan_id']);
+            $validatedData['harga_dp'] = $paket->harga_dp ?? 0;
+            $validatedData['harga_lunas'] = $paket->harga_lunas ?? 0;
+            $validatedData['total_harga_pesanan'] = $paket->harga_dp + $paket->harga_lunas;
+        }
+
+        $validatedData['tgl_pesanan'] = now();
 
         Pesanan::create($validatedData);
 

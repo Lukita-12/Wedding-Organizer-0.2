@@ -27,8 +27,8 @@
                 @endphp
                 <div class="bg-slate-200 w-1/5 flex flex-col px-1 py-1 gap-1 shadow shadow-500/80 shadow shadow-slate-500">
                     <div class="h-45 bg-cover bg-center flex justify-end items-end" style="background-image: url('{{ $imagePath }}')">
-                        <a href="{{ route('customer.pesanan.create', ['paket_id' => $paketPernikahan->id]) }}" target="_blank" class="poppins-medium h-fit bg-teal-600 text-slate-100 text-center px-3 py-1 transition delay-50 duration-500 hover:bg-teal-700">
-                            Pesan
+                        <a href="{{ route('customer.paket_pernikahan.show', $paketPernikahan) }}" target="_blank" class="poppins-medium h-fit bg-teal-600 text-slate-100 text-center px-3 py-1 transition delay-50 duration-500 hover:bg-teal-700">
+                            Lihat
                         </a>
                     </div>
 
@@ -38,10 +38,6 @@
                                 {{ $paketPernikahan->nama_paket }}
                             </span>
                         </div>
-
-                        <span class="poppins text-slate-600 text-md text-end">
-                            Rp. {{ $paketPernikahan->hargaDP_paket }}-{{ $paketPernikahan->hargaLunas_paket }}
-                        </span>
                     </div>
                 </div>
             @endforeach

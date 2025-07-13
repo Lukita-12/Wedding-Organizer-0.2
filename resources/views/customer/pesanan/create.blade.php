@@ -68,20 +68,20 @@
                         <x-form.label for="paket_pernikahan">Paket Pernikahan</x-form.label>
                         <x-form.select name="paket_pernikahan_id" id="paket_pernikahan_id">
                             <option value="">Tanpa paket yang dipilih</option>
-                            @foreach ($paketPernikahans as $paketPernikahan)
-                                <option value="{{ $paketPernikahan->id }}"
-                                    data-venue="{{ $paketPernikahan->venueUsaha?->{"ket_" . $paketPernikahan->venue_ket_harga} ?? '-' }}"
-                                    data-dekorasi="{{ $paketPernikahan->dekorasiUsaha?->{"ket_" . $paketPernikahan->dekorasi_ket_harga} ?? '-' }}"
-                                    data-tata_rias="{{ $paketPernikahan->tataRiasUsaha?->{"ket_" . $paketPernikahan->tata_rias_ket_harga} ?? '-' }}"
-                                    data-catering="{{ $paketPernikahan->cateringUsaha?->{"ket_" . $paketPernikahan->catering_ket_harga} ?? '-' }}"
-                                    data-kue_pernikahan="{{ $paketPernikahan->kuePernikahanUsaha?->{"ket_" . $paketPernikahan->kue_pernikahan_ket_harga} ?? '-' }}"
-                                    data-fotografer="{{ $paketPernikahan->fotograferUsaha?->{"ket_" . $paketPernikahan->fotografer_ket_harga} ?? '-' }}"
-                                    data-entertainment="{{ $paketPernikahan->entertainmentUsaha?->{"ket_" . $paketPernikahan->entertainment_ket_harga} ?? '-' }}"
-                                    {{ (string) old('paket_pernikahan_id', $paket_id) === (string) $paketPernikahan->id ? 'selected' : '' }}>
-                                    {{ $paketPernikahan->nama_paket }}
-                                </option>
-                            @endforeach
-                        </x-form.select>
+                                @foreach ($paketPernikahans as $paketPernikahan)
+                                    <option value="{{ $paketPernikahan->id }}"
+                                        data-ket_venue="{{ $paketPernikahan->ket_venue }}"
+                                        data-ket_dekorasi="{{ $paketPernikahan->ket_dekorasi }}"
+                                        data-ket_tata_rias="{{ $paketPernikahan->ket_tata_rias }}"
+                                        data-ket_catering="{{ $paketPernikahan->ket_catering }}"
+                                        data-ket_kue_pernikahan="{{ $paketPernikahan->ket_kue_pernikahan }}"
+                                        data-ket_fotografer="{{ $paketPernikahan->ket_fotografer }}"
+                                        data-ket_entertainment="{{ $paketPernikahan->ket_entertainment }}"
+                                        {{ (string) old('paket_pernikahan_id', $selectedPaketId) === (string) $paketPernikahan->id ? 'selected' : '' }}>
+                                        {{ $paketPernikahan->nama_paket }}
+                                    </option>
+                                @endforeach
+                            </x-form.select>
                         <x-form.error errorFor="paket_pernikahan_id" />
                     </div>
 
@@ -96,14 +96,15 @@
                             <p>Entertainment :</p>
                         </div>
                         <div class="text-end flex flex-col gap-1">
-                            <p id="ket-venue">-</p>
-                            <p id="ket-dekorasi">-</p>
-                            <p id="ket-tata_rias">-</p>
-                            <p id="ket-catering">-</p>
-                            <p id="ket-kue_pernikahan">-</p>
-                            <p id="ket-fotografer">-</p>
-                            <p id="ket-entertainment">-</p>
+                            <p id="ket_venue">-</p>
+                            <p id="ket_dekorasi">-</p>
+                            <p id="ket_tata_rias">-</p>
+                            <p id="ket_catering">-</p>
+                            <p id="ket_kue_pernikahan">-</p>
+                            <p id="ket_fotografer">-</p>
+                            <p id="ket_entertainment">-</p>
                         </div>
+
                     </div>
 
                     <div class="flex justify-end">
@@ -111,21 +112,6 @@
                     </div>
     
                     <div class="grid grid-cols-2 gap-4">
-                        <?php
-                        /*
-                        <div>
-                            <x-form.label for="pengantin_pria">Pengantin Pria</x-form.label>
-                            <x-form.input type="text" name="pengantin_pria" id="pengantin_pria" :value="old('pengantin_pria')" placeholder="Nama pengantin pria..." required />
-                            <x-form.error errorFor="pengantin_pria" />
-                        </div>
-        
-                        <div>
-                            <x-form.label for="pengantin_wanita">Pengantin Wanita</x-form.label>
-                            <x-form.input type="text" name="pengantin_wanita" id="pengantin_wanita" :value="old('pengantin_wanita')" placeholder="Nama pengantin wanita..." />
-                            <x-form.error errorFor="pengantin_wanita" />
-                        </div>
-                        */
-                        ?>
         
                         <div>
                             <x-form.label for="tanggal_diskusi">Tanggal Diskusi/Perencaan</x-form.label>
@@ -140,17 +126,6 @@
                         </div>
                     </div>
     
-                    <!-- Total harga -->
-                    <?php
-                    /*
-                    <div>
-                        <x-form.label for="total_harga">Total Harga</x-form.label>
-                        <x-form.input type="text" name="total_harga_pesanan" id="total_harga_pesanan" value="{{ number_format(old('harga_lunas_paket', 0), 0, ',', '.') }}" placeholder="000.000.000" disabled />
-                        <x-form.error errorFor="total_harga_pesanan" />
-                    </div>
-                    */
-                    ?>
-    
                     <x-form.container variant="button">
                         <x-form.link href="{{ route('home') }}">Batal</x-form.link>
                         <x-form.button type="submit">Simpan</x-form.button>
@@ -161,30 +136,7 @@
     </x-form.container>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const paketSelect = document.getElementById('paket_pernikahan_id');
-            const hargaInput = document.getElementById('total_harga_pesanan');
-
-            function formatRupiah(angka) {
-                return new Intl.NumberFormat('id-ID').format(angka);
-            }
-
-            function updateHarga() {
-                const selectedOption = paketSelect.options[paketSelect.selectedIndex];
-                const harga = selectedOption.getAttribute('data-harga');
-                hargaInput.value = harga ? formatRupiah(harga) : '';
-            }
-
-            // Jalankan saat pertama kali halaman dimuat
-            updateHarga();
-
-            // Jalankan ketika user memilih paket
-            paketSelect.addEventListener('change', updateHarga);
-        });
-    </script>
-
-    <!-- Data Pelanggan -->
-    <script>
+    // Data Pelanggan
         document.addEventListener('DOMContentLoaded', function () {
             const pelangganSelect = document.getElementById('pelanggan_id');
 
@@ -212,31 +164,25 @@
             // Jalankan saat user mengganti pilihan pelanggan
             pelangganSelect.addEventListener('change', updateGrid);
         });
-    </script>
-
-    <!-- Paket pernikahan -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const selectPaket = document.getElementById('paket_pernikahan_id');
-
-            function updateKeterangan() {
-                const selected = selectPaket.options[selectPaket.selectedIndex];
-
-                document.getElementById('ket-venue').innerText = selected.dataset.venue || '-';
-                document.getElementById('ket-dekorasi').innerText = selected.dataset.dekorasi || '-';
-                document.getElementById('ket-tata_rias').innerText = selected.dataset.tata_rias || '-';
-                document.getElementById('ket-catering').innerText = selected.dataset.catering || '-';
-                document.getElementById('ket-kue_pernikahan').innerText = selected.dataset.kue_pernikahan || '-';
-                document.getElementById('ket-fotografer').innerText = selected.dataset.fotografer || '-';
-                document.getElementById('ket-entertainment').innerText = selected.dataset.entertainment || '-';
-            }
-
-            // Update saat halaman pertama kali dibuka (jika ada paket terpilih)
-            updateKeterangan();
-
-            // Update saat user ganti pilihan
-            selectPaket.addEventListener('change', updateKeterangan);
+        
+        // Paket pernikahan
+        const selectPaket = document.getElementById('paket_pernikahan_id');
+        selectPaket.addEventListener('change', function () {
+            const selectedOption = this.options[this.selectedIndex];
+            document.getElementById('ket_venue').innerText = selectedOption.getAttribute('data-ket_venue') || '-';
+            document.getElementById('ket_dekorasi').innerText = selectedOption.getAttribute('data-ket_dekorasi') || '-';
+            document.getElementById('ket_tata_rias').innerText = selectedOption.getAttribute('data-ket_tata_rias') || '-';
+            document.getElementById('ket_catering').innerText = selectedOption.getAttribute('data-ket_catering') || '-';
+            document.getElementById('ket_kue_pernikahan').innerText = selectedOption.getAttribute('data-ket_kue_pernikahan') || '-';
+            document.getElementById('ket_fotografer').innerText = selectedOption.getAttribute('data-ket_fotografer') || '-';
+            document.getElementById('ket_entertainment').innerText = selectedOption.getAttribute('data-ket_entertainment') || '-';
         });
+
+        // Auto-trigger saat halaman dimuat
+        if (selectPaket.value) {
+            selectPaket.dispatchEvent(new Event('change'));
+        }
     </script>
+
 
 </x-layout-form>

@@ -19,10 +19,10 @@ return new class extends Migration
             $table->foreignIdFor(PaketPernikahan::class)->nullable()->constrained()->nullOnDelete();
 
             $table->date('tgl_pesanan');
-            $table->string('pengantin_pria');
-            $table->string('pengantin_wanita');
             $table->date('tanggal_acara');
             $table->date('tanggal_diskusi');
+            $table->decimal('harga_dp', 15, 2)->nullable();
+            $table->decimal('harga_lunas', 15, 2)->nullable();
             $table->decimal('total_harga_pesanan', 15, 2)->nullable();
             $table->string('status_pesanan')->default('Dalam proses');
             $table->timestamps();

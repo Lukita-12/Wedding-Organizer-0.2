@@ -10,6 +10,13 @@ class PesananSeeder extends Seeder
 {
     /**
      * Run the database seeds.
+     * -
+     * Full dekorasi
+     * Pengantin, Orang Tua, dan 3 Orang masing-masing keluarga
+     * 2500 Porsi
+     * Kue dengan 4 Tingkat
+     * 2 Album, foto bentuk file, & 2 foto dengan figura
+     * Band banjarmasin
      */
     public function run(): void
     {
