@@ -18,7 +18,7 @@
     
                     <div>
                         <x-form.label for="pelanggan">Paket Pernikahan</x-form.label>
-                        <x-form.input name="" id="" value="{{ $pembayaran->paketPernikahan->nama_paket ?? '-' }}" disabled
+                        <x-form.input name="" id="" value="{{ $pembayaran->pesanan->paketPernikahan->nama_paket ?? '-' }}" disabled
                             class="bg-transparent text-teal-600 border-b-2 border-slate-500" />
                         <x-form.error errorFor="bayar_lunas" />
                     </div>
@@ -46,7 +46,11 @@
                     <x-form.input type="text" name="pesanan_id" id="pesanan_id" value="{{ $pembayaran->pesanan_id }}" class="hidden" />
 
                     <div>
-                        <x-form.label for="bukti_pembayaran_dp">Bukti Pembayaran DP</x-form.label>
+                        <div class="flex justify-between">
+                            <x-form.label for="bukti_pembayaran_dp">Bukti Pembayaran DP</x-form.label>
+                            <x-form.label for="bukti_pembayaran_dp" class="text-teal-600">Rp. {{ number_format($pembayaran->pesanan->harga_dp, 0, ',', '.') }}</x-form.label>
+                        </div>
+
                         <x-form.input type="file" name="bukti_pembayaran_dp" id="bukti_pembayaran_dp" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'preview-dp', 'bayar_dp')" />
 
                         <label for="bukti_pembayaran_dp">
@@ -63,7 +67,11 @@
                     </div>
     
                     <div>
-                        <x-form.label for="bukti_pembayaran_lunas">Bukti Pembayaran Lunas</x-form.label>
+                        <div class="flex justify-between">
+                            <x-form.label for="bukti_pembayaran_lunas">Bukti Pembayaran Lunas</x-form.label>
+                            <x-form.label for="bukti_pembayaran_dp" class="text-teal-600">Rp. {{ number_format($pembayaran->pesanan->harga_lunas, 0, ',', '.') }}</x-form.label>
+                        </div>
+
                         <x-form.input type="file" name="bukti_pembayaran_lunas" id="bukti_pembayaran_lunas" accept="image/*" class="hidden" onchange="handleFileUpload(event, 'preview-lunas', 'bayar_lunas')" />
 
                         <label for="bukti_pembayaran_lunas">

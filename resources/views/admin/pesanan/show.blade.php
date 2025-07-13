@@ -42,33 +42,32 @@
 
                 <div class="grid grid-cols-2">
                     <p>Dekorasi :</p>
-                    <p class="text-end">{{ $pesanan->paketPernikahan?->dekorasiUsaha?->{"ket_" . $pesanan->paketPernikahan->dekorasi_ket_harga} ?? '-' }}</p>
+                    <p class="text-end">{{ $pesanan->paketPernikahan->ket_dekorasi ?? '-' }}</p>
                 </div>
 
                 <div class="grid grid-cols-2">
                     <p>Tata rias :</p>
-                    <p class="text-end">{{ $pesanan->paketPernikahan?->tataRiasUsaha?->{"ket_" . $pesanan->paketPernikahan->tata_rias_ket_harga} ?? '-' }}</p>
+                    <p class="text-end">{{ $pesanan->paketPernikahan->ket_tata_rias ?? '-' }}</p>
                 </div>
 
                 <div class="grid grid-cols-2">
                     <p>Catering :</p>
-                    <p class="text-end">{{ $pesanan->paketPernikahan?->cateringUsaha?->{"ket_" . $pesanan->paketPernikahan->catering_ket_harga} ?? '-' }}</p>
+                    <p class="text-end">{{ $pesanan->paketPernikahan->ket_catering ?? '-' }}</p>
                 </div>
 
                 <div class="grid grid-cols-2">
                     <p>Kue Pernikahan :</p>
-                    <p class="text-end">{{ $pesanan->paketPernikahan?->kuePernikahanUsaha?->{"ket_" . $pesanan->paketPernikahan->kue_pernikahan_ket_harga} ?? '-' }}</p>
-
+                    <p class="text-end">{{ $pesanan->paketPernikahan->ket_kue_pernikahan ?? '-' }}</p>
                 </div>
 
                 <div class="grid grid-cols-2">
                     <p>Foto :</p>
-                    <p class="text-end">{{ $pesanan->paketPernikahan?->fotograferUsaha?->{"ket_" . $pesanan->paketPernikahan->fotografer_ket_harga} ?? '-' }}</p>
+                    <p class="text-end">{{ $pesanan->paketPernikahan->ket_fotografer ?? '-' }}</p>
                 </div>
 
                 <div class="grid grid-cols-2">
                     <p>Entertainment :</p>
-                    <p class="text-end">{{ $pesanan->paketPernikahan?->entertainmentUsaha?->{"ket_" . $pesanan->paketPernikahan->entertainment_ket_harga} ?? '-' }}</p>
+                    <p class="text-end">{{ $pesanan->paketPernikahan->ket_entertainment ?? '-' }}</p>
                 </div>
             </div>
     

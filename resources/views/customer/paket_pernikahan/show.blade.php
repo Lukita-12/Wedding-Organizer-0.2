@@ -12,6 +12,17 @@
                         alt="Thumbnail" class="w-full h-84 object-cover object-center">
                 </div>
 
+                <div class="col-span-3">
+                    <div class="flex justify-between items-center">
+                        <h1 class="text-3xl font-semibold text-teal-700 mb-2">{{ $paketPernikahan->nama_paket }}</h1>
+                        <p class="text-slate-600 mb-4">Status: 
+                            <span class="poppins-medium px-2 py-1 bg-slate-300 text-teal-700 rounded">
+                                {{ ucfirst($paketPernikahan->status_paket) }}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
                 @php
                     $gambarDekorasi      = $paketPernikahan->dekorasiUsaha->gambarPromosi->first();
                     $gambarTataRias      = $paketPernikahan->tataRiasUsaha->gambarPromosi->first();

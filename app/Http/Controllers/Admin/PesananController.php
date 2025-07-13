@@ -83,16 +83,23 @@ class PesananController extends Controller
             'paket_pernikahan_id'   => ['nullable', 'exists:paket_pernikahan,id'],
             
             'tgl_pesanan'           => ['required', 'date'],
-            'pengantin_pria'        => ['required'],
-            'pengantin_wanita'      => ['required'],
             'tanggal_acara'         => ['required', 'date'],
             'tanggal_diskusi'       => ['required', 'date'],
+
+            'harga_dp'              => ['required'],
+            'harga_lunas'           => ['required'],
             'total_harga_pesanan'   => ['required'],
+            
             'status_pesanan'        => ['required'],
         ]);
 
-        $validatedData['total_harga_pesanan'] = str_replace(['.', ','], ['', '.'], $validatedData['total_harga_pesanan']);  //Remove seperator(. or ,)
-        $validatedData['total_harga_pesanan'] = number_format((float) $validatedData['total_harga_pesanan'], 2, '.', '');   // Conver to decimal
+        $validatedData['harga_dp']              = str_replace(['.', ','], ['', '.'], $validatedData['harga_dp']);
+        $validatedData['harga_lunas']           = str_replace(['.', ','], ['', '.'], $validatedData['harga_lunas']);
+        $validatedData['total_harga_pesanan']   = str_replace(['.', ','], ['', '.'], $validatedData['total_harga_pesanan']);  //Remove seperator(. or ,)
+
+        $validatedData['harga_dp']              = number_format((float) $validatedData['harga_dp'], 2, '.', '');   // Conver to decimal
+        $validatedData['harga_lunas']           = number_format((float) $validatedData['harga_lunas'], 2, '.', '');   // Conver to decimal
+        $validatedData['total_harga_pesanan']   = number_format((float) $validatedData['total_harga_pesanan'], 2, '.', '');   // Conver to decimal
 
         $pesanan->update($validatedData);
 

@@ -74,9 +74,9 @@
                         </div>
                     </div>
 
-                    <span class="poppins text-slate-100 text-sm text-justify px-3 py-1 line-clamp-3">
-                        <span class="px-3"></span>{{ $ulasan->ulasan }}
-                    </span>
+                    <a href="{{ route('customer.ulasan.index') }}" class="poppins-italic text-slate-100 text-center text-sm py-2 underline hover:text-teal-500">
+                        Lebih banyak...
+                    </a>
                 </div>
             @endforeach
         </div>

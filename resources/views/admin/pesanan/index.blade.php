@@ -33,10 +33,11 @@
                             <x-table.td variant="head">Paket Pernikahan</x-table.td>
             
                             <x-table.td variant="head">Tanggal Pesanan</x-table.td>
-                            <x-table.td variant="head">Pengantin Pria</x-table.td>
-                            <x-table.td variant="head">Pengantin Wanita</x-table.td>
                             <x-table.td variant="head">Tanggal Acara</x-table.td>
                             <x-table.td variant="head">Tanggal Diskusi</x-table.td>
+
+                            <x-table.td variant="head">Harga DP</x-table.td>
+                            <x-table.td variant="head">Harga Lunas</x-table.td>
                             <x-table.td variant="head">Total Pesanan</x-table.td>
                             <x-table.td variant="head">Status Pesanan</x-table.td>
                             <x-table.td variant="head">Aksi</x-table.td>
@@ -52,10 +53,11 @@
                                 <x-table.td>{{ $pesanan->paketPernikahan->nama_paket ?? '-' }}</x-table.td>
             
                                 <x-table.td>{{ $pesanan->tgl_pesanan->format('d M Y') }}</x-table.td>
-                                <x-table.td>{{ $pesanan->pengantin_pria }}</x-table.td>
-                                <x-table.td>{{ $pesanan->pengantin_wanita }}</x-table.td>
                                 <x-table.td>{{ $pesanan->tanggal_diskusi->format('d M Y') }}</x-table.td>
                                 <x-table.td>{{ $pesanan->tanggal_acara->format('d M Y') }}</x-table.td>
+
+                                <x-table.td>Rp. {{ number_format($pesanan->harga_dp, 0, ',', '.') }}</x-table.td>
+                                <x-table.td>Rp. {{ number_format($pesanan->harga_lunas, 0, ',', '.') }}</x-table.td>
                                 <x-table.td>Rp. {{ number_format($pesanan->total_harga_pesanan, 0, ',', '.') }}</x-table.td>
                                 <x-table.td>{{ $pesanan->status_pesanan }}</x-table.td>
                                 <x-table.td>
