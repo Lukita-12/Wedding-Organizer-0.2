@@ -11,43 +11,35 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
-    Schema::create('paket_pernikahan', function (Blueprint $table) {
-        $table->id();
-        $table->foreignIdFor(User::class)->nullable()->constrained()->nullOnDelete();
-        $table->string('upload_file')->nullable();
-        $table->string('nama_paket');
+    {
+        Schema::create('paket_pernikahan', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(User::class)   ->nullable()->constrained()->nullOnDelete();
+            $table->string('upload_file')       ->nullable();
+            $table->string('nama_paket');
 
-        // Foreign key ke tabel kerjasama + pilihan harga
-        $table->foreignId('venue')->nullable()->constrained('kerjasama')->nullOnDelete();
-        $table->enum('venue_ket_harga', ['harga01', 'harga02'])->nullable();
+            // Foreign key ke kerjasama, nullable karena boleh dikosongkan
+            $table->foreignId('venue')          ->nullable()->constrained('kerjasama')->nullOnDelete();
+            $table->foreignId('dekorasi')       ->nullable()->constrained('kerjasama')->nullOnDelete();
+            $table->foreignId('tata_rias')      ->nullable()->constrained('kerjasama')->nullOnDelete();
+            $table->foreignId('catering')       ->nullable()->constrained('kerjasama')->nullOnDelete();
+            $table->foreignId('kue_pernikahan') ->nullable()->constrained('kerjasama')->nullOnDelete();
+            $table->foreignId('fotografer')     ->nullable()->constrained('kerjasama')->nullOnDelete();
+            $table->foreignId('entertainment')  ->nullable()->constrained('kerjasama')->nullOnDelete();
 
-        $table->foreignId('dekorasi')->nullable()->constrained('kerjasama')->nullOnDelete();
-        $table->enum('dekorasi_ket_harga', ['harga01', 'harga02'])->nullable();
+            // Keterangan vendor
+            $table->string('ket_venue')         ->nullable();
+            $table->string('ket_dekorasi')      ->nullable();
+            $table->string('ket_tata_rias')     ->nullable();
+            $table->string('ket_catering')      ->nullable();
+            $table->string('ket_kue_pernikahan')->nullable();
+            $table->string('ket_fotografer')    ->nullable();
+            $table->string('ket_entertainment') ->nullable();
 
-        $table->foreignId('tata_rias')->nullable()->constrained('kerjasama')->nullOnDelete();
-        $table->enum('tata_rias_ket_harga', ['harga01', 'harga02'])->nullable();
-
-        $table->foreignId('catering')->nullable()->constrained('kerjasama')->nullOnDelete();
-        $table->enum('catering_ket_harga', ['harga01', 'harga02'])->nullable();
-
-        $table->foreignId('kue_pernikahan')->nullable()->constrained('kerjasama')->nullOnDelete();
-        $table->enum('kue_pernikahan_ket_harga', ['harga01', 'harga02'])->nullable();
-
-        $table->foreignId('fotografer')->nullable()->constrained('kerjasama')->nullOnDelete();
-        $table->enum('fotografer_ket_harga', ['harga01', 'harga02'])->nullable();
-
-        $table->foreignId('entertainment')->nullable()->constrained('kerjasama')->nullOnDelete();
-        $table->enum('entertainment_ket_harga', ['harga01', 'harga02'])->nullable();
-
-        // Field tambahan
-        $table->integer('staff_acara')->nullable();
-        $table->bigInteger('hargaDP_paket');
-        $table->bigInteger('hargaLunas_paket');
-        $table->enum('status_paket', ['Tersedia', 'Tidak tersedia', 'Eksklusif']);
-        $table->timestamps();
-    });
-}
+            $table->string('status_paket');
+            $table->timestamps();
+        });
+    }
 
     /**
      * Reverse the migrations.

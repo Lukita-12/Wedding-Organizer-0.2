@@ -37,10 +37,7 @@
                             <x-table.td variant="head">Kue Pernikahan</x-table.td>
                             <x-table.td variant="head">Fotografer</x-table.td>
                             <x-table.td variant="head">Entertainment</x-table.td>
-                            <x-table.td variant="head">Staff Acara</x-table.td>
-    
-                            <x-table.td variant="head">Harga 01</x-table.td>
-                            <x-table.td variant="head">Harga 02</x-table.td>
+                            
                             <x-table.td variant="head">Status Paket</x-table.td>
                             <x-table.td variant="head">Aksi</x-table.td>
                         </tr>
@@ -59,9 +56,6 @@
                                 <x-table.td>{{ $paketPernikahan->fotograferUsaha    ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
                                 <x-table.td>{{ $paketPernikahan->entertainmentUsaha ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
                                 
-                                <x-table.td>{{ $paketPernikahan->staff_acara ?? '-' }}</x-table.td>
-                                <x-table.td>Rp. {{ number_format($paketPernikahan->hargaDP_paket, 0, ',', '.') }}</x-table.td>
-                                <x-table.td>Rp. {{ number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.') }}</x-table.td>
                                 <x-table.td>{{ $paketPernikahan->status_paket }}</x-table.td>
                                 <x-table.td>
                                     <x-table.container variant="button">

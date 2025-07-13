@@ -6,20 +6,16 @@
     <table>
         <thead>
             <x-table.tr variant="head-report">
-                <x-table.td variant="head-report">No.</x-table.td>
-                <x-table.td variant="head-report">Nama Paket</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">No.</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Nama Paket</x-table.td>
 
-                <x-table.td variant="head-report">Venue</x-table.td>
-                <x-table.td variant="head-report">Dekorasi</x-table.td>
-                <x-table.td variant="head-report">Tata Rias</x-table.td>
-                <x-table.td variant="head-report">Catering</x-table.td>
-                <x-table.td variant="head-report">Kue Pernikahan</x-table.td>
-                <x-table.td variant="head-report">Fotografer</x-table.td>
-                <x-table.td variant="head-report">Entertainment</x-table.td>
-                <x-table.td variant="head-report">Staff Acara</x-table.td>
-
-                <x-table.td variant="head-report">Harga 01</x-table.td>
-                <x-table.td variant="head-report">Harga 02</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Venue</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Dekorasi</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Tata Rias</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Catering</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Kue Pernikahan</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Fotografer</x-table.td>
+                <x-table.td variant="head-report" class="whitespace-nowrap">Entertainment</x-table.td>
             </x-table.tr>
         </thead>
         <tbody>
@@ -28,17 +24,13 @@
                     <x-table.td variant="body-report">{{ $loop->iteration }}</x-table.td>
                     <x-table.td variant="body-report">{{ $paketPernikahan->nama_paket }}</x-table.td>
     
-                    <x-table.td variant="body-report">{{ $paketPernikahan->venueUsaha         ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
-                    <x-table.td variant="body-report">{{ $paketPernikahan->dekorasiUsaha      ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
-                    <x-table.td variant="body-report">{{ $paketPernikahan->tataRiasUsaha      ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
-                    <x-table.td variant="body-report">{{ $paketPernikahan->cateringUsaha      ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
-                    <x-table.td variant="body-report">{{ $paketPernikahan->kuePernikahanUsaha ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
-                    <x-table.td variant="body-report">{{ $paketPernikahan->fotograferUsaha    ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
-                    <x-table.td variant="body-report">{{ $paketPernikahan->entertainmentUsaha ->requestMitra->nama_usaha ?? '-' }}</x-table.td>
-                    <x-table.td variant="body-report">{{ $paketPernikahan->staff_acara ?? '-' }}</x-table.td>
-    
-                    <x-table.td variant="body-report" class="whitespace-nowrap">Rp. {{ number_format($paketPernikahan->hargaDP_paket, 0, ',', '.') }}</x-table.td>
-                    <x-table.td variant="body-report" class="whitespace-nowrap">Rp. {{ number_format($paketPernikahan->hargaLunas_paket, 0, ',', '.') }}</x-table.td>
+                    <x-table.td variant="body-report">{{ $paketPernikahan->ket_venue ?? '-' }}</x-table.td>
+                    <x-table.td variant="body-report">{{ $paketPernikahan->ket_dekorasi ?? '-' }}</x-table.td>
+                    <x-table.td variant="body-report">{{ $paketPernikahan->ket_tata_rias ?? '-' }}</x-table.td>
+                    <x-table.td variant="body-report">{{ $paketPernikahan->ket_catering ?? '-' }}</x-table.td>
+                    <x-table.td variant="body-report">{{ $paketPernikahan->ket_kue_pernikahan ?? '-' }}</x-table.td>
+                    <x-table.td variant="body-report">{{ $paketPernikahan->ket_fotografer ?? '-' }}</x-table.td>
+                    <x-table.td variant="body-report">{{ $paketPernikahan->ket_entertainment ?? '-' }}</x-table.td>
                 </x-table.tr>
             @endforeach
         </tbody>
