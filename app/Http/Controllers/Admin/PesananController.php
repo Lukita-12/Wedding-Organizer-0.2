@@ -56,12 +56,12 @@ class PesananController extends Controller
         return redirect()->route('admin.pesanan.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Pesanan $pesanan)
     {
-        dd('Hello!');
+        // Pastikan eager loading relasi untuk efisiensi
+        $pesanan->load(['pelanggan', 'paketPernikahan', 'paketPernikahan.venueUsaha', 'paketPernikahan.dekorasiUsaha', 'paketPernikahan.tataRiasUsaha', 'paketPernikahan.cateringUsaha', 'paketPernikahan.kuePernikahanUsaha', 'paketPernikahan.fotograferUsaha', 'paketPernikahan.entertainmentUsaha']);
+
+        return view('admin.pesanan.show', compact('pesanan'));
     }
 
     public function edit(Pesanan $pesanan)

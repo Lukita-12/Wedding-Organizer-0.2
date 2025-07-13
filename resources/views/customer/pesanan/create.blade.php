@@ -70,7 +70,13 @@
                             <option value="">Tanpa paket yang dipilih</option>
                             @foreach ($paketPernikahans as $paketPernikahan)
                                 <option value="{{ $paketPernikahan->id }}"
-                                    data-harga="{{ $paketPernikahan->hargaLunas_paket }}"
+                                    data-venue="{{ $paketPernikahan->venueUsaha?->{"ket_" . $paketPernikahan->venue_ket_harga} ?? '-' }}"
+                                    data-dekorasi="{{ $paketPernikahan->dekorasiUsaha?->{"ket_" . $paketPernikahan->dekorasi_ket_harga} ?? '-' }}"
+                                    data-tata_rias="{{ $paketPernikahan->tataRiasUsaha?->{"ket_" . $paketPernikahan->tata_rias_ket_harga} ?? '-' }}"
+                                    data-catering="{{ $paketPernikahan->cateringUsaha?->{"ket_" . $paketPernikahan->catering_ket_harga} ?? '-' }}"
+                                    data-kue_pernikahan="{{ $paketPernikahan->kuePernikahanUsaha?->{"ket_" . $paketPernikahan->kue_pernikahan_ket_harga} ?? '-' }}"
+                                    data-fotografer="{{ $paketPernikahan->fotograferUsaha?->{"ket_" . $paketPernikahan->fotografer_ket_harga} ?? '-' }}"
+                                    data-entertainment="{{ $paketPernikahan->entertainmentUsaha?->{"ket_" . $paketPernikahan->entertainment_ket_harga} ?? '-' }}"
                                     {{ (string) old('paket_pernikahan_id', $paket_id) === (string) $paketPernikahan->id ? 'selected' : '' }}>
                                     {{ $paketPernikahan->nama_paket }}
                                 </option>
@@ -90,13 +96,13 @@
                             <p>Entertainment :</p>
                         </div>
                         <div class="text-end flex flex-col gap-1">
-                            <p>venue</p>
-                            <p>dekorasi</p>
-                            <p>tata_rias</p>
-                            <p>catering</p>
-                            <p>kue_pernikahan</p>
-                            <p>fotografer</p>
-                            <p>entertainment</p>
+                            <p id="ket-venue">-</p>
+                            <p id="ket-dekorasi">-</p>
+                            <p id="ket-tata_rias">-</p>
+                            <p id="ket-catering">-</p>
+                            <p id="ket-kue_pernikahan">-</p>
+                            <p id="ket-fotografer">-</p>
+                            <p id="ket-entertainment">-</p>
                         </div>
                     </div>
 
@@ -208,5 +214,29 @@
         });
     </script>
 
+    <!-- Paket pernikahan -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectPaket = document.getElementById('paket_pernikahan_id');
+
+            function updateKeterangan() {
+                const selected = selectPaket.options[selectPaket.selectedIndex];
+
+                document.getElementById('ket-venue').innerText = selected.dataset.venue || '-';
+                document.getElementById('ket-dekorasi').innerText = selected.dataset.dekorasi || '-';
+                document.getElementById('ket-tata_rias').innerText = selected.dataset.tata_rias || '-';
+                document.getElementById('ket-catering').innerText = selected.dataset.catering || '-';
+                document.getElementById('ket-kue_pernikahan').innerText = selected.dataset.kue_pernikahan || '-';
+                document.getElementById('ket-fotografer').innerText = selected.dataset.fotografer || '-';
+                document.getElementById('ket-entertainment').innerText = selected.dataset.entertainment || '-';
+            }
+
+            // Update saat halaman pertama kali dibuka (jika ada paket terpilih)
+            updateKeterangan();
+
+            // Update saat user ganti pilihan
+            selectPaket.addEventListener('change', updateKeterangan);
+        });
+    </script>
 
 </x-layout-form>

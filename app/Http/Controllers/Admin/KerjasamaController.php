@@ -34,7 +34,8 @@ class KerjasamaController extends Controller
     {
         $validatedData = $request->validate([
             'request_mitra_id'  => ['required', 'exists:request_mitra,id'],
-            'upload_file'       => ['nullable', 'image','mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'upload_file'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'], // Thumbnail usaha
+            'gambar_promosi.*'  => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'], // ✅ Multiple gambar promosi
             'noTelp_usaha'      => ['nullable'],
             'email_usaha'       => ['nullable', 'email', 'max:254'],
             'alamat_usaha'      => ['nullable'],
@@ -49,22 +50,32 @@ class KerjasamaController extends Controller
             return back()->with('error', 'Kerjasama dengan jenis usaha ini sudah ada!')->withInput();
         }
 
-        // Upload Image
-        if ($request->hasFile('upload_file')){
-            $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/images', 'public');
+        // Upload Thumbnail Usaha
+        if ($request->hasFile('upload_file')) {
+            $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/thumbnails', 'public');
         }
 
-        // Remove thousand separators (dots) and convert comma to decimal point
+        // Format harga01 & harga02
         $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
         $validatedData['harga02'] = str_replace(['.', ','], ['', '.'], $validatedData['harga02']);
-    
-        // Convert to proper decimal format
-        $validatedData['harga01'] = number_format((float) $validatedData['harga01'], 2, '.', '');
-        $validatedData['harga02'] = number_format((float) $validatedData['harga02'], 2, '.', '');
+        $validatedData['harga01'] = number_format((float)$validatedData['harga01'], 2, '.', '');
+        $validatedData['harga02'] = number_format((float)$validatedData['harga02'], 2, '.', '');
 
-        Kerjasama::create($validatedData);
+        // Simpan Kerjasama
+        $kerjasama = Kerjasama::create($validatedData);
 
-        return redirect('/admin/kerjasama');
+        // ✅ Upload Gambar Promosi Multiple
+        if ($request->hasFile('gambar_promosi')) {
+            foreach ($request->file('gambar_promosi') as $file) {
+                $path = $file->store('images/kerjasama/promosi', 'public');
+
+                $kerjasama->gambarPromosi()->create([
+                    'file_path' => $path,
+                ]);
+            }
+        }
+
+        return redirect('/admin/kerjasama')->with('success', 'Kerjasama dan gambar promosi berhasil disimpan!');
     }
 
     public function show(Kerjasama $kerjasama)
@@ -87,34 +98,48 @@ class KerjasamaController extends Controller
     public function update(Request $request, Kerjasama $kerjasama)
     {
         $validatedData = $request->validate([
-            'upload_file'   => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
-            'noTelp_usaha'  => ['nullable'],
-            'email_usaha'   => ['nullable', 'email', 'max:254'],
-            'alamat_usaha'  => ['nullable'],
-            'harga01'       => ['nullable', 'string'],
-            'ket_harga01'   => ['nullable'],
-            'harga02'       => ['nullable', 'string'],
-            'ket_harga02'   => ['nullable'],
+            'upload_file'       => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'gambar_promosi.*'  => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'noTelp_usaha'      => ['nullable'],
+            'email_usaha'       => ['nullable', 'email', 'max:254'],
+            'alamat_usaha'      => ['nullable'],
+            'harga01'           => ['nullable', 'string'],
+            'ket_harga01'       => ['nullable'],
+            'harga02'           => ['nullable', 'string'],
+            'ket_harga02'       => ['nullable'],
         ]);
 
-        // Upload image
+        // ✅ Upload thumbnail
         if ($request->hasFile('upload_file')) {
-            $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/images', 'public');
+            $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/thumbnails', 'public');
         } else {
             $validatedData['upload_file'] = $kerjasama->upload_file;
         }
 
-        // Remove thousand separators (dots) and convert comma to decimal point
+        // ✅ Format harga
         $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
         $validatedData['harga02'] = str_replace(['.', ','], ['', '.'], $validatedData['harga02']);
-    
-        // Convert to proper decimal format
-        $validatedData['harga01'] = number_format((float) $validatedData['harga01'], 2, '.', '');
-        $validatedData['harga02'] = number_format((float) $validatedData['harga02'], 2, '.', '');
+        $validatedData['harga01'] = number_format((float)$validatedData['harga01'], 2, '.', '');
+        $validatedData['harga02'] = number_format((float)$validatedData['harga02'], 2, '.', '');
 
-        $kerjasama->update($validatedData);
+        // ✅ Update data kerjasama (tanpa gambar promosi)
+        $dataKerjasama = collect($validatedData)->except('gambar_promosi')->toArray();
+        $kerjasama->update($dataKerjasama);
 
-        return redirect('/admin/kerjasama');
+        // ✅ Tambahkan gambar promosi baru
+        $files = $request->file('gambar_promosi', []);
+
+        // Pakai collect untuk memastikan array
+        collect($files)->each(function ($file) use ($kerjasama) {
+            if ($file) {
+                $path = $file->store('images/kerjasama/promosi', 'public');
+                $kerjasama->gambarPromosi()->create([
+                    'file_path' => $path,
+                ]);
+            }
+        });
+
+        return redirect('/admin/kerjasama')->with('success', 'Kerjasama berhasil diperbarui.');
     }
 
     public function destroy(Kerjasama $kerjasama)

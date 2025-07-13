@@ -27,7 +27,13 @@ class PesananController extends Controller
         $paketId            = $request->query('paket_id');
         $pelanggans         = Auth::user()->pelanggan;
         $hasPelanggan       = $pelanggans->isNotEmpty();
-        $paketPernikahans   = PaketPernikahan::where('status_paket', 'Tersedia')->latest()->get();
+        $paketPernikahans   = PaketPernikahan::with([ 'venueUsaha', 'dekorasiUsaha', 'tataRiasUsaha',
+                                    'cateringUsaha', 'kuePernikahanUsaha', 'fotograferUsaha',
+                                    'entertainmentUsaha'
+                                ])
+                                ->where('status_paket', 'Tersedia')
+                                ->latest()
+                                ->get();
 
         return view('customer.pesanan.create', [
             'paket_id'          => $paketId,
@@ -42,26 +48,27 @@ class PesananController extends Controller
         $validatedData = $request->validate([
             'pelanggan_id'          => ['required', 'exists:pelanggan,id'],
             'paket_pernikahan_id'   => ['nullable', 'exists:paket_pernikahan,id'],
-
-            'pengantin_pria'        => ['required'],
-            'pengantin_wanita'      => ['required'],
             'tanggal_acara'         => ['required', 'date'],
             'tanggal_diskusi'       => ['required', 'date'],
         ]);
 
-        $validatedData['tgl_pesanan'] = now();
+        $validatedData['pengantin_pria']        = '-';
+        $validatedData['pengantin_wanita']      = '-';
+        $validatedData['total_harga_pesanan']   = '00.0';
+        $validatedData['tgl_pesanan']           = now();
 
-        if ($validatedData['paket_pernikahan_id']) {
-            $paket = PaketPernikahan::findOrFail($validatedData['paket_pernikahan_id']);
-            $validatedData['total_harga_pesanan'] = $paket->hargaLunas_paket;
-        } else {
-            $validatedData['total_harga_pesanan'] = null;
-        }
+        // if ($validatedData['paket_pernikahan_id']) {
+        //     $paket = PaketPernikahan::findOrFail($validatedData['paket_pernikahan_id']);
+        //     $validatedData['total_harga_pesanan'] = $paket->hargaLunas_paket;
+        // } else {
+        //     $validatedData['total_harga_pesanan'] = null; // atau input manual jika perlu
+        // }
 
         Pesanan::create($validatedData);
-        
-        return redirect()->route('home');
+
+        return redirect()->route('home')->with('success', 'Pesanan berhasil dibuat!');
     }
+
 
     public function show(Pesanan $pesanan)
     {

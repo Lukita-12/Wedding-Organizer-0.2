@@ -60,33 +60,75 @@
                     <x-form.error errorFor="alamat_usaha" />
                 </x-form.container>
 
-                <x-form.container variant="">
-                    <x-form.label for="harga01">Harga 01</x-form.label>
-                    <x-form.input type="text" name="harga01" id="harga01" step="0.01" min="0" :value="old('harga01', number_format($kerjasama->harga01, 0, ',', '.'))" placeholder="999.999.999" oninput="formatRupiah(this)" />
-                    <x-form.error errorFor="harga01" />
-                </x-form.container>
-    
-                <x-form.container variant="">
-                    <x-form.label for="ket_harga01">Keterangan harga 01</x-form.label>
-                    <x-form.textarea type="text" name="ket_harga01" id="ket_harga01" placeholder="Keterangan harga 01...">
-                        {{ old('ket_harga01', $kerjasama->ket_harga01) }}
-                    </x-form.textarea>
-                    <x-form.error errorFor="ket_harga01" />
-                </x-form.container>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex flex-col gap-3">
+                        <x-form.container variant="">
+                            <x-form.label for="harga01">Harga 01</x-form.label>
+                            <x-form.input type="text" name="harga01" id="harga01" step="0.01" min="0" :value="old('harga01', number_format($kerjasama->harga01, 0, ',', '.'))" placeholder="999.999.999" oninput="formatRupiah(this)" />
+                            <x-form.error errorFor="harga01" />
+                        </x-form.container>
+            
+                        <x-form.container variant="">
+                            <x-form.label for="ket_harga01">Keterangan harga 01</x-form.label>
+                            <x-form.textarea type="text" name="ket_harga01" id="ket_harga01" placeholder="Keterangan harga 01...">
+                                {{ old('ket_harga01', $kerjasama->ket_harga01) }}
+                            </x-form.textarea>
+                            <x-form.error errorFor="ket_harga01" />
+                        </x-form.container>
+                    </div>
 
-                <x-form.container variant="">
-                    <x-form.label for="harga02">Harga 02</x-form.label>
-                    <x-form.input type="text" name="harga02" id="harga02" step="0.01" min="0" :value="old('harga02', number_format($kerjasama->harga02, 0, ',', '.'))" placeholder="999.999.999" oninput="formatRupiah(this)" />
-                    <x-form.error errorFor="harga02" />
-                </x-form.container>
-    
-                <x-form.container variant="">
-                    <x-form.label for="ket_harga02">Keterangan harga 02</x-form.label>
-                    <x-form.textarea type="text" name="ket_harga02" id="ket_harga02" placeholder="Keterangan harga 02...">
-                        {{ old('ket_harga02', $kerjasama->ket_harga02) }}
-                    </x-form.textarea>
-                    <x-form.error errorFor="ket_harga02" />
-                </x-form.container>
+                    <div class="flex flex-col gap-3">
+                        <x-form.container variant="">
+                            <x-form.label for="harga02">Harga 02</x-form.label>
+                            <x-form.input type="text" name="harga02" id="harga02" step="0.01" min="0" :value="old('harga02', number_format($kerjasama->harga02, 0, ',', '.'))" placeholder="999.999.999" oninput="formatRupiah(this)" />
+                            <x-form.error errorFor="harga02" />
+                        </x-form.container>
+            
+                        <x-form.container variant="">
+                            <x-form.label for="ket_harga02">Keterangan harga 02</x-form.label>
+                            <x-form.textarea type="text" name="ket_harga02" id="ket_harga02" placeholder="Keterangan harga 02...">
+                                {{ old('ket_harga02', $kerjasama->ket_harga02) }}
+                            </x-form.textarea>
+                            <x-form.error errorFor="ket_harga02" />
+                        </x-form.container>
+                    </div>
+                </div>
+                
+                <!-- Gambar promosi -->
+                <div>
+                    <x-form.label for="gambar_promosi">Gambar Promosi</x-form.label>
+
+                    <!-- Preview semua gambar promosi -->
+                    <div id="gambar_promosi_preview" class="flex gap-2 flex-wrap border-2 border-slate-500 border-dashed p-3 rounded">
+                        <!-- Gambar lama dari database -->
+                        @foreach ($kerjasama->gambarPromosi as $gambar)
+                            <div class="relative w-32 h-32 border border-slate-300 rounded overflow-hidden">
+                                <img src="{{ asset('storage/' . $gambar->file_path) }}" alt="Gambar Promosi" class="object-cover w-full h-full">
+                                <!-- Tombol hapus -->
+                                <form action="{{ route('admin.gambar_promosi.destroy', $gambar) }}" method="POST" class="absolute top-1 right-1">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white rounded-full p-1 text-xs hover:bg-red-600">✕</button>
+                                </form>
+                            </div>
+                        @endforeach
+
+                        <!-- Kotak + Tambah Gambar -->
+                        <div id="tambah-gambar-box" class="w-32 h-32 flex justify-center items-center bg-slate-100 rounded hover:bg-slate-200 transition cursor-pointer"
+                            onclick="document.getElementById('gambar_promosi_input').click()">
+                            <span class="poppins-semibold text-slate-600 text-center text-lg">+ Gambar</span>
+                        </div>
+                    </div>
+
+                    <!-- Hidden file input -->
+                    <input type="file" id="gambar_promosi_input" class="hidden" accept="image/*" onchange="addNewImage(this)">
+
+                    <!-- Field hidden untuk menampung file baru -->
+                    <div id="gambar_promosi_hidden_inputs"></div>
+
+                    <x-form.error errorFor="gambar_promosi" />
+                </div>
+
 
                 <x-form.container variant="button">
                     <x-form.link href="{{ route('admin.kerjasama.index') }}">Batal</x-form.link>
@@ -101,4 +143,57 @@
             </script>
         @endif
     </x-form.container>
+
+    <script>
+    let newImages = []; // Array untuk menyimpan file baru
+
+    function addNewImage(input) {
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+            newImages.push(file);
+
+            // Preview gambar
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const imgWrapper = document.createElement('div');
+                imgWrapper.className = "relative w-32 h-32 border border-slate-300 rounded overflow-hidden";
+
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.className = "object-cover w-full h-full";
+
+                imgWrapper.appendChild(img);
+
+                document.getElementById('tambah-gambar-box').before(imgWrapper);
+            };
+            reader.readAsDataURL(file);
+
+            // Buat hidden input untuk file baru
+            createHiddenInput(file);
+        }
+
+        // Reset input supaya bisa upload gambar lain
+        input.value = '';
+    }
+
+    function createHiddenInput(file) {
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+
+        const newInput = document.createElement('input');
+        newInput.type = 'file';
+        newInput.name = 'gambar_promosi[]';
+        newInput.files = dataTransfer.files;
+        newInput.className = 'hidden';
+
+        document.getElementById('gambar_promosi_hidden_inputs').appendChild(newInput);
+    }
+
+    function submitForm() {
+        // Cari form terdekat dan submit
+        document.querySelector('form').submit();
+    }
+    </script>
+
+
 </x-layout-form>

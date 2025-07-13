@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AkunController;
 use App\Http\Controllers\Admin\BankController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GambarPromosiController;
 use App\Http\Controllers\Admin\KerjasamaController;
 use App\Http\Controllers\Admin\PaketPernikahanController;
 use App\Http\Controllers\Admin\PelangganController;
@@ -123,5 +124,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/ulasan/{ulasan}/edit', 'edit')->name('admin.ulasan.edit');
         Route::put('/ulasan/{ulasan}', 'update')->name('admin.ulasan.update');
         Route::delete('/ulasan/{ulasan}', 'destroy')->name('admin.ulasan.destroy');
+    });
+
+    Route::controller(GambarPromosiController::class)->group(function() {
+        Route::delete('/gambar-promosi/{gambarPromosi}')->name('admin.gambar_promosi.destroy');
     });
 });
