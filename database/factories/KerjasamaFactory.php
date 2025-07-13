@@ -22,10 +22,10 @@ class KerjasamaFactory extends Factory
             'noTelp_usaha'      => fake()->phoneNumber(),
             'email_usaha'       => fake()->unique()->safeEmail(),
             'alamat_usaha'      => fake()->address(),
-            'harga01'           => fake()->randomFloat(2, 100000000, 999999999),
-            'ket_harga01'       => fake()->sentence(),
-            'harga02'           => fake()->randomFloat(2, 100000000, 999999999),
-            'ket_harga02'       => fake()->sentence(),
+            // 'harga01'           => fake()->randomFloat(2, 100000000, 999999999),
+            // 'ket_harga01'       => fake()->sentence(),
+            // 'harga02'           => fake()->randomFloat(2, 100000000, 999999999),
+            // 'ket_harga02'       => fake()->sentence(),
         ];
     }
 }

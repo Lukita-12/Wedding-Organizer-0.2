@@ -129,10 +129,6 @@ class RequestMitraController extends Controller
                 'noTelp_usaha'      => null,
                 'email_usaha'       => null,
                 'alamat_usaha'      => null,
-                'harga01'           => null,
-                'ket_harga01'       => null,
-                'harga02'           => null,
-                'ket_harga02'       => null,
                 ]);
             }
         });

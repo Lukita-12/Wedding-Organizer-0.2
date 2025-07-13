@@ -39,10 +39,6 @@ class KerjasamaController extends Controller
             'noTelp_usaha'      => ['nullable'],
             'email_usaha'       => ['nullable', 'email', 'max:254'],
             'alamat_usaha'      => ['nullable'],
-            'harga01'           => ['nullable', 'string'],
-            'ket_harga01'       => ['nullable'],
-            'harga02'           => ['nullable', 'string'],
-            'ket_harga02'       => ['nullable'],
         ]);
 
         // Cek apakah sudah ada kerjasama untuk request mitra yang sama
@@ -56,15 +52,15 @@ class KerjasamaController extends Controller
         }
 
         // Format harga01 & harga02
-        $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
-        $validatedData['harga02'] = str_replace(['.', ','], ['', '.'], $validatedData['harga02']);
-        $validatedData['harga01'] = number_format((float)$validatedData['harga01'], 2, '.', '');
-        $validatedData['harga02'] = number_format((float)$validatedData['harga02'], 2, '.', '');
+        // $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
+        // $validatedData['harga02'] = str_replace(['.', ','], ['', '.'], $validatedData['harga02']);
+        // $validatedData['harga01'] = number_format((float)$validatedData['harga01'], 2, '.', '');
+        // $validatedData['harga02'] = number_format((float)$validatedData['harga02'], 2, '.', '');
 
         // Simpan Kerjasama
         $kerjasama = Kerjasama::create($validatedData);
 
-        // ✅ Upload Gambar Promosi Multiple
+        // Upload Gambar Promosi Multiple
         if ($request->hasFile('gambar_promosi')) {
             foreach ($request->file('gambar_promosi') as $file) {
                 $path = $file->store('images/kerjasama/promosi', 'public');
@@ -103,10 +99,6 @@ class KerjasamaController extends Controller
             'noTelp_usaha'      => ['nullable'],
             'email_usaha'       => ['nullable', 'email', 'max:254'],
             'alamat_usaha'      => ['nullable'],
-            'harga01'           => ['nullable', 'string'],
-            'ket_harga01'       => ['nullable'],
-            'harga02'           => ['nullable', 'string'],
-            'ket_harga02'       => ['nullable'],
         ]);
 
         // ✅ Upload thumbnail
@@ -115,12 +107,6 @@ class KerjasamaController extends Controller
         } else {
             $validatedData['upload_file'] = $kerjasama->upload_file;
         }
-
-        // ✅ Format harga
-        $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
-        $validatedData['harga02'] = str_replace(['.', ','], ['', '.'], $validatedData['harga02']);
-        $validatedData['harga01'] = number_format((float)$validatedData['harga01'], 2, '.', '');
-        $validatedData['harga02'] = number_format((float)$validatedData['harga02'], 2, '.', '');
 
         // ✅ Update data kerjasama (tanpa gambar promosi)
         $dataKerjasama = collect($validatedData)->except('gambar_promosi')->toArray();

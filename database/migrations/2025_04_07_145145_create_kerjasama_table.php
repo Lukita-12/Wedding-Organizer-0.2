@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('noTelp_usaha')->nullable();
             $table->string('email_usaha')->nullable();
             $table->string('alamat_usaha')->nullable();
-            $table->decimal('harga01', 15, 2)->nullable();
-            $table->text('ket_harga01')->nullable();
-            $table->decimal('harga02', 15, 2)->nullable();
-            $table->text('ket_harga02')->nullable();
+            // $table->decimal('harga01', 15, 2)->nullable();
+            // $table->text('ket_harga01')->nullable();
+            // $table->decimal('harga02', 15, 2)->nullable();
+            // $table->text('ket_harga02')->nullable();
             $table->timestamps();
         });
     }
