@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class KerjasamaController extends Controller
 {
@@ -76,43 +77,43 @@ class KerjasamaController extends Controller
             'nama_usaha'    => ['required'],
             'jenis_usaha'   => ['required'],
 
-            'upload_file'   => ['nullable', 'image','mimes:jpg,jpeg,png,webp', 'max:10240'],
+            'upload_file'   => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
             'noTelp_usaha'  => ['required'],
             'email_usaha'   => ['required', 'email', 'max:254'],
             'alamat_usaha'  => ['required'],
-            'harga01'       => ['required', 'string'],
-            'ket_harga01'   => ['required'],
-            'harga02'       => ['nullable', 'string'],
-            'ket_harga02'   => ['nullable'],
+
+            'gambar_promosi'    => ['nullable', 'array'],
+            'gambar_promosi.*'  => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:10240'],
         ]);
 
-        // Image upload
+        // Upload file utama
         if ($request->hasFile('upload_file')) {
             $validatedData['upload_file'] = $request->file('upload_file')->store('images/kerjasama/images', 'public');
         } else {
             $validatedData['upload_file'] = $kerjasama->upload_file;
         }
 
-        // Remove thousand separators (dots) and convert comma to decimal point
-        $validatedData['harga01'] = str_replace(['.', ','], ['', '.'], $validatedData['harga01']);
-        $validatedData['harga02'] = str_replace(['.', ','], ['', '.'], $validatedData['harga02']);
-    
-        // Convert to proper decimal format
-        $validatedData['harga01'] = number_format((float) $validatedData['harga01'], 2, '.', '');
-        $validatedData['harga02'] = number_format((float) $validatedData['harga02'], 2, '.', '');
+        // Upload gambar promosi dulu
+        $paths = [];
+        if ($request->hasFile('gambar_promosi')) {
+            foreach ($request->file('gambar_promosi') as $promosiFile) {
+                $paths[] = $promosiFile->store('images/gambar_promosi', 'public');
+            }
+        }
 
         DB::transaction(function () use ($validatedData, $kerjasama) {
+            // Update kerjasama utama
             $kerjasama->update([
                 'upload_file'   => $validatedData['upload_file'],
                 'noTelp_usaha'  => $validatedData['noTelp_usaha'],
                 'email_usaha'   => $validatedData['email_usaha'],
                 'alamat_usaha'  => $validatedData['alamat_usaha'],
-                'harga01'       => $validatedData['harga01'],
-                'ket_harga01'   => $validatedData['ket_harga01'],
-                'harga02'       => $validatedData['harga02'],
-                'ket_harga02'   => $validatedData['ket_harga02'],
             ]);
-            
+
+            // SIMULASI ERROR
+            throw new \Exception("Simulasi error: gagal update");
+
+            // Update request mitra (ini tidak akan dieksekusi)
             $kerjasama->requestMitra->update([
                 'nama_pemilik'  => $validatedData['nama_pemilik'],
                 'nama_usaha'    => $validatedData['nama_usaha'],
@@ -120,8 +121,16 @@ class KerjasamaController extends Controller
             ]);
         });
 
-        return redirect('/kerjasama');
-    }
+        // Tambahkan gambar promosi setelah update sukses
+        foreach ($paths as $path) {
+            $kerjasama->gambarPromosi()->create([
+                'file_path' => $path,
+                'caption'   => null,
+            ]);
+        }
+
+        return redirect('/kerjasama')->with('success', 'Data kerjasama berhasil diperbarui.');
+}
 
     public function destroy(Kerjasama $kerjasama)
     {

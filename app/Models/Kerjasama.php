@@ -14,10 +14,6 @@ class Kerjasama extends Model
     use HasFactory;
     protected $table = 'kerjasama';
     protected $guarded = [];
-    protected $casts = [
-        'harga01' => 'decimal:2',
-        'harga02' => 'decimal:2',
-    ];
 
     public function requestMitra(): BelongsTo
     {
@@ -33,9 +29,4 @@ class Kerjasama extends Model
     {
         return $this->hasMany(GambarPromosi::class);
     }
-
-    // public function paketPernikahan(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(PaketPernikahan::class, 'paket_pernikahan_kerjasama');
-    // }
 }

@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Pelanggan::factory(12)->create();
+        User::factory(12)->create();
 
         $this->call([
             UserSeeder::class,

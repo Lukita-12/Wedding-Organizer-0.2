@@ -14,9 +14,7 @@ return new class extends Migration
     {
         Schema::create('gambar_promosi', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Kerjasama::class)
-                  ->constrained()
-                  ->onDelete('cascade'); // hapus gambar jika kerjasama dihapus
+            $table->foreignIdFor(Kerjasama::class)->nullable()->constrained()->nullOnDelete();
             $table->string('file_path'); // path ke file gambar
             $table->string('caption')->nullable(); // opsional: keterangan gambar
             $table->timestamps();

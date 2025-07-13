@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Customer\AkunController;
+use App\Http\Controllers\Customer\GambarPromosiController;
 use App\Http\Controllers\Customer\KerjasamaController;
 use App\Http\Controllers\Customer\PaketPernikahanController;
 use App\Http\Controllers\Customer\PelangganController;
@@ -33,6 +34,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/kerjasama/{kerjasama}/edit', 'edit')->name('customer.kerjasama.edit');
         Route::put('/kerjasama/{kerjasama}', 'update')->name('customer.kerjasama.update');
         Route::delete('/kerjasama/{kerjasama}', 'destroy')->name('customer.kerjasama.delete');
+    });
+
+    Route::controller(GambarPromosiController::class)->group(function () {
+        Route::delete('/gambar-promosi/{gambarPromosi}', 'destroy')->name('customer.gambar_promosi.destroy');
     });
 
     Route::controller(PaketPernikahanController::class)->group(function () {

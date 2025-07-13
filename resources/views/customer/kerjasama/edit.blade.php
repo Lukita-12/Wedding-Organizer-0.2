@@ -76,36 +76,64 @@
                     <x-form.error errorFor="alamat_usaha" />
                 </x-form.container>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <x-form.container variant="">
-                        <x-form.label for="harga01">Harga 01</x-form.label>
-                        <x-form.input type="text" name="harga01" id="harga01" step="0.01" min="0" :value="old('harga01', number_format($kerjasama->harga01, 0, ',', '.'))" placeholder="999.999.999" oninput="formatRupiah(this)" />
-                        <x-form.error errorFor="harga01" />
-                    </x-form.container>
+                <!-- Gambar Promosi -->
+                <div>
+                    <x-form.label for="gambar_promosi" >Gambar Promosi</x-form.label>
 
-                    <x-form.container variant="">
-                        <x-form.label for="harga02">Harga 02</x-form.label>
-                        <x-form.input type="text" name="harga02" id="harga02" step="0.01" min="0" :value="old('harga02', number_format($kerjasama->harga02, 0, ',', '.'))" placeholder="999.999.999" oninput="formatRupiah(this)" />
-                        <x-form.error errorFor="harga02" />
-                    </x-form.container>
+                    <div class="grid grid-cols-5 gap-3 p-3 border-2 border-slate-500 border-dashed rounded-md">
 
-                    <x-form.container variant="">
-                        <x-form.label for="ket_harga01">Keterangan harga 01</x-form.label>
-                        <x-form.textarea type="text" name="ket_harga01" id="ket_harga01" placeholder="Keterangan harga 01...">
-                            {{ old('ket_harga01', $kerjasama->ket_harga01) }}
-                        </x-form.textarea>
-                        <x-form.error errorFor="ket_harga01" />
-                    </x-form.container>
-        
-                    <x-form.container variant="">
-                        <x-form.label for="ket_harga02">Keterangan harga 02</x-form.label>
-                        <x-form.textarea type="text" name="ket_harga02" id="ket_harga02" placeholder="Keterangan harga 02...">
-                            {{ old('ket_harga02', $kerjasama->ket_harga02) }}
-                        </x-form.textarea>
-                        <x-form.error errorFor="ket_harga02" />
-                    </x-form.container>
+                        @if ($kerjasama->gambarPromosi->count())
+                            @foreach ($kerjasama->gambarPromosi as $gambar)
+                                <div class="relative">
+                                    <img src="{{ asset('storage/' . $gambar->file_path) }}"
+                                        alt="Gambar Promosi"
+                                        class="w-full h-48 object-cover rounded-sm">
+
+                                    <!-- Tombol hapus -->
+                                    <button type="button"
+                                            onclick="hapusGambarPromosi('{{ $gambar->id }}', this)"
+                                            class="absolute top-2 right-2 poppins-semibold bg-red-500 text-white rounded-full flex items-center justify-center text-xl px-2 py-0">
+                                        &times;
+                                    </button>
+                                </div>
+                            @endforeach
+                        @endif
+
+
+                        <!-- Gambar promosi baru (preview) -->
+                        <template id="preview-template">
+                            <div class="relative">
+                                <img src=""
+                                    alt="Preview Gambar"
+                                    class="w-full h-48 object-cover rounded-sm">
+
+                                <button type="button"
+                                        onclick="this.parentNode.remove();"
+                                        class="absolute top-2 right-2 poppins-semibold bg-red-500 text-white rounded-full flex items-center justify-center text-xl px-2 py-0">
+                                    &times;
+                                </button>
+                            </div>
+                        </template>
+
+                        <!-- Upload gambar promosi baru -->
+                        <div>
+                            <!-- Label sebagai trigger input file -->
+                            <label for="gambar_promosi" class="block cursor-pointer">
+                                <div class="w-full h-48 bg-slate-100 flex justify-center items-center rounded-sm transition delay-50 duration-300 hover:bg-teal-500/50">
+                                    <span class="poppins-semibold text-slate-500 text-5xl border-2 border-slate-500 rounded-full px-3 py-1">+</span>
+                                </div>
+                            </label>
+
+                            <!-- Input file disembunyikan -->
+                            <input type="file" name="gambar_promosi[]" id="gambar_promosi"
+                                accept="image/*" multiple
+                                class="hidden" onchange="previewGambarPromosi(event)">
+                            <x-form.error errorFor="gambar_promosi" />
+                        </div>
+
+                    </div>
                 </div>
-    
+
 
                 <x-form.container variant="button">
                     <x-form.link href="{{ route('customer.kerjasama.index') }}">Batal</x-form.link>
@@ -120,4 +148,51 @@
             </script>
         @endif
     </x-form.container>
+
+    <script>
+        // Preview gambar
+        function previewGambarPromosi(event) {
+            const files = event.target.files;
+            const container = event.target.closest('.grid');
+
+            for (const file of files) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview-template').content.cloneNode(true);
+                    preview.querySelector('img').src = e.target.result;
+                    container.insertBefore(preview, container.lastElementChild);
+                };
+                reader.readAsDataURL(file);
+            }
+
+            // Reset input supaya user bisa pilih file yang sama lagi
+            event.target.value = '';
+        }
+
+        // Hapus gambar
+        function hapusGambarPromosi(gambarId, button) {
+            if (confirm('Yakin ingin menghapus gambar ini?')) {
+                fetch('/gambar-promosi/' + gambarId, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                    },
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Hapus elemen gambar dari DOM
+                        button.parentNode.remove();
+                    } else {
+                        alert('Gagal menghapus gambar. Coba lagi.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan. Coba lagi.');
+                });
+            }
+        }
+    </script>
+
 </x-layout-form>
