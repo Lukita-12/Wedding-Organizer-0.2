@@ -21,11 +21,13 @@
                     <td class="poppins-semibold text-center px-3 py-1 border">Pelanggan</td>
     
                     <td class="poppins-semibold text-center px-3 py-1 border">Tanggal Pesanan</td>
-                    <td class="poppins-semibold text-center px-3 py-1 border">Pengantin Pria</td>
-                    <td class="poppins-semibold text-center px-3 py-1 border">Pengantin Wanita</td>
                     <td class="poppins-semibold text-center px-3 py-1 border">Tanggal Acara</td>
                     <td class="poppins-semibold text-center px-3 py-1 border">Tanggal Diskusi</td>
+                    
+                    <td class="poppins-semibold text-center px-3 py-1 border">Harga DP</td>
+                    <td class="poppins-semibold text-center px-3 py-1 border">Harga Lunas</td>
                     <td class="poppins-semibold text-center px-3 py-1 border">Total Pesanan</td>
+                    
                     <td class="poppins-semibold text-center px-3 py-1 border">Status Pesanan</td>
                 </tr>
             </thead>
@@ -36,10 +38,11 @@
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->pelanggan->nama_pelanggan }}</td>
         
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->tgl_pesanan->format('d m Y') }}</td>
-                        <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->pengantin_pria }}</td>
-                        <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->pengantin_wanita }}</td>
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->tanggal_diskusi->format('d m Y') }}</td>
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->tanggal_acara->format('d m Y') }}</td>
+
+                        <td class="poppins text-center text-sm px-3 py-1 border">Rp. {{ number_format($pesanan->harga_dp, 0, ',', '.') }}</td>
+                        <td class="poppins text-center text-sm px-3 py-1 border">Rp. {{ number_format($pesanan->harga_lunas, 0, ',', '.') }}</td>
                         <td class="poppins text-center text-sm px-3 py-1 border">Rp. {{ number_format($pesanan->total_harga_pesanan, 0, ',', '.') }}</td>
                         <td class="poppins text-center text-sm px-3 py-1 border">{{ $pesanan->status_pesanan }}</td>
                     </tr>

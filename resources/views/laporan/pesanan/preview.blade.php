@@ -47,11 +47,13 @@
                         <td class="border text-center px-2 py-1">Nama Pelanggan</td>
         
                         <td class="border text-center px-2 py-1 whitespace-nowrap">Tanggal Pesanan</td>
-                        <td class="border text-center px-2 py-1">Pengantin Pria</td>
-                        <td class="border text-center px-2 py-1">Pengantin Wanita</td>
                         <td class="border text-center px-2 py-1 whitespace-nowrap">Tanggal Diskusi</td>
                         <td class="border text-center px-2 py-1 whitespace-nowrap">Tanggal Acara</td>
-                        <td class="border text-center px-2 py-1 whitespace-nowrap">Total Pesanan</td>
+
+                        <td class="text-center px-3 py-1 border">Harga DP</td>
+                        <td class="text-center px-3 py-1 border">Harga Lunas</td>
+                        <td class="text-center px-3 py-1 border">Total Pesanan</td>
+                        
                         <td class="border text-center px-2 py-1 whitespace-nowrap">Status Pesanan</td>
                     </tr>
                 </thead>
@@ -62,11 +64,13 @@
                             <td class="border text-center px-2 py-1">{{ $pesanan->pelanggan->nama_pelanggan }}</td>
         
                             <td class="border text-center px-2 py-1 whitespace-nowrap">{{ $pesanan->tgl_pesanan->format('d M Y') }}</td>
-                            <td class="border text-center px-2 py-1">{{ $pesanan->pengantin_pria }}</td>
-                            <td class="border text-center px-2 py-1">{{ $pesanan->pengantin_wanita }}</td>
                             <td class="border text-center px-2 py-1 whitespace-nowrap">{{ $pesanan->tanggal_diskusi->format('d M Y') }}</td>
                             <td class="border text-center px-2 py-1 whitespace-nowrap">{{ $pesanan->tanggal_acara->format('d M Y') }}</td>
-                            <td class="border text-center px-2 py-1 whitespace-nowrap">Rp. {{ number_format($pesanan->total_harga_pesanan, 0, ',', '.') }}</td>
+                            
+                            <td class="text-center text-sm px-3 py-1 border">Rp. {{ number_format($pesanan->harga_dp, 0, ',', '.') }}</td>
+                            <td class="text-center text-sm px-3 py-1 border">Rp. {{ number_format($pesanan->harga_lunas, 0, ',', '.') }}</td>
+                            <td class="text-center text-sm px-3 py-1 border">Rp. {{ number_format($pesanan->total_harga_pesanan, 0, ',', '.') }}</td>
+
                             <td class="border text-center px-2 py-1 whitespace-nowrap">{{ $pesanan->status_pesanan }}</td>
                         </tr>
                     @endforeach

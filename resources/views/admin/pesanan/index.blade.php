@@ -45,7 +45,7 @@
                     </thead>
                     <tbody>
                         @foreach ($pesanans as $pesanan)
-                            <x-table.tr variant="body" class="row-click cursor-pointer" data-url="#">
+                            <x-table.tr variant="body" class="row-click cursor-pointer" data-url="{{ route('admin.pesanan.show', $pesanan) }}">
                                 <x-table.td class="px-4!">{{ $loop->iteration }}</x-table.td>
                                 <x-table.td>
                                     {{ $pesanan->pelanggan->nama_pelanggan }}, <span class="text-teal-500">{{ $pesanan->pelanggan->email_pelanggan }}</span>

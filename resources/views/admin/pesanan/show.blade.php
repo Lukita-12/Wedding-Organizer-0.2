@@ -1,23 +1,58 @@
-<x-layout>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Organizer</title>
 
-    <div class="flex flex-col items-center p-6">
-        <div class="w-1/3 bg-white border rounded p-6">
-            <!-- Logo -->
-            <div class="flex justify-center mb-6">
-                <img src="{{ asset('images/hatma-icon.png') }}" alt="Logo" class="h-24 bg-cover bg-center">
-            </div>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body style="font-family:'Times New Roman', Times, serif;">
+
+    <div class="h-screen flex flex-col gap-4">
+        <div class="flex flex-col gap-3">
+
+            <!-- Heading -->
+            <div class="flex items-center justify-between px-6">
+                <img src="{{ asset('images/hatma-icon.png') }}" alt="Logo's" class="h-32 bg-cover bg-center">
     
+                <div class="flex flex-col items-center gap-2">
+                    <p class="text-center text-2xl font-bold tracking-wide leading-none">
+                        LAPORAN PESANAN PELANGGAN<br>
+                        HATMA WEDDING ORGANIZER <br>
+                        TAHUN {{ \Carbon\Carbon::now()->translatedFormat('Y') }}
+                    </p>
+        
+                    <p class="text-center text-sm line-clamp-3 tracking-wide">
+                        Jalan Sepakat Rt. 33 No. 12 Kelurahan, Pemurus Dalam, Kec. <br>
+                        Banjarmasin Sel., Kota Banjarmasin, Kalimantan Selatan <br>
+                        70236
+                    </p>
+                </div>
+    
+                <span></span>
+            </div>
+
+            <!-- Line -->
+            <div class="w-full flex flex-col justify-center gap-1">
+                <span class="w-full border-b"></span>
+                <span class="w-full border-b-3"></span>
+            </div>
+
+            <!-- Body -->
+            <span></span>
             <!-- Pelanggan -->
-            <h2 class="text-center text-2xl font-bold text-slate-700 mb-4">PELANGGAN</h2>
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div class="text-slate-600">
+            <h2 class="text-start text-2xl font-bold">INFORMASI PELANGGAN :</h2>
+
+            <div class="grid grid-cols-2 gap-3">
+                <div class="">
                     <p>Nama Lengkap :</p>
                     <p>Jenis Kelamin :</p>
                     <p>No. Telpon/WA :</p>
                     <p>Email :</p>
                     <p>Alamat :</p>
                 </div>
-                <div class="text-end text-slate-700">
+                <div class="text-end">
                     <p>{{ $pesanan->pelanggan->nama_pelanggan }}</p>
                     <p>{{ $pesanan->pelanggan->jk_pelanggan }}</p>
                     <p>{{ $pesanan->pelanggan->noTelp_pelanggan }}</p>
@@ -25,12 +60,12 @@
                     <p>{{ $pesanan->pelanggan->alamat_pelanggan }}</p>
                 </div>
             </div>
-    
-            <hr class="border-t-2 border-slate-300 my-6">
-    
+
+            <hr class="border-t-2">
+
             <!-- Paket Pernikahan -->
-            <h2 class="text-center text-2xl font-bold text-slate-700 mb-4">PAKET PERNIKAHAN</h2>
-            <div class="flex flex-col text-slate-500">
+            <h2 class="text-start text-2xl font-bold">INFORMASI PAKET PERNIKAHAN :</h2>
+            <div class="flex flex-col">
                 <?php
                 /*
                 <div class="grid grid-cols-2">
@@ -70,24 +105,31 @@
                     <p class="text-end">{{ $pesanan->paketPernikahan->ket_entertainment ?? '-' }}</p>
                 </div>
             </div>
-    
-            <hr class="border-t-2 border-slate-300 my-6">
+            
+            <br>
     
             <!-- Total Harga -->
-            <div class="grid grid-cols-2 gap-4 text-xl font-bold text-slate-700">
+            <div class="grid grid-cols-2 text-xl font-bold">
+                <div>Harga DP :</div>
+                <div class="text-end font-medium">
+                    Rp. {{ number_format($pesanan->harga_dp, 0, ',', '.') }}
+                </div>
+
+                <div>Harga Lunas :</div>
+                <div class="text-end font-medium">
+                    Rp. {{ number_format($pesanan->harga_lunas, 0, ',', '.') }}
+                </div>
+
+                <hr class="col-span-2 border-t-2">
+
                 <div>Total Harga :</div>
-                <div class="text-end text-teal-600">
+                <div class="text-end font-medium">
                     Rp. {{ number_format($pesanan->total_harga_pesanan, 0, ',', '.') }}
                 </div>
             </div>
-        </div>
-
-        <!-- Back Button -->
-        <div class="mt-6 flex justify-end">
-            <a href="{{ route('admin.pesanan.index') }}"
-            class="poppins-medium px-4 py-2 bg-slate-500 text-white rounded hover:bg-slate-700 transition">
-                Kembali
-            </a>
+             
         </div>
     </div>
-</x-layout>
+
+</body>
+</html>
